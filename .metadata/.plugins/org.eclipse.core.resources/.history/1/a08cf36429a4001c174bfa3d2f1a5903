@@ -1,0 +1,16 @@
+package com.oopsw.simple;
+
+public class TypeTest {
+
+	public static void main(String[] args) {
+		int inputNumber1 = 10;
+		int inputNumber2 = 20;
+		
+		// 숫자형 데이터는 연산할 때, 더큰 범위의 데이터 타입으로 형변환됨 
+		long sum = inputNumber1 + inputNumber2;
+		
+		System.out.println(sum);
+
+	}
+
+}

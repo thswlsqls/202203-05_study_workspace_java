@@ -1,0 +1,25 @@
+package com.oopsw.simple;
+
+import java.util.Scanner;
+
+// 빨간 표시는 문법 오류, 무조건 해결해야 함 
+public class HelloTest {
+	
+	// JVM 시작점 
+	public static void main(String [] args) {
+	
+		int num1 = 0;
+		int num2 = 0;
+		Scanner scanner = new Scanner(System.in);
+		num1 = scanner.nextInt();
+		num2 = scanner.nextInt();
+		
+		System.out.println("모니터에 출력");
+		System.out.println("num1 + num2 = " + (int)(num1+num2) );
+	}
+
+	
+}
+
+// ctr + space
+// ctr + i

@@ -1,0 +1,15 @@
+import java.util.Scanner;
+
+public class JavaMission_01_02 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		char c = ' ';
+		Scanner sc = new Scanner(System.in);
+		System.out.println("A B C ¡ﬂ ≈√1");
+		int i = sc.nextInt();
+		System.out.println(i);
+		
+	}
+
+}
