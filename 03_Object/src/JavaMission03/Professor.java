@@ -2,23 +2,23 @@ package JavaMission03;
 
 public class Professor {
 	
-	private String proNo;
+	private String professorId;
 	private String name;
 	private String phone;
-	private String subNo;
+	private String subjectId;
 	
 	public Professor() {};
 	
-	public Professor(String proNo, String name, String phone, String subNo) {
+	public Professor(String professorId, String name, String phone, String subjectId) {
 		super();
-		this.proNo = proNo;
+		this.professorId = professorId;
 		this.name = name;
 		this.phone = phone;
-		this.subNo = subNo;
+		this.subjectId = subjectId;
 	}
 	
-	public String getProNo() {
-		return proNo;
+	public String getProfessorId() {
+		return professorId;
 	}
 //	public void setProNo(String proNo) {
 //		this.proNo = proNo;
@@ -35,13 +35,18 @@ public class Professor {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getSubNo() {
-		return subNo;
+	public String getSubjectId() {
+		return subjectId;
 	}
 //	public void setSubNo(String subNo) {
 //		this.subNo = subNo;
 //	}
 	
+	//20220318 리뷰 -> 4. 업무 기반으로 필요한 메서드를 정의함.
+	public void print() {
+		System.out.println("교수번호\t이름\t전화번호\t\t담당과목번호");
+		System.out.println(getProfessorId() + "\t" + getName() + "\t" + getPhone() + "\t" + getSubjectId());
+	}
 	
 
 }

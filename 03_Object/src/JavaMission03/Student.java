@@ -1,23 +1,23 @@
 package JavaMission03;
 public class Student{
 	
-	private String stdNo;
+	private String studentId;
 	private String name;
 	private String phone;
-	private String deptNo;
+	private String departmentId;
 	
 	public Student() {};
 	
-	public Student(String stdNo, String name, String phone, String deptNo) {
+	public Student(String studentId, String name, String phone, String departmentId) {
 		super();
-		this.stdNo = stdNo;
+		this.studentId = studentId;
 		this.name = name;
 		this.phone = phone;
-		this.deptNo = deptNo;
+		this.departmentId = departmentId;
 	}
 	
-	public String getStdNo() {
-		return stdNo;
+	public String getStudentId() {
+		return studentId;
 	}
 //	public void setStdNo(String stdNo) {
 //		this.stdNo = stdNo;
@@ -34,13 +34,17 @@ public class Student{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getDeptNo() {
-		return deptNo;
+	public String getDepartmentId() {
+		return departmentId;
 	}
 //	public void setDeptNo(String deptNo) {
 //		this.deptNo = deptNo;
 //	}
 	
-	
-	
+	//20220318 리뷰 -> 4. 업무 기반으로 필요한 메서드를 정의함.
+	public void print() {
+		System.out.println("학생번호\t이름\t전화번호\t\t소속학과번호");
+		System.out.println(getStudentId() + "\t" + getName() + "\t" + getPhone() + "\t" + getDepartmentId());
+	}
 }
+
