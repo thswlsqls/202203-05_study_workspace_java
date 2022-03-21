@@ -47,8 +47,8 @@
       <constraint>
         <height>-1</height>
         <width>-1</width>
-        <x>480</x>
-        <y>60</y>
+        <x>444</x>
+        <y>56</y>
       </constraint>
       <sourceConnections/>
       <targetConnections>
@@ -93,12 +93,12 @@
               </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
             </propertyDescriptors>
             <stereoType></stereoType>
-            <name>JavaMission04.Student</name>
+            <name>JavaMission04.Professor</name>
             <constraint>
               <height>-1</height>
               <width>-1</width>
-              <x>143</x>
-              <y>336</y>
+              <x>563</x>
+              <y>306</y>
             </constraint>
             <sourceConnections>
               <net.java.amateras.uml.classdiagram.model.GeneralizationModel reference="../../.."/>
@@ -122,7 +122,7 @@
             <children>
               <net.java.amateras.uml.classdiagram.model.AttributeModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-2"/>
-                <name>studentId</name>
+                <name>professorId</name>
                 <type>String</type>
                 <isStatic>false</isStatic>
                 <backgroundColor>
@@ -149,7 +149,7 @@
               </net.java.amateras.uml.classdiagram.model.AttributeModel>
               <net.java.amateras.uml.classdiagram.model.AttributeModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-2" reference="../../net.java.amateras.uml.classdiagram.model.AttributeModel/visibility"/>
-                <name>departmentId</name>
+                <name>subjectId</name>
                 <type>String</type>
                 <isStatic>false</isStatic>
                 <backgroundColor reference="../../net.java.amateras.uml.classdiagram.model.AttributeModel/backgroundColor"/>
@@ -168,7 +168,7 @@
               </net.java.amateras.uml.classdiagram.model.AttributeModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1"/>
-                <name>Student</name>
+                <name>Professor</name>
                 <type>void</type>
                 <params/>
                 <isAbstract>false</isAbstract>
@@ -189,9 +189,13 @@
               </net.java.amateras.uml.classdiagram.model.OperationModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                <name>Student</name>
+                <name>Professor</name>
                 <type>void</type>
                 <params>
+                  <net.java.amateras.uml.classdiagram.model.Argument>
+                    <name>professorId</name>
+                    <type>String</type>
+                  </net.java.amateras.uml.classdiagram.model.Argument>
                   <net.java.amateras.uml.classdiagram.model.Argument>
                     <name>name</name>
                     <type>String</type>
@@ -201,11 +205,7 @@
                     <type>String</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                   <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>studentId</name>
-                    <type>String</type>
-                  </net.java.amateras.uml.classdiagram.model.Argument>
-                  <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>departmentId</name>
+                    <name>subjectId</name>
                     <type>String</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                 </params>
@@ -227,7 +227,7 @@
               </net.java.amateras.uml.classdiagram.model.OperationModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                <name>getStudentId</name>
+                <name>getProfessorId</name>
                 <type>String</type>
                 <params/>
                 <isAbstract>false</isAbstract>
@@ -248,7 +248,7 @@
               </net.java.amateras.uml.classdiagram.model.OperationModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                <name>getDepartmentId</name>
+                <name>getSubjectId</name>
                 <type>String</type>
                 <params/>
                 <isAbstract>false</isAbstract>
@@ -311,7 +311,7 @@
               </net.java.amateras.uml.classdiagram.model.OperationModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                <name>printName</name>
+                <name>printSubjectId</name>
                 <type>void</type>
                 <params/>
                 <isAbstract>false</isAbstract>
@@ -400,12 +400,12 @@
               </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
             </propertyDescriptors>
             <stereoType></stereoType>
-            <name>JavaMission04.Professor</name>
+            <name>JavaMission04.Student</name>
             <constraint>
               <height>-1</height>
               <width>-1</width>
-              <x>595</x>
-              <y>337</y>
+              <x>110</x>
+              <y>307</y>
             </constraint>
             <sourceConnections>
               <net.java.amateras.uml.classdiagram.model.GeneralizationModel reference="../../.."/>
@@ -414,7 +414,7 @@
             <children>
               <net.java.amateras.uml.classdiagram.model.AttributeModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-2" reference="../../../../../net.java.amateras.uml.classdiagram.model.GeneralizationModel/source/children/net.java.amateras.uml.classdiagram.model.AttributeModel/visibility"/>
-                <name>professorId</name>
+                <name>studentId</name>
                 <type>String</type>
                 <isStatic>false</isStatic>
                 <backgroundColor reference="../../../../../net.java.amateras.uml.classdiagram.model.GeneralizationModel/source/children/net.java.amateras.uml.classdiagram.model.AttributeModel/backgroundColor"/>
@@ -433,7 +433,7 @@
               </net.java.amateras.uml.classdiagram.model.AttributeModel>
               <net.java.amateras.uml.classdiagram.model.AttributeModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-2" reference="../../../../../net.java.amateras.uml.classdiagram.model.GeneralizationModel/source/children/net.java.amateras.uml.classdiagram.model.AttributeModel/visibility"/>
-                <name>subjectId</name>
+                <name>departmentId</name>
                 <type>String</type>
                 <isStatic>false</isStatic>
                 <backgroundColor reference="../../../../../net.java.amateras.uml.classdiagram.model.GeneralizationModel/source/children/net.java.amateras.uml.classdiagram.model.AttributeModel/backgroundColor"/>
@@ -452,7 +452,7 @@
               </net.java.amateras.uml.classdiagram.model.AttributeModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1" reference="../../../../../net.java.amateras.uml.classdiagram.model.GeneralizationModel/source/children/net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                <name>Professor</name>
+                <name>Student</name>
                 <type>void</type>
                 <params/>
                 <isAbstract>false</isAbstract>
@@ -473,9 +473,13 @@
               </net.java.amateras.uml.classdiagram.model.OperationModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1" reference="../../../../../net.java.amateras.uml.classdiagram.model.GeneralizationModel/source/children/net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                <name>Professor</name>
+                <name>Student</name>
                 <type>void</type>
                 <params>
+                  <net.java.amateras.uml.classdiagram.model.Argument>
+                    <name>studentId</name>
+                    <type>String</type>
+                  </net.java.amateras.uml.classdiagram.model.Argument>
                   <net.java.amateras.uml.classdiagram.model.Argument>
                     <name>name</name>
                     <type>String</type>
@@ -485,11 +489,7 @@
                     <type>String</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                   <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>professorId</name>
-                    <type>String</type>
-                  </net.java.amateras.uml.classdiagram.model.Argument>
-                  <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>subjectId</name>
+                    <name>departmentId</name>
                     <type>String</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                 </params>
@@ -511,7 +511,7 @@
               </net.java.amateras.uml.classdiagram.model.OperationModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1" reference="../../../../../net.java.amateras.uml.classdiagram.model.GeneralizationModel/source/children/net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                <name>getProfessorId</name>
+                <name>getStudentId</name>
                 <type>String</type>
                 <params/>
                 <isAbstract>false</isAbstract>
@@ -532,7 +532,7 @@
               </net.java.amateras.uml.classdiagram.model.OperationModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1" reference="../../../../../net.java.amateras.uml.classdiagram.model.GeneralizationModel/source/children/net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                <name>getSubjectId</name>
+                <name>getDepartmentId</name>
                 <type>String</type>
                 <params/>
                 <isAbstract>false</isAbstract>
@@ -595,7 +595,7 @@
               </net.java.amateras.uml.classdiagram.model.OperationModel>
               <net.java.amateras.uml.classdiagram.model.OperationModel>
                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility-1" reference="../../../../../net.java.amateras.uml.classdiagram.model.GeneralizationModel/source/children/net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                <name>printSubjectId</name>
+                <name>printName</name>
                 <type>void</type>
                 <params/>
                 <isAbstract>false</isAbstract>

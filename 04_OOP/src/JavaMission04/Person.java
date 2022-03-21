@@ -2,11 +2,14 @@ package JavaMission04;
 
 public class Person {
 
+	/**사람 이름*/
 	private String name;
+	/** 전화번호*/
 	private String phone;
 	
 	public Person() {};
 	
+	/** 생성자 정의 */
 	public Person(String name, String phone) {
 		super();
 		this.name = name;
@@ -15,6 +18,7 @@ public class Person {
 		setPhone(phone);
 	}
 	
+	// 2. getter, setter 생성
 	public String getName() {
 		return name;
 	}
@@ -27,6 +31,7 @@ public class Person {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
 	
 	public void print() {
 		System.out.print("이름: " + name + ", " + "전화번호 : " + phone + ", ");

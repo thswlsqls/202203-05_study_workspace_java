@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
-    <fullyQualifiedTypeName name="java.time.LocalDate"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
-    <fullyQualifiedTypeName name="com.oopsw.school.Teacher"/>
-    <fullyQualifiedTypeName name="com.oopsw.school.Person"/>
-    <fullyQualifiedTypeName name="com.oopsw.school.Student"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.time.LocalDate"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="com.oopsw.school.Person"/>
+<fullyQualifiedTypeName name="InterfaceA"/>
+<fullyQualifiedTypeName name="InterfaceB"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.oopsw.school.SchoolService"/>
+<fullyQualifiedTypeName name="com.oopsw.school.SchoolServiceImpl"/>
+<fullyQualifiedTypeName name="com.oopsw.school.Student"/>
+<fullyQualifiedTypeName name="com.oopsw.school.Teacher"/>
+<fullyQualifiedTypeName name="JavaMission05.ScoreService"/>
+<fullyQualifiedTypeName name="JavaMission05.ScoreServiceImpl"/>
+<fullyQualifiedTypeName name="JavaMission07.Score"/>
 </qualifiedTypeNameHistroy>
