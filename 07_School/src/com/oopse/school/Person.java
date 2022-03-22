@@ -3,9 +3,9 @@ package com.oopse.school;
 public class Person {
 
 	private String name;
-
+	public Person() {}
 	public Person(String name) {
-		super();
+//		super();
 		this.name = name;
 	}
 
@@ -21,9 +21,7 @@ public class Person {
 	public String toString() {
 		return "¿Ã∏ß=" + name;
 	}
-	
-	
-	
+
 }
 
 

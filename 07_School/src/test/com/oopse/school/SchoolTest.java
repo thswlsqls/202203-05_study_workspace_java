@@ -15,9 +15,9 @@ public class SchoolTest {
 		System.out.println(s.getPersons());
 		
 		s.addPerson(new Person("세종대왕"));
-		s.addPerson(new Student("2001", "홍길동"));
-		s.addPerson(new Student("2002", "홍길동"));
-		s.addPerson(new Student("2003", "홍길동"));
+		s.addPerson(new Student("2001", "홍길동", 90, 95, 100));
+		s.addPerson(new Student("2002", "홍길동", 90, 95, 100));
+		s.addPerson(new Student("2003", "홍길동", 90, 95, 100));
 		
 		System.out.println();
 		System.out.println(s.getPersons());
@@ -30,11 +30,30 @@ public class SchoolTest {
 		System.out.println();
 		System.out.println(s.setStudentName("2003", "이름수정"));
 		System.out.println(s.setStudentName("xxxxxxxx", "이름수정"));
-		System.out.println(s.getPersons());
+//		System.out.println(s.getPersons());
+		
+		System.out.println();
+		System.out.println(s.isStudent("2001"));
+		
+		System.out.println();
+		for(Integer score : s.getAllStudentScoreList(s.getPersons())) {
+			System.out.println(score);
+		}
+		
+		System.out.println();
+		System.out.println("모든 학생 점수 합계: "+s.getAllStudentScoreSum(s.getPersons()));
+		
+		System.out.println();
+		System.out.println("모든 학생 점수 평균: "+s.getAllStudentScoreAvg(s.getPersons()));
+		
+//		System.out.println();
+//		Student student = new Student("2004", "김학생", 90, 95, 100);
+//		System.out.println(student.getStudentNumber()+"의 모든 점수: "+student.printScores());
+//		System.out.println(student.getStudentNumber()+"의 점수 합계: "+student.getSum());
+//		System.out.println(student.getStudentNumber()+"의 점수 평균: "+student.getAvg());
+
 	}
-
 }
-
 
 //package test.com.oopsw.school;
 //
