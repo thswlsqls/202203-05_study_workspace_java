@@ -36,15 +36,15 @@ public class SchoolTest {
 		System.out.println(s.isStudent("2001"));
 		
 		System.out.println();
-		for(Integer score : s.getAllStudentScoreList(s.getPersons())) {
+		for(Integer score : s.getAllStudentScoreList()) {
 			System.out.println(score);
 		}
 		
 		System.out.println();
-		System.out.println("모든 학생 점수 합계: "+s.getAllStudentScoreSum(s.getPersons()));
+		System.out.println("모든 학생 점수 합계: "+s.getAllStudentScoreSum());
 		
 		System.out.println();
-		System.out.println("모든 학생 점수 평균: "+s.getAllStudentScoreAvg(s.getPersons()));
+		System.out.println("모든 학생 점수 평균: "+s.getAllStudentScoreAvg());
 		
 //		System.out.println();
 //		Student student = new Student("2004", "김학생", 90, 95, 100);

@@ -81,7 +81,7 @@ public class SchoolServiceImpl implements SchoolService {
 		return false;
 	}
 	@Override
-	public Collection<Integer> getAllStudentScoreList(Collection<Person> persons) {
+	public Collection<Integer> getAllStudentScoreList() {
 		Collection<Integer> AllStudentScore = new ArrayList();
 		for (Person person : persons) {
 			if(person instanceof Student) {
@@ -91,7 +91,7 @@ public class SchoolServiceImpl implements SchoolService {
 		return AllStudentScore;
 	}
 	@Override
-	public int getAllStudentScoreSum(Collection<Person> persons) {
+	public int getAllStudentScoreSum() {
 		int sum = 0;
 		for (Person person : persons) {
 			if(person instanceof Student) {
@@ -102,11 +102,11 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 	
 	@Override
-	public float getAllStudentScoreAvg(Collection<Person> persons) {
-		return (float)getAllStudentScoreSum(persons)/getStudentCount(persons);
+	public float getAllStudentScoreAvg() {
+		return (float)getAllStudentScoreSum()/getStudentCount();
 	}
 	
-	private int getStudentCount(Collection<Person> persons) {
+	private int getStudentCount() {
 		int cnt = 0;
 		for (Person person : persons) {
 			if(person instanceof Student) {

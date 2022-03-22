@@ -27,13 +27,13 @@ public interface SchoolService {
 	boolean isStudent(String studentNumber); //점수, 총점, 평균 계산 결과를 확인 
 	
 	/** 모든 학생 점수 */
-	public Collection<Integer> getAllStudentScoreList(Collection<Person> persons);
+	public Collection<Integer> getAllStudentScoreList();
 	
 	/** 모든 학생 점수 합계*/
-	public int getAllStudentScoreSum(Collection<Person> persons);
+	public int getAllStudentScoreSum();
 	
 	/** 모든 학생 점수 평균 */
-	public float getAllStudentScoreAvg(Collection<Person> persons);
+	public float getAllStudentScoreAvg();
 	
 }
 

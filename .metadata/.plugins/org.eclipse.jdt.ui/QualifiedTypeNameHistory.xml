@@ -6,7 +6,6 @@
 <fullyQualifiedTypeName name="com.oopsw.school.Person"/>
 <fullyQualifiedTypeName name="InterfaceA"/>
 <fullyQualifiedTypeName name="InterfaceB"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.oopsw.school.SchoolService"/>
 <fullyQualifiedTypeName name="com.oopsw.school.SchoolServiceImpl"/>
 <fullyQualifiedTypeName name="com.oopsw.school.Student"/>
@@ -14,4 +13,10 @@
 <fullyQualifiedTypeName name="JavaMission05.ScoreService"/>
 <fullyQualifiedTypeName name="JavaMission05.ScoreServiceImpl"/>
 <fullyQualifiedTypeName name="JavaMission07.Score"/>
+<fullyQualifiedTypeName name="User"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.oopse.school.SchoolService"/>
+<fullyQualifiedTypeName name="com.oopse.school.SchoolServiceImpl"/>
+<fullyQualifiedTypeName name="com.oopse.school.Student"/>
+<fullyQualifiedTypeName name="com.oopse.school.Person"/>
 </qualifiedTypeNameHistroy>
