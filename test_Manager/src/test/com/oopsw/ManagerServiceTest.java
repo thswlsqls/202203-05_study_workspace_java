@@ -24,7 +24,6 @@ public class ManagerServiceTest {
 		ms.addEmployee(new Programmer("e0004", "박사원", "개발부", 3000, "근태관리시스템"));
 		/** 중복값 불허함 - HashSet메모리 사용하고 DTO에 equals(), hashCode()를 구현함 */
 		ms.addEmployee(new Programmer("e0004", "박사원", "개발부", 3000, "근태관리시스템"));
-		ms.addEmployee(new Programmer("e0004", "박사원", "개발부", 3000, "근태관리시스템"));
 
 		
 		/**2. 사번 중복 여부 확인*/
@@ -89,6 +88,7 @@ public class ManagerServiceTest {
 				System.out.println(employee.toString());
 			}
 		}
+		
 	}
 
 }

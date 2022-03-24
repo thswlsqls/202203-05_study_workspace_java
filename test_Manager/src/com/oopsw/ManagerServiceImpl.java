@@ -173,5 +173,4 @@ public class ManagerServiceImpl implements ManagerService {
 		}
 		return (float)getEmployeeTotalSalary()/getEmployees().size();
 	}
-
 }

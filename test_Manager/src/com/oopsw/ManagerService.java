@@ -7,6 +7,7 @@ public interface ManagerService {
 	
 	/** 사원 입력 */
 	void addEmployee(Employee e);
+	
 	/** 사번 중복 확인 */
 	boolean isEmployeeId(String employeeId);
 	
@@ -34,4 +35,6 @@ public interface ManagerService {
 	/** 평균 급여 확인 */
 	float getEmployeeTotalAvgSalary();
 }
+
+
 
