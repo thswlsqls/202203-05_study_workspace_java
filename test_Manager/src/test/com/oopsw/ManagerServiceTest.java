@@ -18,12 +18,12 @@ public class ManagerServiceTest {
 		
 		/**1. 일반 사원 외 개발자 사원의 정보를 각각 2명 이상 입력(총 4명 이상)*/
 		System.out.println("1. 일반 사원 외 개발자 사원의 정보를 각각 2명 이상 입력(총 4명 이상)");
-		ms.addEmployee(new Employee("e0001", "김사원", "영업부", 3000));
-		ms.addEmployee(new Employee("e0002", "박사원", "영업부", 3000));
-		ms.addEmployee(new Programmer("e0003", "김사원", "개발부", 3000, "회계관리시스템"));
-		ms.addEmployee(new Programmer("e0004", "박사원", "개발부", 3000, "근태관리시스템"));
-		/** 중복값 불허함 - HashSet메모리 사용하고 DTO에 equals(), hashCode()를 구현함 */
-		ms.addEmployee(new Programmer("e0004", "박사원", "개발부", 3000, "근태관리시스템"));
+//		ms.addEmployee(new Employee("e0001", "김사원", "영업부", 3000));
+//		ms.addEmployee(new Employee("e0002", "박사원", "영업부", 3000));
+//		ms.addEmployee(new Programmer("e0003", "김사원", "개발부", 3000, "회계관리시스템"));
+//		ms.addEmployee(new Programmer("e0004", "박사원", "개발부", 3000, "근태관리시스템"));
+//		/** 중복값 불허함 - HashSet메모리 사용하고 DTO에 equals(), hashCode()를 구현함 */
+//		ms.addEmployee(new Programmer("e0004", "박사원", "개발부", 3000, "근태관리시스템"));
 
 		
 		/**2. 사번 중복 여부 확인*/
@@ -73,11 +73,21 @@ public class ManagerServiceTest {
 
 		/**9. 회사에서 지급하는 사원의 총 급여 확인*/
 		System.out.println("\n9. 회사에서 지급하는 사원의 총 급여 확인");
-		System.out.println("회사에서 지급하는 사원의 총 급여: "+ms.getEmployeeTotalSalary());
+		try {
+			System.out.println("회사에서 지급하는 사원의 총 급여: "+ms.getEmployeeTotalSalary());
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 		
 		/**10. 회사에서 지급하는 사원의 평균 급여 확인 */
 		System.out.println("\n10. 회사에서 지급하는 사원의 평균 급여 확인");
-		System.out.println("회사에서 지급하는 사원의 평균 급여: "+ms.getEmployeeTotalAvgSalary());
+		try {
+			System.out.println("회사에서 지급하는 사원의 평균 급여: "+ms.getEmployeeTotalAvgSalary());
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 		
 		/** 수정된 부서명과 담당SW이름 확인 */
 		System.out.println("\n수정된 부서명과 담당SW이름 확인");
@@ -88,6 +98,25 @@ public class ManagerServiceTest {
 				System.out.println(employee.toString());
 			}
 		}
+		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
 		
 	}
 

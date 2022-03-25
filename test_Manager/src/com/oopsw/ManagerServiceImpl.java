@@ -151,10 +151,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	/**9. 회사에서 지급하는 사원의 총 급여 확인*/
+	/* @throws RuntimeException - 사원이 없을 때 */
 	@Override
 	public int getEmployeeTotalSalary() {
 		if(employees.size()==0) { // 예외를 활용하면 중복 코드를 제거할 수 있음
-			return -1;
+			throw new RuntimeException("사원이 없습니다.");
+//			return -1; // 예외 문법을 모를때 사용
 		}
 		
 		int totalSalary = 0;
@@ -169,6 +171,7 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public float getEmployeeTotalAvgSalary() {
 		if(employees.size()==0) {
+//			throw new RuntimeException("사원이 없습니다."); // 유지보수 원칙에 따라, 10번은 원본 코드를 그대로 두고 별도의 클래스를 만듦.
 			return -1;
 		}
 		return (float)getEmployeeTotalSalary()/getEmployees().size();

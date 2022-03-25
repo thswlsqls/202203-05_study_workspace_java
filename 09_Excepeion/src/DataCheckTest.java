@@ -3,7 +3,7 @@
  * 구현 - 제약사항*/
 
 // 미션 - PointValueException 
-class Customer{
+class Customer {
 	private String name;
 	private int point;
 	
@@ -35,7 +35,8 @@ class Customer{
 	
 	public void setPoint(int point) throws PointValueException {
 		if(point < 10)
-			throw new PointValueException("기본 포인트는 10포인트 이상");
+//			throw new PointValueException("기본 포인트는 10포인트 이상");
+			throw new RuntimeException("포인트는 10점 부터");
 		this.point = point;
 	}
 	
@@ -49,7 +50,13 @@ public class DataCheckTest {
 			c1 = new Customer("홍길동", -10);
 		} catch (NameLengthException | PointValueException e) {
 			e.printStackTrace();
-		}
+			System.out.println(e.getMessage());
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage()); // 상위 객체를 뒤에서 처리 권장
+		} catch(Exception e) {
+			e.printStackTrace(); // 혹시 놓칠 수 있는 예외상황이 발생하기 때문에 권장사항임.
+		} // 이처럼 나누어 놓으면 디버깅 단계에서 용이함 
 		System.out.println(c1);
 	}
 }

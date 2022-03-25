@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="java.time.LocalDate"/>
-<fullyQualifiedTypeName name="java.util.Scanner"/>
 <fullyQualifiedTypeName name="com.oopsw.school.Person"/>
 <fullyQualifiedTypeName name="InterfaceA"/>
 <fullyQualifiedTypeName name="InterfaceB"/>
@@ -14,9 +13,27 @@
 <fullyQualifiedTypeName name="JavaMission05.ScoreServiceImpl"/>
 <fullyQualifiedTypeName name="JavaMission07.Score"/>
 <fullyQualifiedTypeName name="User"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.oopse.school.SchoolService"/>
 <fullyQualifiedTypeName name="com.oopse.school.SchoolServiceImpl"/>
 <fullyQualifiedTypeName name="com.oopse.school.Student"/>
 <fullyQualifiedTypeName name="com.oopse.school.Person"/>
+<fullyQualifiedTypeName name="java.util.InputMismatchException"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="com.oopsw.Employee"/>
+<fullyQualifiedTypeName name="com.oopsw.ManagerServiceImpl"/>
+<fullyQualifiedTypeName name="com.oopsw.ManagerServiceImpl_10_Min"/>
+<fullyQualifiedTypeName name="com.oopsw.ManagerService"/>
+<fullyQualifiedTypeName name="com.oopsw.ManagerServiceImpl_10_Object"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.Person"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.PersonServiceImpl_team2"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.Person_team2"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.NameLengthException"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.PersonServiceImpl"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.PersonServiceImpl_repactor_1"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.Person_refactor_1"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.PersonService"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.PersonServiceImpl_refactor_1"/>
 </qualifiedTypeNameHistroy>
