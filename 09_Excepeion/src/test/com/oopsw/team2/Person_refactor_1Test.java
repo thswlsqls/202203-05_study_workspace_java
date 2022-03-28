@@ -2,6 +2,8 @@ package test.com.oopsw.team2;
 
 import java.util.ArrayList;
 
+import com.oopsw.team2.NameLengthException;
+import com.oopsw.team2.Person;
 import com.oopsw.team2.PersonService;
 import com.oopsw.team2.PersonServiceImpl;
 import com.oopsw.team2.PersonServiceImpl_refactor_1;
@@ -17,11 +19,17 @@ public class Person_refactor_1Test {
 		try {
 			ps.addPerson(new Person_refactor_1("¼Õºóºó", "ÇÑ±¹"));
 			ps.addPerson(new Person_refactor_1("¼Õºóºó", "ÇÑ±¹"));
-			ps.addPerson(new Person_refactor_1("¼Õºóºó", "ÇÑ±¹"));
-		}catch(RuntimeException e) {
+			ps.addPerson(new Person_refactor_1("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesett", "ÇÑ±¹"));
+		}catch(NameLengthException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		catch(RuntimeException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}catch(Exception e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 		try {
@@ -29,7 +37,7 @@ public class Person_refactor_1Test {
 				System.out.println(person);
 			}
 		}catch(Exception e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		

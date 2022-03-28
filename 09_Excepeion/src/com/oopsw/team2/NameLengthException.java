@@ -6,5 +6,4 @@ public class NameLengthException extends RuntimeException{
 		super(message);
 	} 
 
-
 }

@@ -13,7 +13,7 @@ public class Person_refactor_1 extends Person{
 	
 	protected void setName(String name) {
 		if(name.length() > 50)
-			throw new RuntimeException("이름은 50자 이하만 가능");
+			throw new NameLengthException("이름은 50자 이하만 가능");
 		this.name = name;
 	}
 

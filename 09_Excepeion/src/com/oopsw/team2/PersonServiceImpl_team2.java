@@ -4,12 +4,12 @@ import java.util.Collection;
 
 public class PersonServiceImpl_team2 implements PersonService{
 
-	private Collection<Object> persons;
+//	private Collection<Object> persons;
 	private PersonService ps;
 	
-	public PersonServiceImpl_team2(Collection<Object> persons) {
-		this.persons = persons;
-	}
+//	public PersonServiceImpl_team2(Collection<Object> persons) {
+//		this.persons = persons;
+//	}
 	
 	public PersonServiceImpl_team2(PersonService ps) {
 		this.ps = ps;
