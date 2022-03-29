@@ -13,14 +13,15 @@
 		</list>
 	</section>
 	<section name="NewWizardAction">
-		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="net.java.amateras.umleditor.wizard1"/>
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="com.tomato.exerd.ui.wizards.newEXerdWizard"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="net.java.amateras.umleditor.category"/>
+			<item value="com.tomato.exerd.ui.newWizards.category"/>
 		</list>
 	</section>
 	<section name="WorkbenchPreferenceDialogSettings">
-		<item key="DIALOG_X_ORIGIN" value="435"/>
-		<item key="DIALOG_Y_ORIGIN" value="112"/>
+		<item key="DIALOG_X_ORIGIN" value="-305"/>
+		<item key="DIALOG_Y_ORIGIN" value="177"/>
 	</section>
 	<section name="ImportExportAction">
 		<item key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID" value="org.eclipse.ui.wizards.import.FileSystem"/>

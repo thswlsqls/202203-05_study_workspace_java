@@ -4,11 +4,17 @@ import java.util.Collection;
 
 public interface PersonService {
 	
+//	/* 이름 50자까지 허용 */
+//	void addPerson(Object p);
+//	
+//	/* 국적 확인 */
+//	Collection<Object> getPersons();
+	
 	/* 이름 50자까지 허용 */
-	void addPerson(Object p);
+	void addPerson(Person p);
 	
 	/* 국적 확인 */
-	Collection<Object> getPersons();
+	Collection<Person> getPersons();
 	
 }
 

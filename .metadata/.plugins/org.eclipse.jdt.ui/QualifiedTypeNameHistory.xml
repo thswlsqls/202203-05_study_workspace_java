@@ -26,14 +26,20 @@
 <fullyQualifiedTypeName name="com.oopsw.ManagerService"/>
 <fullyQualifiedTypeName name="com.oopsw.ManagerServiceImpl_10_Object"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.Person"/>
-<fullyQualifiedTypeName name="java.util.Collection"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.PersonServiceImpl_team2"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.Person_team2"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.NameLengthException"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.PersonServiceImpl"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.PersonServiceImpl_repactor_1"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.Person_refactor_1"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.PersonService"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.PersonServiceImpl_refactor_1"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.oopsw.StudentService"/>
+<fullyQualifiedTypeName name="com.oopsw.StudentServiceImpl"/>
+<fullyQualifiedTypeName name="com.oopsw.Student"/>
+<fullyQualifiedTypeName name="javax.swing.text.StyledEditorKit.ForegroundAction"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="com.oopsw.team2.PersonService_refactor_1"/>
 </qualifiedTypeNameHistroy>

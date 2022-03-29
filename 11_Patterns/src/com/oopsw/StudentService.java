@@ -9,7 +9,6 @@ public class StudentService {
 	private Collection<Student> studnets;
 	//a3) 
 	private static StudentService s;
-	
 	//a1)생성자를 막고 (new) 1번만 메모리에 등록해서 쓰고싶다. 
 	private StudentService() {
 		studnets=new HashSet<Student>();

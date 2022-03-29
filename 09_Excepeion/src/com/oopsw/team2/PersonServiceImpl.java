@@ -5,19 +5,19 @@ import java.util.Collection;
 
 public class PersonServiceImpl implements PersonService{
 
-	private Collection<Object> persons;
+	private Collection<Person> persons;
 	
-	public PersonServiceImpl(Collection<Object> persons) {
+	public PersonServiceImpl(Collection<Person> persons) {
 		this.persons = persons;
 	}
 
 	@Override
-	public void addPerson(Object p) {
+	public void addPerson(Person p) {
 		persons.add(p);
 	}
 
 	@Override
-	public Collection<Object> getPersons() {
+	public Collection<Person> getPersons() {
 		return persons;
 	}
 

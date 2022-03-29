@@ -1,5 +1,4 @@
 package com.oopsw.team2;
-
 import java.util.Collection;
 
 public class PersonServiceImpl_refactor_1 implements PersonService {
@@ -16,12 +15,12 @@ public class PersonServiceImpl_refactor_1 implements PersonService {
 	}
 	
 	@Override
-	public void addPerson(Object p) {
+	public void addPerson(Person p) {
 		ps.addPerson(p);
 	}
 
 	@Override
-	public Collection<Object> getPersons() {
+	public Collection<Person> getPersons() {
 		return ps.getPersons();
 	}
 
