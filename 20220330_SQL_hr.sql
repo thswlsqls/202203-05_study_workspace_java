@@ -1,21 +1,21 @@
 select * from someTable where i = dont;
 
 SELECT d.department_id, 
-	   d.department_name,
+	   d.department_name, 
 	   ROUND(AVG(e.salary),1), 
 	   MAX(e.salary), 
-	   MIN(e.salary)
+	   MIN(e.salary)  
 FROM departments d, 
-	 employees e
-WHERE d.department_id = e.department_id
-GROUP BY d.department_id, 
-		 d.department_name;
+	 employees e  
+WHERE d.department_id = e.department_id 
+GROUP BY d.department_id,   
+		 d.department_name; 
 
 -- 20220330
 -- 1. 사원번호가 100인 사원의 급여를 확인(PK그룹 조건절)
-SELECT employee_id, salary
-FROM employees
-WHERE employee_id=100;
+SELECT employee_id, salary  
+FROM employees  
+WHERE employee_id=100;  
 
 -- 2. 현재 근무중인 사원은 몇명인지 확인
 SELECT count(employee_id)
@@ -33,8 +33,13 @@ GROUP BY job_id
 HAVING job_id='AD_VP';
 
 -- 4. 보너스를 받는 사원은 몇명인지 확인SELECT count(employee_id)
+SELECT count(employee_id)
 FROM employees
 WHERE commission_pct IS NOT NULL;
+
+SELECT count(employee_id)
+FROM employees
+WHERE commission_pct IS NULL;
 
 -- < SQL 단일행함수 실습문제 >
 -- EX1. 현재 날짜를 표시하는 질의를 작성하고 열 레이블을 Date로 지정한다.
@@ -63,11 +68,16 @@ FROM employees;
 SELECT 
 	first_name
 	, hire_date
-	, TO_CHAR(TRUNC(ADD_MONTHS(hire_date, 6), 'IW'), 'yyyy-mm-dd') REVIEW
+	, TO_CHAR(TRUNC(ADD_MONTHS(hire_date, 6)+7, 'IW'), 'yyyy-mm-dd') REVIEW
 FROM employees;
 
-SELECT TO_CHAR(ADD_MONTHS(hire_date, 6) + 6, 'yyyy-mm-dd'), TO_CHAR(ADD_MONTHS(hire_date, 6), 'yyyy-mm-dd')
-from employees;
+SELECT 
+	first_name
+	, hire_date
+	, TO_CHAR(NEXT_DAY(ADD_MONTHS(hire_date, 6), '월요일'), 'yyyy-mm-dd') REVIEW
+FROM employees;
+
+
 
 -- EX5. 사원의 이름, 근무월수(입사일로부터 현재까지 월수)를 계산하며 열레이블을 MONTHS_WORKED로 지정합니다. 
 -- 결과는 정수로 반올림하여 표시하고 오래 근무한 사원부터 출력하시오. 
@@ -117,13 +127,13 @@ FROM employees;
 -- EX11. 사원의 이름을 표시하고 급여 총액을 별표(*)로 나타내는 질의를 작성합니다. 
  -- 각 별표는 1000달러를 나타냅니다. 
    -- 급여 기준으로 데이터를 내림차순으로 정렬하고 열 레이블을 EMPLOYEE_GREAD 로 지정합니다.
-SELECT 
-	department_id
-	, TRANSLATE(sum(salary), '1234567890', '***')
-FROM employees
-GROUP BY department_id;
---ORDER BY salary DESC;
 
+SELECT 
+  first_name||last_name
+	, department_id
+	, ROUND(sum(salary)/1000,2) || '*'
+FROM employees
+GROUP BY department_id, first_name||last_name;
 
 -- EX12. 사원의 이름, 직무, 직무 열의 값을 기준으로 모든 사원의 등급을 표시하는 질의를 작성합니다.
 
@@ -132,9 +142,15 @@ GROUP BY department_id;
             --           'MAN'로 끝나면    => '☆☆☆'
 
    --그 밖은 공백으로 표시하시오. 열 레이블은 "GRADE"로 지정합니다.
+   
 SELECT 
-	first_name
-	, job_id
+  first_name || last_name
+  , job_id
+  , CASE WHEN job_id LIKE '%CLERK' THEN '☆'
+         WHEN job_id LIKE '%REP' THEN '☆☆'
+         WHEN job_id LIKE '%MAN' THEN '☆☆☆'
+         ELSE 'No Grade'
+  END GRADE
 FROM employees;
 
 SELECT 
@@ -142,11 +158,6 @@ SELECT
 	, hire_date
 	, TO_CHAR(TRUNC(ADD_MONTHS(hire_date, 6)+7, 'IW'), 'yyyy-mm-dd') REVIEW
 FROM employees;
-
-SELECT 
-	INITCAP(first_name||last_name)
-FROM employees
-WHERE first_name LIKE 'J%';
 
 SELECT 
 	first_name
@@ -180,13 +191,6 @@ GROUP BY department_id;
 --
 --
 --EX3. 직무가 동일한 사원의 수를 표시하는 질의를 작성하시오.
-SELECT 
-  department_id
-  , count(employee_id)
-FROM 
-  employees
-GROUP BY 
-  department_id;
 
 SELECT 
   job_id 직무
@@ -200,14 +204,8 @@ GROUP BY
 --EX4. 관리자 목록 없이 관리자 수만 표시하고 열 레이블을 Number of Managers로 지정합니다.
 SELECT 
    count(DISTINCT manager_id) "Number of Managers"
---   count(distinct department_id)
 FROM employees
 WHERE manager_id IS NOT NULL;
-
-select * from employees where department_id Is NULL;
---GROUP BY department_id;
-
-select count(employee_id) from employees;
 
 --
 --EX5. 최고 급여와 최저 급여의 차액을 표시하는 질의를 작성하고 열 레이블을 DIFFERENCE로 지정하시오.
@@ -227,38 +225,26 @@ FROM
   employees
 WHERE (manager_id IS NOT NULL) 
 GROUP BY manager_id
-HAVING MIN(salary) > 5000
+HAVING MIN(salary) >= 5000
 ORDER BY MIN(salary) DESC;
-
-
-SELECT 
-  department_id
-  , MIN(salary)
-  , MAX(salary)
-  , COUNT(employee_id)
-FROM 
-  employees
---WHERE (manager_id IS NOT NULL) 
-GROUP BY department_id;
---HAVING MIN(salary) > 5000
---ORDER BY MIN(salary), MAX(salary) DESC;
 
 --EX7. 부서별 직무별 인원수 및  평균급여를 표시하는 질의를 작성하시오.
 --        단, 평균 급여를 소수점 둘째 자리에서 반올림하고, 
 --             부서번호 순으로 정렬하고 부서가 같으면 평균급여가 높은 직무순으로 정렬하시오.
 SELECT 
   department_id
+  , job_id
   , count(employee_id)
   , ROUND(AVG(salary),2)
 FROM
   employees
-GROUP BY department_id
+GROUP BY department_id, job_id
 ORDER BY department_id, AVG(salary) DESC;
   
 --
 --EX8. 총 사원의 수 및 2002,2003, 2004,2005년에 입사한 사원 수를 표시하는 질의를 작성하고 
 --      적합한 열 머리글을 지정합니다.
---
+
 --출력 예 ) 
 --TOTAL      2002     2003    2004    2005
 107	      7          6        10       29
@@ -271,13 +257,6 @@ SELECT
   ,COUNT(CASE WHEN TO_CHAR(hire_date, 'yyyy') = '1997' THEN 1 END) "1997"
 FROM 
   employees;
-
-select TO_CHAR(hire_date, 'yyyy') from EMPLOYEES WHERE TO_CHAR(hire_date, 'yyyy')=1987;
-SELECT count(employee_id) FROM employees WHERE TO_CHAR(hire_date, 'yyyy') = 2002;
-
-SELECT count(employee_id) from employees;
-SELECT * FROM employees;
-
 
 -- 1. employees 테이블에서 first_name이 A로 시작하는 사원의 사번, 이름, 부서아이디, 부서명을 출력함
 SELECT
@@ -325,18 +304,7 @@ WHERE employee_id IN (SELECT
                       ON e.job_id = j.job_id
                       AND j.job_id LIKE 'IT%'
                       );
-                    
-SELECT 
-      e.employee_id,
-      d.department_name
-    FROM
-      employees e JOIN departments d
-    ON e.department_id = d.department_id
-    AND d.department_name LIKE '%IT%';
-    
-SELECT department_name from departments;
-SELECT * FROM employees;
-          
+
 -- 4.  사원의 사번, 이름, 부서명, 잡히스토리 횟수를 출력하되 잡히스토리가 2회 이상인 사원만 출력함                      
 SELECT 
   e.employee_id
@@ -356,50 +324,6 @@ AND (SELECT COUNT(job_id)
 SELECT * FROM departments;
 SELECT * from employees WHERE salary BETWEEN 3000 AND 5000;
 SELECT * FROM job_history;
-
-
-SELECT 
-  department_id
-  , employee_id
-  , first_name
-  , email
-  , salary
-FROM employees (
-WHERE salary 
-(
-  SELECT max_salary 
-  FROM 
-  (
-    SELECT 
-      department_id, 
-      max(salary) max_salary
-    FROM
-      employees
-    GROUP BY department_id  
-  ) 
-);
-
-SELECT max_salary 
-  FROM 
-  (
-    SELECT 
-      department_id, 
-      max(salary) max_salary
-    FROM
-      employees
-    GROUP BY department_id  
-  ); 
-
-
-) grouped_employees;
---WHERE salary = grouped_employees.
-
-  SELECT 
-    department_id, 
-    max(salary)
-  FROM
-    employees
-  GROUP BY department_id;
   
   
 --  스터디 문제 공유
@@ -432,9 +356,9 @@ SELECT
   , CASE WHEN salary < 5000 THEN 'C'
          WHEN salary < 10000 THEN 'B'
          ELSE 'A' END 급여등급
-FROM employees e, departments d
-WHERE e.department_id = d.department_id
-ORDER BY employee_id;      
+FROM employees e, departments d     
+WHERE e.department_id = d.department_id     
+ORDER BY employee_id;    
 
 
 

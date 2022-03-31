@@ -4,19 +4,16 @@ INSERT INTO student_list(student_id, name, in_date)
 VALUES('200101001', '김학생', sysdate);
 
 DELETE FROM student_list;
-commit;
 
 UPDATE student_list
 SET total_score=35
 WHERE student_id = '200101001';
-commit;
 
 -- 학생 정보를 초기에 입력
 INSERT INTO
 student_list(student_id, name, total_score, in_date)
 VALUES('200101002', '박학생', NULL, sysdate);
 
-commit;
 
 -- 성적을 입력하기 전에 일련번호를 담당할 객체
 CREATE SEQUENCE score_seq;
@@ -62,7 +59,6 @@ WHERE student_id = '200101001';
 
 SELECT * FROM score_list;
 
-commit;
 
 -- 점수 테이블을 임시 테이블로 복사하고 2개 이상 입력된 과목은 삭제
 CREATE table new_score_list
@@ -110,13 +106,6 @@ WHERE subject IN
   )
 ;
 
-    SELECT subject, count(score)
-    FROM new_score_list
-    WHERE student_id = '200101001'
-    GROUP BY subject;
---    HAVING count(score) > 1;
-
-
 SELECT 
   stu.student_id
   , stu.name
@@ -139,16 +128,24 @@ WHERE salary >
     FROM
     employees
     WHERE department_id = '20'
---    GROUP BY department_id
   );
   
-SELECT EMPLOYEE_ID,FIRST_NAME,SALARY
+SELECT 
+  EMPLOYEE_ID
+  ,FIRST_NAME
+  ,SALARY
 FROM EMPLOYEES
-WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES WHERE DEPARTMENT_ID = '20;
+WHERE SALARY > 
+  (
+    SELECT AVG(SALARY) 
+    FROM EMPLOYEES 
+    WHERE DEPARTMENT_ID = '20'
+  );
 
 
 -- 2. 도시별로 해당 장소에서 근무하는 사원 수 출력 
 --도시 이름, 사원 수
+
 SELECT l.city, count(e.employee_id)
 FROM employees e, locations l, departments d
 WHERE e.department_id = d.department_id
@@ -162,15 +159,6 @@ GROUP BY city;
 
 
 -- 3. 요구사항 부서번호, 직무, 이름을 출력한 후 직무가 AD_PRES 인 사람을 출력하세요.
-SELECT 
-  d.department_id
-  , j.job_id
-  , j.job_title
-  , e.first_name
-FROM employees e, departments d, jobs j
-WHERE e.department_id = d.department_id
-AND e.job_id = j.job_id
-AND j.job_id = 'AD_PRES';
 
 SELECT 
   e.department_id
@@ -181,17 +169,18 @@ FROM employees e, jobs j
 WHERE e.job_id = j.job_id
 AND j.job_id = 'AD_PRES';
 
-SELECT D.DEPARTMENT_ID , E.JOB_ID, E.FIRST_NAME || E.LAST_NAME AS "NAME" FROM DEPARTMENTS D  JOIN EMPLOYEES E  ON D.DEPARTMENT_ID = E.DEPARTMENT_ID  WHERE    E.JOB_ID = (SELECT JOB_ID FROM EMPLOYEES WHERE JOB_ID = 'AD_PRES');
-
-
--- 4. 요구사항 부서번호, 직무, 이름을 출력한 후 직무가 AD_PRES 인 사람을 출력하세요.
 SELECT 
-  department_id
-  , job_id
-  , first_name
-FROM employees e, departments d, jobs j
-WHERE e.department_id = d.department_id
-AND e.job_id = j.job_id;
+  D.DEPARTMENT_ID 
+  , E.JOB_ID, E.FIRST_NAME || E.LAST_NAME AS "NAME" 
+  FROM DEPARTMENTS D  JOIN EMPLOYEES E  
+  ON D.DEPARTMENT_ID = E.DEPARTMENT_ID  
+  WHERE    E.JOB_ID = 
+    (
+      SELECT JOB_ID 
+      FROM EMPLOYEES 
+      WHERE JOB_ID = 'AD_PRES'
+    );
+
 
 -- HR
 -- 사원 테이블에서 사원 이름, 입사일 및 1차연봉협상일을 표시한다.      
@@ -211,11 +200,16 @@ WHERE TO_CHAR(hire_date, 'yyyy') =
   )
 ;
 
-select last_name 
+
+select 
+  last_name 
 from employees 
-where to_char(hire_date, 'YYYY') = (
-select to_char(hire_date, 'YYYY') 
-from employees where last_name = 'Popp');
+where to_char(hire_date, 'YYYY') = 
+  (
+    select to_char(hire_date, 'YYYY') 
+    from employees 
+    where last_name = 'Popp'
+  );
 
 
 ---- 사원 테이블에서 사원 이름, 입사일 및 1차연봉협상일을 표시한다.      
@@ -230,9 +224,9 @@ FROM
   employees;
 --  TRUNC(date, 'iw') -> 주초 월요일자 시분초절삭해 출력함
   
-SELECT first_name || ' ' || last_name AS name, 
-TO_CHAR(hire_date, 'YYYY-MM-DD') AS hire_date, 
-TO_CHAR(NEXT_DAY( ADD_MONTHS(hire_date, +12) ,'수요일'), 'YYYY-MM-DD') AS review 
+SELECT first_name || ' ' || last_name AS name
+  , TO_CHAR(hire_date, 'YYYY-MM-DD') AS hire_date
+  , TO_CHAR(NEXT_DAY( ADD_MONTHS(hire_date, +12) ,'수요일'), 'YYYY-MM-DD') AS review 
 FROM employees;
 
 
