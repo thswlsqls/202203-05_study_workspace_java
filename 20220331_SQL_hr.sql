@@ -47,7 +47,7 @@ GROUP BY student_id;
 
 -- 과목별 점수를 입력하면 학생정보의 총점이 수정됨 = SQL 여러 개로 처리
 UPDATE 
-  student_list
+  student_list 
 SET total_score = 
   (
     SELECT 
@@ -55,7 +55,7 @@ SET total_score =
     FROM score_list
     WHERE student_id = '200101001'
   )
-WHERE student_id = '200101001';
+WHERE student_id = '200101001'; 
 
 SELECT * FROM score_list;
 

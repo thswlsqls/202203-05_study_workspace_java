@@ -18,7 +18,7 @@ FROM employees
 WHERE employee_id=100;  
 
 -- 2. 현재 근무중인 사원은 몇명인지 확인
-SELECT count(employee_id)
+SELECT count(employee_id) 
 FROM employees; 
 
 -- 3. 사원 테이블에서 job_id가 AD_VP에 근무하는 사원의 급여 총액과 평균을 확인
