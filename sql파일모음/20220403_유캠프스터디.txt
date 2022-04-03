@@ -1,0 +1,93 @@
+public interface SQL_34 {
+	
+	-- 34. 수강신청인원수가 80명 이상인 강좌를 강의하는 교수들의 급여를 500,000원 인상하시오.
+	-- 단, 인상전 해당 교수의 교수번호, 급여정보를 조회하시오.
+	-- 단, 해당 교수 급여정보를 변경후 인상후 해당 교수의 교수번호, 급여정보를 조회하시오.
+	-- 221 3,000,000 / 311 2,300,000
+	// 방법1
+	public Collection<ProfessorDTO> updateProfessorsOver80CourseApplicant(ProfessorDTO Pdto); // 업데이트된 행을 반환
+	// 방법 2
+	public int updateProfessorsOver80CourseApplicant(Collection<ProfessorDTO> Pdto); // 업데이트 성공시 1, 오류시 -1을 반환함 
+
+}
+
+public class ProfessorDAO {
+
+	private String jdbcDriver = "com.~"
+	
+	private ProfessorDAO(){
+		try{
+			Class.forName(driver);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public int updateProfessorsOver80CourseApplicant(String id) {
+		
+		// ArrayList<ProfessorDTO> list = new ArrayList<ProfessorDTO>(); //select해서 결과행목록을 받는 경우
+	
+		String url = "jdbc: ~";
+		String id = "hr";
+		String pw = "hr";
+
+	 	...
+
+		int result = 0; // update 결과를 int형으로 받음
+
+		PreparedStatement pstmt = null; 
+		String sql = "update professors 
+				set salary = salary + 500000 
+				where  pcode IN ~ SELECT pcode
+						FROM professors p, lectures l
+     						WHERE p.pcode = l.instructor
+     						AND l.lcode IN 
+						(
+						SELECT e.lcode
+          						FROM professors p, enrollments e, lectures l
+          						WHERE e.lcode = l.lcode
+          						AND l.instructor = p.pcode
+          						GROUP BY e.lcode
+          						HAVING COUNT(e.scode) >=?	
+						)  
+
+		Connection conn = DriverManager.getConnection(url, id, pw);
+		try {
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, 80);
+			//pstmt.setString(2, id);			
+			//pstmt.setString(3, id);
+			....			
+
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		return result;
+		...
+
+	}	
+
+}
+
+
+
+public int update(String pcode, float salary) {
+	      String SQL = "UPDATE erollments SET salary=? WHERE pcode = ?";
+	      try {
+	         pstmt = conn.prepareStatement(SQL);
+	         pstmt.setString(1, pcode);
+		pstmt.setString(2, salary);
+	         return pstmt.executeUpdate();
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return -1;
+		}
+
+
