@@ -241,4 +241,4 @@ SELECT * FROM M_sections;
 DELETE FROM M_sections;
 
 
-
+COMMIT;
