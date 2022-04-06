@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.sql.Date"/>
-<fullyQualifiedTypeName name="java.time.LocalDate"/>
-<fullyQualifiedTypeName name="com.oopsw.school.Person"/>
-<fullyQualifiedTypeName name="InterfaceA"/>
-<fullyQualifiedTypeName name="InterfaceB"/>
-<fullyQualifiedTypeName name="com.oopsw.school.SchoolService"/>
 <fullyQualifiedTypeName name="com.oopsw.school.SchoolServiceImpl"/>
 <fullyQualifiedTypeName name="com.oopsw.school.Student"/>
 <fullyQualifiedTypeName name="com.oopsw.school.Teacher"/>
@@ -34,8 +28,6 @@
 <fullyQualifiedTypeName name="com.oopsw.team2.Person_refactor_1"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.PersonService"/>
 <fullyQualifiedTypeName name="com.oopsw.team2.PersonServiceImpl_refactor_1"/>
-<fullyQualifiedTypeName name="java.util.Collection"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.oopsw.StudentService"/>
 <fullyQualifiedTypeName name="com.oopsw.StudentServiceImpl"/>
 <fullyQualifiedTypeName name="com.oopsw.Student"/>
@@ -45,6 +37,27 @@
 <fullyQualifiedTypeName name="java.lang.Class"/>
 <fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="java.sql.DriverManager"/>
+<fullyQualifiedTypeName name="com.school.employeeDAO"/>
+<fullyQualifiedTypeName name="java.lang.ArrayStoreException"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.school.EmployeeVO"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
+<fullyQualifiedTypeName name="com.school.EmployeeDAO"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="com.school.EnrollmentDAO"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="com.school.LectureVO"/>
+<fullyQualifiedTypeName name="com.school.LectureDAO"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.school.SchoolVO"/>
+<fullyQualifiedTypeName name="com.school.SchoolDAO"/>
 <fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="com.school.EnrollmentVO"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="com.school.ProfessorDAO"/>
 </qualifiedTypeNameHistroy>

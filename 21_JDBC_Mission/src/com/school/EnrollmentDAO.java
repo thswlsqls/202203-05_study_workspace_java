@@ -27,13 +27,13 @@ public class EnrollmentDAO {
 	}
 	
 	/**-- 5. 수강신청 테이블에서 
-	 * 		1998년 3월 1일에서 3월3일 사이에 수강신청 한 
+	 * 		특정일(1998년 3월 1일)에서 특정일(3월3일) 사이에 수강신청 한 
 	 * 		강좌번호, 학생번호, 수강신청일을 검색하시오.
 	 * @throws SQLException 
 	 * */
-	public Collection<EnrollmentVO> getEnrollmentData(String startDate, String endDate) throws SQLException{
+	public Collection<EnrollmentVO> getEnrollments(String startDate, String endDate) throws SQLException {
 		Collection<EnrollmentVO> list = new ArrayList();
-		
+
 		String sql = 
 				"SELECT" + 
 				"  lcode" + 
@@ -42,6 +42,7 @@ public class EnrollmentDAO {
 				" FROM " + 
 				"  enrollments" + 
 				" WHERE edate BETWEEN ? AND ?";
+		
 		PreparedStatement pstmt=conn.prepareStatement(sql);
 		pstmt.setString(1, startDate);
 		pstmt.setString(2, endDate);
@@ -59,35 +60,31 @@ public class EnrollmentDAO {
 	/**
 	 * -- 20. 수강신청한 과목들 중에서 
 	 * 		    최고 점수를 받은 학생들의 정보를 조회하시오.
-	 * @throws SQLException 
-	 * 
-	 * 
 	 * */
-	public Collection<EnrollmentVO> getHighestScoredScodes() throws SQLException{
+	public Collection<EnrollmentVO> getHighestScoredScodes() 
+			throws SQLException {
 		Collection<EnrollmentVO> list = new ArrayList();
-
 		String sql = 
-				"SELECT\r\n" + 
-				"   scode\r\n" + 
-				"   , lcode\r\n" + 
-				"FROM\r\n" + 
-				"  enrollments\r\n" + 
-				"WHERE (lcode, grade) IN\r\n" + 
-				"  (\r\n" + 
-				"    SELECT\r\n" + 
-				"      lcode\r\n" + 
-				"      , max(grade)\r\n" + 
-				"    FROM enrollments\r\n" + 
-				"    GROUP BY lcode\r\n" + 
+				"SELECT" + 
+				"   scode" + 
+				"   , lcode" + 
+				" FROM" + 
+				"  enrollments" + 
+				" WHERE (lcode, grade) IN" + 
+				"  (" + 
+				"    SELECT" + 
+				"      lcode" + 
+				"      , max(grade)" + 
+				"    FROM enrollments" + 
+				"    GROUP BY lcode" + 
 				"  )";
-		
 		Statement stmt=conn.createStatement();
 		ResultSet rs=stmt.executeQuery(sql);
 		while(rs.next()) {
 			list.add(new EnrollmentVO(rs.getString(2)
 					                  , rs.getString(1)));
 		}
-		
 		return list;
 	}
 }
+

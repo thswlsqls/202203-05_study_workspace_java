@@ -25,9 +25,14 @@ public class EmployeeDAO {
 		System.out.println("2.DBMS 연결 OK");
 	}
 
-	public Collection<int[]> getEmployeeDataOfManager(int maxSalary) throws SQLException {
+	/**
+	 * -- 40. 관리자 번호 및 해당 관리자에 속한 사원의 최저 급여, 인원수를 표시합니다. 
+--      관리자를 알 수 없는 사원 및 최저 급여가 3000 이상인 그룹 제외시키고 
+--      급여를 기준으로 출력 결과를 내림차순으로 정렬하시오.
+	 */
+	public Collection<int[]> getEmployeeDataOfManager(int maxSalary) 
+			throws SQLException {
 		Collection<int[]> c = new ArrayList<int[]>();
-		
 		String sql = "SELECT" + 
 				"  manager_id" + 
 				"  ,MIN(salary)" + 
@@ -38,21 +43,23 @@ public class EmployeeDAO {
 				" GROUP BY manager_id" + 
 				" HAVING MIN(salary) <= ?" + 
 				" ORDER BY MIN(salary)";
-		
 		PreparedStatement pstmt=conn.prepareStatement(sql);
 		pstmt.setInt(1, maxSalary);
 		ResultSet rs=pstmt.executeQuery();
-		
 		while(rs.next()) {
 			c.add(new int[]{rs.getInt(1), rs.getInt(2), rs.getInt(3)});
 		}
-		
 		return c;
 	}
 	
-	public Map<String, Integer> getEmployeeDataOfManager(int ManagerId, int maxSalary) throws SQLException {
+	/**
+	 * -- 40. 특정 관리자 번호 및 해당 관리자에 속한 사원의 최저 급여, 인원수를 표시합니다. 
+--      관리자를 알 수 없는 사원 및 최저 급여가 특정액수 이상인 그룹 제외시키고 
+--      급여를 기준으로 출력 결과를 내림차순으로 정렬하시오.
+	 */
+	public Map<String, Integer> getEmployeeDataOfManager(int ManagerId, int maxSalary) 
+			throws SQLException {
 		Map<String, Integer> m = null;
-		
 		String sql = "SELECT" + 
 				"  manager_id" + 
 				"  ,MIN(salary)" + 
@@ -63,12 +70,10 @@ public class EmployeeDAO {
 				" GROUP BY manager_id" + 
 				" HAVING MIN(salary) <= ?" + 
 				" ORDER BY MIN(salary)";
-		
 		PreparedStatement pstmt=conn.prepareStatement(sql);
 		pstmt.setInt(1, ManagerId);
 		pstmt.setInt(2, maxSalary);
 		ResultSet rs=pstmt.executeQuery();
-		
 		if(rs.next()) {
 			m = new LinkedHashMap<String, Integer>();
 			m.put("관리자번호", rs.getInt(1));	
@@ -77,7 +82,4 @@ public class EmployeeDAO {
 		}
 		return m;
 	}
-	
-	
-	
 }

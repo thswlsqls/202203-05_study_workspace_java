@@ -27,23 +27,20 @@ public class LectureDAO {
 	 * -- 6. 강좌 테이블에서 
 	 * 		강좌이름이 특정 단어를 포함하는 강좌의 
 	 * 		강좌번호, 강좌이름, 담당교수, 강의시간수를 검색하시오.
-	 * @throws SQLException 
-	 * 
 	 * */
-	public Collection<LectureVO> getLectures(String includedString) throws SQLException{
+	public Collection<LectureVO> getLectures(String includedString) 
+			throws SQLException{
 		Collection<LectureVO> list = new ArrayList<LectureVO>();
-		
 		String sql = 
-				"SELECT\r\n" + 
-				"  lcode\r\n" + 
-				"  , lname\r\n" + 
-				"  , hours\r\n" + 
-				"  , instructor\r\n" + 
-				" FROM\r\n" + 
-				"  lectures\r\n" + 
-				" WHERE \r\n" + 
+				"SELECT" + 
+				"  lcode" + 
+				"  , lname" + 
+				"  , hours" + 
+				"  , instructor" + 
+				" FROM" + 
+				"  lectures" + 
+				" WHERE " + 
 				"  lname LIKE ?";
-		
 		PreparedStatement pstmt=conn.prepareStatement(sql);
 		pstmt.setString(1, "%"+includedString+"%");
 		ResultSet rs=pstmt.executeQuery();
@@ -53,8 +50,6 @@ public class LectureDAO {
 									, rs.getInt(3)
 									, rs.getString(4)));
 		}
-		
 		return list;
 	}
-	
 }
