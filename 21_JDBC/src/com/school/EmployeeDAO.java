@@ -214,7 +214,7 @@ public class EmployeeDAO {
 		pstmt.setInt(1,  addPoint);
 		pstmt.setString(2,  userId);
 		int num=pstmt.executeUpdate();	
-		result = (num ==1);
+		result = (num == 1);
 		return result;
 	}
 	
