@@ -28,7 +28,7 @@ public class EmployeeDAO {
 	}
 	
 	/**모든 사원의 사번, 이름, 급여를 확인
-	 * sql= SELECT 
+	 * sql= '[,./m/lmLECT 
 	 * 			employee_id
 	 * 			, first_name || last_name
 	 * 			, salary
@@ -72,13 +72,13 @@ public class EmployeeDAO {
 	public Collection<EmployeeVO> getEmployees(String departmentName) throws SQLException{
 		Collection<EmployeeVO> list=new ArrayList<EmployeeVO>();
 		
-		String sql="SELECT\r\n" + 
-				"  e.employee_id\r\n" + 
-				"  , e.first_name || e.last_name\r\n" + 
-				"  , e.salary\r\n" + 
-				"  , d.department_id\r\n" + 
-				"FROM employees e, departments d\r\n" + 
-				"WHERE e.department_id = d.department_id\r\n" + 
+		String sql="SELECT " + 
+				"  e.employee_id " + 
+				"  , e.first_name || e.last_name " + 
+				"  , e.salary " + 
+				"  , d.department_id " + 
+				"FROM employees e, departments d " + 
+				"WHERE e.department_id = d.department_id " + 
 				"AND department_name = ?";
 		PreparedStatement pstmt=conn.prepareStatement(sql);
 		pstmt.setString(1, departmentName); // 문자열
@@ -100,10 +100,10 @@ public class EmployeeDAO {
 	public float[] getSalaryData() throws SQLException {
 		float[] s = null;
 		
-		String sql = "SELECT\r\n" + 
-				"  MAX(salary)\r\n" + 
-				"  , MIN(salary)\r\n" + 
-				"  , MAX(salary) - MIN(salary)\r\n" + 
+		String sql = "SELECT " + 
+				"  MAX(salary) " + 
+				"  , MIN(salary) " + 
+				"  , MAX(salary) - MIN(salary) " + 
 				"FROM employees";
 		
 		Statement stmt=conn.createStatement();
@@ -126,10 +126,10 @@ public class EmployeeDAO {
 	public Map<String, Float> getSalaryDataAsMap() throws SQLException{
 		Map<String, Float> m = null;
 		
-		String sql = "SELECT\r\n" + 
-				"  MAX(salary)\r\n" + 
-				"  , MIN(salary)\r\n" + 
-				"  , MAX(salary) - MIN(salary)\r\n" + 
+		String sql = "SELECT " + 
+				"  MAX(salary) " + 
+				"  , MIN(salary) " + 
+				"  , MAX(salary) - MIN(salary) " + 
 				"FROM employees";
 		
 		Statement stmt=conn.createStatement();
