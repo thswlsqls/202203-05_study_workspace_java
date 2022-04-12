@@ -1,0 +1,38 @@
+@charset "UTF-8";
+div{
+	margin:10px
+	
+}
+
+button{
+	margin: 10px;
+	padding-right: 50px;
+	background: white;
+	color: black;
+	border:none;
+}
+
+span{
+	margin: 10px;
+	padding-right: 50px;
+}
+
+img{
+	min-width:240px;
+	min-height:180px;
+}
+.fontSizeXx-large{
+	font-size:xx-large;
+	
+}
+
+
+.headerButton{
+	float: right;
+}
+
+#flexDirectionRow{
+	display: flex;
+	flex-direction:row;
+}
+

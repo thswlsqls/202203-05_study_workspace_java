@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	/* 디자인 속성 그룹 - 테스트 기반 언어, 문자해석, 문제, 멈춤 - 실수조심 */ 
+	h1, h2, font {
+		font-size: 9pt;
+	}
+	/*. 공통 디자인 속성을 정의 - 현재는 html class 값이 계속 추가 */
+	.classType{
+		font-size: 20pt;
+		color: #ffff33;
+	}
+	.classBack{
+		background-color: yellowgreen;
+	}
+	/* # 특정 엘리먼트 전용 디자인 속성 적용 - 우선순위가 가장 높다. */
+	#h2IdType {
+		background-color: pink;
+	}
+</style>
+</head>
+<body>
+
+	<h1> main title </h1>
+	
+	<h2> Sub title </h2>
+	
+	<font size="7"> 글자에 대한 디자인 </font>
+	
+	<h3 class="classBack" style="color: red; font-size: 20pt;"> h3 element </h3>
+
+	<h2 id="h2IdType" class="classType classBack"> h2 여러개 있는데 일부 디자인 변경 </h2>
+	
+</body>
+</html>

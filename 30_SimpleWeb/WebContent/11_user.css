@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+* {
+	background-color: yellow;
+	
+}
+
+li {
+	list-style: none;
+}
+
