@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	let hour = new Date().getHours();
+	console.log(hour); // 반환 - 0에서 23사이의 정수
+	var message = "자율 학습시간";
+	
+	if(hour>=9 && hour<12){
+		message = "오전 수업시간"
+	}else if(hour<13){
+		console.log("점심시간")
+	}else if(hour<18){
+		message = "오후 수업시간"
+	}
+	console.log("현재 " + hour + "시, " + message + "입니다.");
+
+	var carType = "기본";
+	var carTypeMessage = "바퀴4개";
+	switch(carType){
+	case "고급": carTypeMessage += ", 문짝4개"; break;
+	case "최고급": carTypeMessage += ", 문짝4개, 핸들1개";
+	}
+	console.log(carType + " - " + carTypeMessage);
+	
+	var carMessage = "바퀴4개";
+	var n = 0;
+	let Arr = [", 문짝4개", ", 핸들1개"]
+
+	var car = "최고급"
+	
+	if(car == "고급"){ n = 1; }
+	else if(car == "최고급"){ n = 2; }
+	
+	for(let i = 0; i<n; i++){ carMessage += Arr[i]; }
+	console.log(car + " - " + carMessage);
+
+
+	var num;
+	for(num =1; num<=10; num++){
+		console.log(num);
+	}
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

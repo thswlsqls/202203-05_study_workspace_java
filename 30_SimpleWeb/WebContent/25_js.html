@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	var a1, a2, a3;
+	
+	// 같은 자료형, 묶어서 연속적인 메모리에 저장 배열
+	var sizes = [44, 55, 66, 77]; //{44, 55, 66, 77}; x
+	
+	for (var i = 0; i < sizes.length; i++) {
+		console.log(i, sizes[i]);
+	}
+	
+	sizes[10] = "XXXXXXXXL";
+	for (var i= 0; i< sizes.length; i++) {
+		if(sizes[i]) // 자바스크립트는 식별자에 값이 있을때만 true
+		console.log(i, sizes[i])
+	}
+	
+	// for in은 정의되지 않은 주소 건너뛰고 값이 있는 주소(키)만 제공
+	for( var sizesIndex in sizes){
+		console.log(sizesIndex);
+	}
+	
+	sizes[11] = new Date();
+	sizes[12] = function(){alert('function')};
+	
+	for( var sizesIndex in sizes){
+		console.log(sizesIndex, typeof sizes[sizesIndex]);
+		switch(typeof sizes[sizesIndex]){
+		case 'function': sizes[sizesIndex]();
+		}//
+	}
+	
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>
