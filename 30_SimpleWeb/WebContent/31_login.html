@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	id <input> <br>
+	pw <input> <br>
+	email <input> <br>
+	
+	<button id="login">로그인</button>
+	<a>취소</a>
+	
+<script type="text/javascript">
+	//DOM api
+	var inputs = document.querySelectorAll("input");
+	//디자인
+	//inputs[0].value="아이디";
+	inputs[1].type="password";
+	//inputs[2].type="email";
+
+	document.querySelector("a").onclick = function(){
+		for ( var i in inputs) {
+			inputs[i].value="";
+		}
+	}
+	
+	document.querySelector("#login").onclick = function(){
+		var inputId=inputs[0].value;
+		
+		location.href="스크립트에서서버로이돟?id="+inputId;
+	}
+</script>
+</body>
+</html>
