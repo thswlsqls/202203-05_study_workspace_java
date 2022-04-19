@@ -37,7 +37,7 @@ public class MenuUI {
 		}
 		
 	}
-	/**Ÿ  Ʋ      ְ     ڿ      
+	/** 
 	 * @throws IOException */
 	private String inputMenuItem(String title) throws IOException {  // ߰ 
 		System.out.print(title+":");
