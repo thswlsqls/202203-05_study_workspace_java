@@ -19,6 +19,7 @@
 	student_id: ${studentNumber}<br>
 	phone_number: ${phone}<br>
 	gender: ${gender}<br>
+	
 	hobby: 
 	<c:forEach var="h" items="${hobbyList}">
 		<c:out value="${h}"/>
