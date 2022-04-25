@@ -1,0 +1,16 @@
+SQL> create table user_list(user_id varchar2(20) primary key,
+  2  pw varchar2(20) not null,
+  3  name varchar2(20) not null,
+  4  in_date date not null);
+
+테이블이 생성되었습니다.
+
+SQL> insert into user_list values('jjeon','12345','전혜영',sysdate);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> commit;
+
+커밋이 완료되었습니다.
+
+SQL> select name from user_list where user_id='jjeon' and pw='12345'

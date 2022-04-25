@@ -105,5 +105,10 @@
 			학번, 전화번호, 
 			성별-라디오, 취미-체크박스, 생일-셀렉트 
 	-->
+	<%
+	if(request.getAttribute("isRequestSuccess")=="false"){
+		out.println("<script>alert('회원가입에 실패했습니다.')</script>");
+	}
+	%>
 </body>
 </html>

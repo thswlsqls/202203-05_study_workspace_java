@@ -6,40 +6,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class UserDAO {
-
 	private Connection conn;
-	public UserDAO() throws ClassNotFoundException, SQLException {
+	public UserDAO() {
+		try {
 		// 1. driver는 각각 DBMS회사에서 구현 - 기본 제공 x, 수동으로 제공
 		Class.forName("oracle.jdbc.driver.OracleDriver"); 
 		System.out.println("1.driver loading OK");
-		
 		// 2. DB연결 서버의 정보 및 계정
 		String url = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
 		String id = "hr";   
 		String pw = "hr";	
 		conn=DriverManager.getConnection(url, id, pw);
 		System.out.println("2.DBMS 연결 OK");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public String login(String id
+	public String login(String userId
 						 , String password) throws SQLException {
-		String result = "";
-		
+		String result = "";	
 		String sql = "SELECT name"
 				+ " FROM users"
-				+ " WHERE id=? AND password=?";
+				+ " WHERE user_id=? AND password=?";
 		PreparedStatement pstmt=conn.prepareStatement(sql);
-		pstmt.setString(1, id);
+		pstmt.setString(1, userId);
 		pstmt.setString(2, password);
 		ResultSet rs=pstmt.executeQuery();
 		if(rs.next()) { // 조회결과가 있으면
 			result = rs.getString(1);
 		}else { // 없으면
 			return result;
-		}
-		
+		}	
 		return result;
 	}
 	
@@ -51,7 +53,7 @@ public class UserDAO {
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,  v.getId());
+			pstmt.setString(1,  v.getUserId());
 			pstmt.setString(2,  v.getPassword());
 			pstmt.setString(3,  v.getName());
 			pstmt.setString(4,  v.getStudentId());
@@ -62,14 +64,14 @@ public class UserDAO {
 			pstmt.setString(9,  v.getBirthday());
 			int num=pstmt.executeUpdate();	// 처리 결과를 레코드 개수로 제공
 			result = (num == 1);
-		}catch(Exception e) {
+		}catch(SQLException e) {
 			return result;
 		}
 			
 		return result;
 	}
 	
-	public boolean signup(String id
+	public boolean signup(String userId
 						  , String password
 						  , String name
 						  , String studentId
@@ -77,15 +79,15 @@ public class UserDAO {
 						  , String phoneNumber
 						  , String gender
 						  , String hobby
-						  , String birthday) {
+						  , String birthday) throws SQLException {
 		boolean result = false;
 		
-		String sql = "INSERT INTO "
-				+ "	users(id, password, name, student_id, email, phone_number, gender, hobby, birthday) "
+		String sql = "INSERT INTO"
+				+ "	users(user_id, password, name, student_id, email, phone_number, gender, hobby, birthday)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,  id);
+			pstmt.setString(1,  userId);
 			pstmt.setString(2,  password);
 			pstmt.setString(3,  name);
 			pstmt.setString(4,  studentId);
@@ -97,17 +99,17 @@ public class UserDAO {
 			int num=pstmt.executeUpdate();	// 처리 결과를 레코드 개수로 제공
 			result = (num == 1);
 		}catch(Exception e) {
+			System.out.println(e);
 			return result;
-		}
-		
+		}		
 		return result;
 	}
 	
-	public UserVO getUser(String id, String pw) throws SQLException {
+	public UserVO getUser(String userId, String pw) throws SQLException {
 		UserVO v = null;
 		
 		String sql = "SELECT "
-				+ "	id"
+				+ "	user_id"
 				+ ", password"
 				+ ", name"
 				+ ", birthday"
@@ -117,12 +119,12 @@ public class UserDAO {
 				+ ", student_id"
 				+ ", hobby"
 				+ " FROM USERS"
-				+ " WHERE id = ? AND password = ?";
-		
+				+ " WHERE user_id = ? AND password = ?";
+
 		PreparedStatement pstmt=conn.prepareStatement(sql);
-		pstmt.setString(1,  id);
+		pstmt.setString(1,  userId);
 		pstmt.setString(2,  pw);
-		
+
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {
 			v = new UserVO(rs.getString(1)
@@ -135,7 +137,70 @@ public class UserDAO {
 						 , rs.getString(8)
 						 , rs.getString(9));
 		}
-
+		return v;
+	}
+	
+	public Collection<GuestBookVO> getGuestBooks() throws SQLException{
+		Collection<GuestBookVO> list = new ArrayList<GuestBookVO>();
+		String sql = "SELECT "
+				+ "guest_no"
+				+ ", user_id"
+				+ ", title"
+				+ ", content"
+				+ ", in_date" 
+				+ " FROM guest_books";
+		
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()) {
+			list.add(new GuestBookVO(rs.getInt(1)
+					               , rs.getString(2)
+					               , rs.getString(3)
+					               , rs.getString(4)
+					               , rs.getDate(5)));
+		}		
+		return list;
+	}
+	
+	public boolean addGuestBook(String userId, String title, String content) throws SQLException {
+		boolean result = false;
+		String sql = "INSERT INTO guest_books"
+				+ "(guest_no, user_id, title, content, in_date)" 
+				+ " VALUES(guest_seq.NEXTVAL, ?, ?, ?, sysdate)";
+		try {
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,  userId);
+			pstmt.setString(2,  title);
+			pstmt.setString(3,  content);
+			
+			int num=pstmt.executeUpdate();	// 처리 결과를 레코드 개수로 제공
+			result = (num == 1);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public GuestBookVO getGuestBook(int guestNo) throws SQLException {
+		GuestBookVO v = null; 
+		String sql = "SELECT "
+				+ "	guest_no"
+				+ " , user_id"
+				+ " , title"
+				+ " , content"
+				+ " , in_date" 
+				+ " FROM guest_books"
+				+ " WHERE guest_no=?";
+		PreparedStatement pstmt=conn.prepareStatement(sql);
+		pstmt.setInt(1,  guestNo);
+		ResultSet rs = pstmt.executeQuery();
+		if(rs.next()) {
+			v = new GuestBookVO(rs.getInt(1)
+								, rs.getString(2)
+								, rs.getString(3)
+								, rs.getString(4)
+								, rs.getDate(5));
+		}
 		return v;
 	}
 }

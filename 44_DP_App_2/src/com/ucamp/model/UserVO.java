@@ -1,9 +1,8 @@
 package com.ucamp.model;
 
 public class UserVO {
-
 	// ÇÊµå
-	private String id;
+	private String userId;
 	private String password;
 	private String name;
 	private String birthday;
@@ -13,9 +12,12 @@ public class UserVO {
 	private String studentId;
 	private String hobby;
 	
-	public UserVO(String id, String password, String name, String birthday, String phoneNumber, String email,
-			String gender, String studentId, String hobby) {
-		this.id = id;
+	
+	public UserVO() {}
+
+	public UserVO(String userId, String password, String name, String birthday, 
+			String phoneNumber, String email, String gender, String studentId, String hobby) {
+		this.userId = userId;
 		this.password = password;
 		this.name = name;
 		this.birthday = birthday;
@@ -26,11 +28,11 @@ public class UserVO {
 		this.hobby = hobby;
 	}
 	
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String userId) {
+		this.userId = userId;
 	}
 	public String getPassword() {
 		return password;
@@ -83,7 +85,7 @@ public class UserVO {
 
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", password=" + password + ", name=" + name + ", birthday=" + birthday
+		return "UserVO [userId=" + userId + ", password=" + password + ", name=" + name + ", birthday=" + birthday
 				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", gender=" + gender + ", studentId="
 				+ studentId + ", hobby=" + hobby + "]\n";
 	}
