@@ -12,6 +12,7 @@
 		내용: <textarea rows="10" cols="22" name="content"></textarea>
 		<input type="submit" value="작성완료">
 	</form>
+	<a href="controller?cmd=guestBookList">목록보기</a>
 
 	<%
 	if(request.getAttribute("isRequestSuccess")=="false"){

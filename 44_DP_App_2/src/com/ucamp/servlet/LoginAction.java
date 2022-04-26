@@ -16,6 +16,7 @@ public class LoginAction implements Action {
 	@Override
 	public String action(HttpServletRequest request) 
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
+		
 		String id=request.getParameter("id");
 		String pw=request.getParameter("pw");
 		UserVO v = null;
@@ -27,23 +28,25 @@ public class LoginAction implements Action {
 			if(((UserDAO)(request.getServletContext().getAttribute("dao"))).login(id, pw).length()!=0) { 
 				v = ((UserDAO)(request.getServletContext().getAttribute("dao"))).getUser(id, pw);
 				gbList = ((UserDAO)(request.getServletContext().getAttribute("dao"))).getGuestBooks();
-				url="userInfo.jsp";
+				url="userMain.jsp";
+				
+				session.setAttribute("loginOK", id); 
+				
 				session.setAttribute("userId", v.getUserId());
 				session.setAttribute("userPw", v.getPassword());
-				request.setAttribute("id", v.getUserId());
-				request.setAttribute("pw", v.getPassword());
-				request.setAttribute("name", v.getName());
-				request.setAttribute("email", v.getEmail());
-				request.setAttribute("studentNumber", v.getStudentId());
-				request.setAttribute("phone", v.getPhoneNumber());
-				request.setAttribute("gender", v.getGender());
+				
+				session.setAttribute("id", v.getUserId());
+				session.setAttribute("pw", v.getPassword());
+				session.setAttribute("name", v.getName());
+				session.setAttribute("email", v.getEmail());
+				session.setAttribute("studentNumber", v.getStudentId());
+				session.setAttribute("phone", v.getPhoneNumber());
+				session.setAttribute("gender", v.getGender());
 				String[] hobbyList = v.getHobby().split(" ");
-				request.setAttribute("hobbyList", hobbyList);
-				request.setAttribute("birthday", v.getBirthday());
+				session.setAttribute("hobbyList", hobbyList);
+				session.setAttribute("birthday", v.getBirthday());
 				
-				request.setAttribute("gbList", gbList);
-				
-				System.out.println(gbList);
+				session.setAttribute("gbList", gbList);
 			
 			}else { request.setAttribute("isRequestSuccess", "false"); }
 		}catch(SQLException e) {

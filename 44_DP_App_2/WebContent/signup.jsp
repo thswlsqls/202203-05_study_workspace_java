@@ -5,11 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	var pwCheck=function(e){
+		if(e.pw.value != e.pw2.value){
+			alert('비밀번호를 확인하세요.')
+			signupForm.pw.focus();
+			return false;
+		}
+	}
+</script>
 </head>
 <body>
-	<form action="controller?cmd=signup" method="post">
+	<%@ include file="menu.jsp" %>
+	<h1>회원가입</h1>
+	<form onsubmit="return pwCheck(this)" action="controller?cmd=signup" method="post">
 		아이디 <input name="id" required="required"><br>
 		비밀번호 <input name="pw" type="password" required="required"><br>
+		비밀번호확인 <input name="pw2" type="password" required="required"><br>
 		이름 <input name="name" required="required"><br>
 		이메일 <input name="email" required="required">
 		<select name="emailDomain" required="required">

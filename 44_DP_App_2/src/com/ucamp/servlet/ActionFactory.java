@@ -17,6 +17,9 @@ public class ActionFactory {
 		case "login":
 			a=new LoginAction();
 			break;
+		case "guestBookList":
+			a=new GuestBookListAction();
+			break;
 		case "guestBookWriteUI":
 			a=new GuestBookWriteUIAction();
 			break;
@@ -25,6 +28,18 @@ public class ActionFactory {
 			break;
 		case "guestBookUI":
 			a=new GuestBookUIAction();
+			break;
+		case "guestBookUpdateUI":
+			a=new GuestBookUpdateUIAction();
+			break;
+		case "guestBookUpdate":
+			a=new GuestBookUpdateAction();
+			break;
+		case "guestBookDelete":
+			a=new GuestBookDeleteAction();
+			break;
+		case "logout":
+			a=new LogoutAction();
 			break;
 		default :
 			a=new MainAction();  //없거나 모르는 cmd값인 경우			

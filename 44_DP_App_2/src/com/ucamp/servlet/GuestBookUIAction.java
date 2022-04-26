@@ -19,9 +19,11 @@ public class GuestBookUIAction implements Action {
 	public String action(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 
+		String url = "guestBook.jsp";
 		String s=request.getParameter("guestNo");
 		int guestNo = Integer.parseInt(s);
 		GuestBookVO v = null;
+		HttpSession session = request.getSession();
 		
 		try {
 			v = ((UserDAO)(request.getServletContext().getAttribute("dao"))).getGuestBook(guestNo);
@@ -36,6 +38,6 @@ public class GuestBookUIAction implements Action {
 			e.printStackTrace();
 		}
 		
-		return "guestBook.jsp";
+		return url;
 	}
 }

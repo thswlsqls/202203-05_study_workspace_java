@@ -1,6 +1,7 @@
 package com.ucamp.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,7 +62,7 @@ public class UserDAO {
 			pstmt.setString(6,  v.getPhoneNumber());
 			pstmt.setString(7,  v.getGender());
 			pstmt.setString(8,  v.getHobby());
-			pstmt.setString(9,  v.getBirthday());
+			pstmt.setDate(9,  v.getBirthday());
 			int num=pstmt.executeUpdate();	// 처리 결과를 레코드 개수로 제공
 			result = (num == 1);
 		}catch(SQLException e) {
@@ -79,7 +80,7 @@ public class UserDAO {
 						  , String phoneNumber
 						  , String gender
 						  , String hobby
-						  , String birthday) throws SQLException {
+						  , Date birthday) throws SQLException {
 		boolean result = false;
 		
 		String sql = "INSERT INTO"
@@ -95,7 +96,7 @@ public class UserDAO {
 			pstmt.setString(6,  phoneNumber);
 			pstmt.setString(7,  gender);
 			pstmt.setString(8,  hobby);
-			pstmt.setString(9, birthday);
+			pstmt.setDate(9, birthday);
 			int num=pstmt.executeUpdate();	// 처리 결과를 레코드 개수로 제공
 			result = (num == 1);
 		}catch(Exception e) {
@@ -130,7 +131,7 @@ public class UserDAO {
 			v = new UserVO(rs.getString(1)
 						 , rs.getString(2)
 						 , rs.getString(3)
-						 , rs.getString(4)
+						 , rs.getDate(4)
 						 , rs.getString(5)
 						 , rs.getString(6)
 						 , rs.getString(7)
@@ -149,6 +150,7 @@ public class UserDAO {
 				+ ", content"
 				+ ", in_date" 
 				+ " FROM guest_books";
+//				+ " ORDER BY guest_no";
 		
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
@@ -203,4 +205,42 @@ public class UserDAO {
 		}
 		return v;
 	}
+	
+	public boolean updateGuestBook(String updateTitle
+			 , String updateContent
+			 , int guestNo) throws SQLException {
+		boolean result = false;
+		String sql = "UPDATE guest_books "
+		+"SET title=?, content=?, in_date=sysdate "
+		+"WHERE guest_no=?";
+		try {
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, updateTitle);
+		pstmt.setString(2, updateContent);
+		pstmt.setInt(3,guestNo);
+		int num=pstmt.executeUpdate();	// 처리 결과를 레코드 개수로 제공
+		result = (num == 1);
+		}catch(Exception e) {
+		e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean deleteGuestBook(int guestNo) throws SQLException {
+		boolean result = false;
+		String sql = "DELETE "
+					+"FROM guest_books "
+					+"WHERE guest_no=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,guestNo);
+			int num=pstmt.executeUpdate();	// 처리 결과를 레코드 개수로 제공
+			result = (num == 1);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	
 }

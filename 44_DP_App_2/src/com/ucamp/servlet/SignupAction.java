@@ -1,7 +1,11 @@
 package com.ucamp.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,7 +33,14 @@ public class SignupAction implements Action {
 		String year=request.getParameter("year");
 		String month=request.getParameter("month");
 		String day=request.getParameter("day");
-		String birthday = year+"/"+month+"/"+day;
+		String s = year+"/"+month+"/"+day;
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/DD");
+		Date birthday = null;
+		try {
+			birthday = (Date) sdf.parse(s);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		try {
 			if(((UserDAO)(request.getServletContext().getAttribute("dao"))).signup(id
 									, pw
@@ -47,16 +58,6 @@ public class SignupAction implements Action {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("id", id);
-		request.setAttribute("pw", pw);
-		request.setAttribute("name", name);
-		request.setAttribute("email", email);
-		request.setAttribute("emailDomain", emailDomain);
-		request.setAttribute("studentNumber", studentNumber);
-		request.setAttribute("phone", phone);
-		request.setAttribute("gender", gender);
-		request.setAttribute("hobbyList", hobbyList);
-		request.setAttribute("birthday", year+"/"+month+"/"+day);
 		return url;
 	}
 }

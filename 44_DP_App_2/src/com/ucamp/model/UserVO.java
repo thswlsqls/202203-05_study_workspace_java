@@ -1,11 +1,13 @@
 package com.ucamp.model;
 
+import java.sql.Date;
+
 public class UserVO {
 	// ÇÊµå
 	private String userId;
 	private String password;
 	private String name;
-	private String birthday;
+	private Date birthday;
 	private String phoneNumber;
 	private String email;
 	private String gender;
@@ -15,7 +17,7 @@ public class UserVO {
 	
 	public UserVO() {}
 
-	public UserVO(String userId, String password, String name, String birthday, 
+	public UserVO(String userId, String password, String name, Date birthday, 
 			String phoneNumber, String email, String gender, String studentId, String hobby) {
 		this.userId = userId;
 		this.password = password;
@@ -46,10 +48,10 @@ public class UserVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 	public String getPhoneNumber() {
