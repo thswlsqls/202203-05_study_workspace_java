@@ -2,6 +2,7 @@ package com.test.servlet;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -28,11 +29,11 @@ public class SignupAction implements Action {
 			hobby += h;
 			hobby += " ";
 		}
-//		int year = Integer.parseInt(request.getParameter("year"));
-//		int month = Integer.parseInt(request.getParameter("month"));
-//		int day = Integer.parseInt(request.getParameter("day"));
+		int year = Integer.parseInt(request.getParameter("year"));
+		int month = Integer.parseInt(request.getParameter("month"));
+		int day = Integer.parseInt(request.getParameter("day"));
 		
-		String birthday = request.getParameter("year") +"."+request.getParameter("month")+"."+request.getParameter("day");
+		Date birthday = new Date(year, month, day);
 		
 		System.out.println(userId +" "+pw+" "+name+" "+phoneNumber+" "+gender+" "+hobby+" "+birthday);
 		

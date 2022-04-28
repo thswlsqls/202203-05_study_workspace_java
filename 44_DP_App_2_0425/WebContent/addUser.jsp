@@ -20,11 +20,10 @@
 
 <form onsubmit="return pwCheck(this)" action="controller?cmd=addUserAction" method="post">
 
-	 ID <input name="id"><br>
-	 PW <input name="pw"><br>
-	 PW2 <input name="pw2"><br>
-	 name <input name="name"><br>
-	
+	 ID <input type="text" name="id"><br>
+	 PW <input type="password" name="pw"><br>
+	 PW2 <input type="password" name="pw2"><br>
+	 name <input type="text" name="name"><br>
 	<input type="submit" value="회원가입"> 
 
 </form>

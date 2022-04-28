@@ -35,7 +35,7 @@ public class MemberDAO {
 							, String phoneNumber
 							, String gender
 							, String hobby
-							, String birthday)  {
+							, Date birthday)  {
 		boolean result = false;
 		
 		String sql = "INSERT INTO member(user_id, pw, name, phone_number, gender, hobby, birthday) VALUES(?, ?, ?, ?, ?, ?, ?)"; 
@@ -47,9 +47,11 @@ public class MemberDAO {
 			pstmt.setString(4, phoneNumber);
 			pstmt.setString(5, gender);
 			pstmt.setString(6, hobby);
-			pstmt.setString(7, birthday);
+			pstmt.setDate(7, birthday);
 			int num = pstmt.executeUpdate();
 			result = (num==1);
+			conn.commit();
+			pstmt.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

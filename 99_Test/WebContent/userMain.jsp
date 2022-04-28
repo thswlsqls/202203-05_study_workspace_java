@@ -8,5 +8,7 @@
 </head>
 <body>
 	<h1>회원메인</h1>
+	${name}님 안녕하세요.<br>
+	id : ${userId}
 </body>
 </html>
