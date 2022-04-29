@@ -139,6 +139,29 @@ public class VisitorDAO {
 		}
 		return result;
 	}
+	
+	public Collection<VisitorVO> getVisitorListById(String inputId){
+		Collection<VisitorVO> list = new ArrayList<VisitorVO>();
+		String sql = "SELECT visitor_seq, member_id, pw, contents, writer_date" + 
+					 " FROM member_visitor WHERE member_id LIKE ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+inputId+"%");
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new VisitorVO(rs.getInt(1)
+						, rs.getString(2)
+						, rs.getString(3)
+						, rs.getString(4)
+						, rs.getDate(5)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	
 }
 
 

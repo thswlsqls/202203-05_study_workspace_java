@@ -18,5 +18,7 @@ public class TestDAO {
 //		System.out.println(vDao.updateVisitor("3", "수정합니다"));D
 //		System.out.println(vDao.getVisitorPw("1"));
 //		System.out.println(vDao.deleteVisitor("4"));
+//		System.out.println(mDao.isValidAddMemberId("choi"));
+		System.out.println(vDao.getVisitorListById("k"));
 	}
 }

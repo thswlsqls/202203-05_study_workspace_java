@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div></div>
+	<h1>jquery title</h1>
+	
+<script type="text/javascript" src="js/jquery-3.6.0.js"></script>
+
+<script type="text/javascript">
+	$("h1").click(function(){
+		$.ajax({
+			url: "04_server.jsp?no=1234&pw=0000",
+			//url: "controller?cmd="
+			data: {name:"jeonhye0"},
+			success: function(response){
+				$("div").html(response);
+			}
+		})
+	})
+</script>
+	
+</body>
+</html>

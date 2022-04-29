@@ -46,6 +46,12 @@ public class ActionFactory {
 			case "deleteVisitor":
 				a = new DeleteVisitorAction();
 				break;
+			case "addUserIdCheck":
+				a = new AddUserIdCheckAction();
+				break;
+			case "getVisitorListById":
+				a = new GetVisitorListByIdAction();
+				break;
 			default : a = new MainAction();
 		}
 		

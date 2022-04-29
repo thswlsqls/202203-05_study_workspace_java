@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div> </div>
+<h1>hello javascript</h1>
+
+<script type="text/javascript">
+
+	// 브라우저에 비동기 처리 영역 제공
+	var xhr=new XMLHttpRequest(); // 기본으로 제공되지만 메모리에는 로딩되지 않았음
+
+	document.querySelector("h1").onclick = function() {
+		//window.alert('message')
+		// 대기증 메서드
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4){
+				if(xhr.status==200){ //OK
+					window.alert('ok');
+					document.querySelector("div").innerHTML = xhr.responseText;
+				}
+			}	
+		}
+		xhr.open("get", "02_server.jsp", true) // -> 톰캣서버에 계정이 없으므로 이하 생략함 
+		xhr.send(null);
+		
+		//document.querySelector("div").innerHTML = "<h2>h1이 눌렀어</h2>";
+	}
+	
+</script>
+
+</body>
+</html>

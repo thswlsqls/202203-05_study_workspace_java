@@ -89,6 +89,23 @@ public class MemberDAO {
 		return v;
 	}
 	
+	public boolean isValidAddMemberId(String inputId) {
+		boolean result = false;
+		String sql = "SELECT count(member_id)"
+				+ " FROM member_list"
+				+ " WHERE member_id=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result = (rs.getInt(1) >= 1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 
 }

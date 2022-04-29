@@ -5,12 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-3.6.0.js"></script>
+
 </head>
 <body>
-	<%@ include file="menu.jsp" %>
+<%@ include file="menu.jsp" %>
 	<h1>회원가입</h1>
+	<h1></h1>
 	<form action="controller?cmd=addUser" method="post">
-		id:<input type="text" name="userId"><br>
+		id:<input type="text" name="userId" id="inputId"><input type="button" id="idCheck" value="중복확인"> <br>
 		name:<input type="text" name="name"><br>
 		pw1:<input type="password" name="pw1"><br>
 		pw2:<input type="password" name="pw2"><br>	
@@ -28,5 +31,34 @@
 		<input type="submit" value="회원가입">
 		<input type="submit" value="취소" formaction="controller?cmd=main">
 	</form>
+<script type="text/javascript">
+
+	$("#idCheck").click(function(){
+		var inputId = $('#inputId').val();
+		
+		$.ajax({
+			url: "./ajaxController",
+			type:'get',
+			dataType: 'json',
+			data: {"inputId": inputId},
+			success: function(data){
+				if(data.isValidId == "true"){
+					alert(inputId+"은(는) 사용할 수 있는 아이디입니다.");	
+				}else{
+					alert(inputId+"은(는) 이미 존재하는 아이디입니다.");
+					$('#inputId').focus();
+					$('#inputId').val('');
+				}
+				console.log(data);
+			},
+			error: function(request, status, error){
+				console.log(request);
+				alert("code:"+ status);
+				alert(error);
+			}
+		})
+	
+	})
+</script>
 </body>
 </html>
