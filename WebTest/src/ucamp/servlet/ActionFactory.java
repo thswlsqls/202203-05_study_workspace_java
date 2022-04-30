@@ -49,9 +49,6 @@ public class ActionFactory {
 			case "addUserIdCheck":
 				a = new AddUserIdCheckAction();
 				break;
-			case "getVisitorListById":
-				a = new GetVisitorListByIdAction();
-				break;
 			default : a = new MainAction();
 		}
 		

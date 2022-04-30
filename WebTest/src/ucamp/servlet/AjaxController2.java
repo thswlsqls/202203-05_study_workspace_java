@@ -1,6 +1,7 @@
 package ucamp.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collection;
 
 import javax.servlet.ServletConfig;
@@ -14,13 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import ucamp.model.MemberDAO;
 import ucamp.model.VisitorDAO;
 import ucamp.model.VisitorVO;
 
-@WebServlet("/ajaxController2")
+@WebServlet("/ajaxController2NotUse")
 public class AjaxController2 extends HttpServlet {
 
 	@Override
@@ -36,8 +38,9 @@ public class AjaxController2 extends HttpServlet {
 		}
 	}
 	
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
+	protected void service(HttpServletRequest request
+			, HttpServletResponse response) 
+			throws ServletException, IOException {	
 		response.setContentType("text/json");
 		
 		String inputId = request.getParameter("inputId");
@@ -45,14 +48,12 @@ public class AjaxController2 extends HttpServlet {
 		VisitorDAO vDao = (VisitorDAO) request.getServletContext().getAttribute("vDao");
 		Collection<VisitorVO> vList = vDao.getVisitorListById(inputId);
 
-		JsonObject data = new JsonObject();
+		Gson gson = new Gson();
+		String json = gson.toJson(vList);
 		
-		data.addProperty("vList", vList.toString());
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
 		
-		request.setAttribute("vList", vList);
-		
-		response.getWriter().print(data);
-		
+		out.print(json);
 	}
-
 }

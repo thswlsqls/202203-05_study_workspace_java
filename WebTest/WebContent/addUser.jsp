@@ -13,7 +13,7 @@
 	<h1>회원가입</h1>
 	<h1></h1>
 	<form action="controller?cmd=addUser" method="post">
-		id:<input type="text" name="userId" id="inputId"><input type="button" id="idCheck" value="중복확인"> <br>
+		id:<input type="text" name="userId" id="inputId" required="required"><input type="button" id="idCheck" value="중복확인"> <br>
 		name:<input type="text" name="name"><br>
 		pw1:<input type="password" name="pw1"><br>
 		pw2:<input type="password" name="pw2"><br>	
@@ -37,7 +37,7 @@
 		var inputId = $('#inputId').val();
 		
 		$.ajax({
-			url: "./ajaxController",
+			url: "./ajaxController?cmd=checkDuplicateId",
 			type:'get',
 			dataType: 'json',
 			data: {"inputId": inputId},

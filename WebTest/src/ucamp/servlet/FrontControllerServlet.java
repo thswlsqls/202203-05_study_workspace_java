@@ -48,7 +48,7 @@ public class FrontControllerServlet extends HttpServlet {
 			url="main.jsp";
 		}
 		if(cmd !=null ) {
-			a=ActionFactory.getAction(cmd);;
+			a=ActionFactory.getAction(cmd);
 			url=a.action(request); //Action페이지로 이동해서 DAO가 필요하다면 거기서 작업
 		}
 		//공통

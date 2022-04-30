@@ -1,7 +1,6 @@
 package ucamp.servlet;
 
 import java.io.IOException;
-import java.util.Collection;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -11,18 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import ucamp.model.MemberDAO;
 import ucamp.model.VisitorDAO;
-import ucamp.model.VisitorVO;
 
 
-@WebServlet("/ajaxControllerNotUse")
-public class AjaxController extends HttpServlet {
+@WebServlet("/ajaxController")
+public class FrontAjaxControllerServlet extends HttpServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -35,26 +28,21 @@ public class AjaxController extends HttpServlet {
 			application.setAttribute("vDao", new VisitorDAO());
 		}
 	}
-	
-	protected void service(HttpServletRequest request
-			, HttpServletResponse response) 
-					throws ServletException, IOException {
-		
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-
-		String inputId = request.getParameter("inputId");
-
-		JsonObject data = new JsonObject();
+		response.setCharacterEncoding("utf-8");
 		
-		data.addProperty("inputId", inputId);
+		String cmd = request.getParameter("cmd");
+		Object data = null;
 		
-		MemberDAO mDao = (MemberDAO) request.getServletContext().getAttribute("mDao");
-		if(mDao.isValidAddMemberId(inputId)) {
-			data.addProperty("isValidId", "false");
-		}else {
-			data.addProperty("isValidId", "true");
+		AjaxAction aa = null;
+		if(cmd != null) {
+			aa=AjaxActionFactory.getAjaxAction(cmd);
+			data = aa.action(request, response);
 		}
-		response.setCharacterEncoding("UTF-8");
+		
 		response.getWriter().print(data);
 	}
 }

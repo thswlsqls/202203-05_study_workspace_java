@@ -143,7 +143,7 @@ public class VisitorDAO {
 	public Collection<VisitorVO> getVisitorListById(String inputId){
 		Collection<VisitorVO> list = new ArrayList<VisitorVO>();
 		String sql = "SELECT visitor_seq, member_id, pw, contents, writer_date" + 
-					 " FROM member_visitor WHERE member_id LIKE ?";
+					 " FROM member_visitor WHERE member_id LIKE ? ORDER BY visitor_seq";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+inputId+"%");
