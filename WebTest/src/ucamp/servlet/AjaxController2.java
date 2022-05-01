@@ -22,6 +22,7 @@ import ucamp.model.MemberDAO;
 import ucamp.model.VisitorDAO;
 import ucamp.model.VisitorVO;
 
+/**ajax 통신과 GSON 활용법 테스트용임. 사용하지 않음. */
 @WebServlet("/ajaxController2NotUse")
 public class AjaxController2 extends HttpServlet {
 

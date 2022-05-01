@@ -28,9 +28,9 @@ public class CheckDuplicateIdAction implements AjaxAction {
 			data.addProperty("isValidId", "false");
 		}else {
 			data.addProperty("isValidId", "true");
-		}	
+		}
+		
 		return data;
 	}
+
 }
-
-
