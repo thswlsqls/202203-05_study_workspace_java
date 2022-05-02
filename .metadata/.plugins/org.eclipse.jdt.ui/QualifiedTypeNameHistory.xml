@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.school.EnrollmentDAO"/>
-<fullyQualifiedTypeName name="com.school.LectureVO"/>
-<fullyQualifiedTypeName name="com.school.LectureDAO"/>
-<fullyQualifiedTypeName name="com.school.SchoolVO"/>
-<fullyQualifiedTypeName name="com.school.SchoolDAO"/>
-<fullyQualifiedTypeName name="com.school.EnrollmentVO"/>
-<fullyQualifiedTypeName name="com.school.ProfessorDAO"/>
-<fullyQualifiedTypeName name="java.io.InputStream"/>
-<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="java.util.LinkedHashSet"/>
@@ -23,7 +14,6 @@
 <fullyQualifiedTypeName name="java.sql.SQLWarning"/>
 <fullyQualifiedTypeName name="com.ucamp.model.UserVO"/>
 <fullyQualifiedTypeName name="com.sun.glass.ui.Window"/>
-<fullyQualifiedTypeName name="java.io.PrintWriter"/>
 <fullyQualifiedTypeName name="com.ucamp.model.LectureVO"/>
 <fullyQualifiedTypeName name="com.ucamp.model.EnrollmentVO"/>
 <fullyQualifiedTypeName name="com.ucamp.servlet.AddUserAction"/>
@@ -45,7 +35,6 @@
 <fullyQualifiedTypeName name="com.ucamp.model.UserWriterDAO"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
 <fullyQualifiedTypeName name="com.test.servlet.MainAction"/>
-<fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
 <fullyQualifiedTypeName name="javax.security.auth.message.callback.PrivateKeyCallback.Request"/>
 <fullyQualifiedTypeName name="com.test.servlet.ActionFactory"/>
 <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
@@ -53,11 +42,22 @@
 <fullyQualifiedTypeName name="com.test.model.UserDAO"/>
 <fullyQualifiedTypeName name="com.test.model.UserVO"/>
 <fullyQualifiedTypeName name="javax.websocket.Session"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="java.sql.Statement"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.test.model.UserWriterDAO"/>
 <fullyQualifiedTypeName name="com.test.model.UserWriterVO"/>
 <fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
+<fullyQualifiedTypeName name="org.json.simple.JSONObject"/>
+<fullyQualifiedTypeName name="ucamp.model.VisitorDAO"/>
+<fullyQualifiedTypeName name="org.json.simple.JSONArray"/>
+<fullyQualifiedTypeName name="com.google.gson.JsonObject"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="com.google.gson.Gson"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
+<fullyQualifiedTypeName name="ucamp.servlet.ActionFactory"/>
+<fullyQualifiedTypeName name="ucamp.servlet.AjaxActionFactory"/>
+<fullyQualifiedTypeName name="ucamp.servlet.AjaxAction"/>
 </qualifiedTypeNameHistroy>

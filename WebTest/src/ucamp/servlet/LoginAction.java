@@ -24,8 +24,7 @@ public class LoginAction implements Action {
 		MemberDAO mDao = (MemberDAO) request.getServletContext().getAttribute("mDao");
 		String name = mDao.login(memberId, pw);
 		if(name != null) {
-			v = mDao.getMember(memberId);
-			session.setAttribute("loginMember", v);
+			v = mDao.getMember(memberId);			session.setAttribute("loginMember", v);
 			session.setAttribute("memberId", memberId);
 			url = "memberMain.jsp";
 		}
