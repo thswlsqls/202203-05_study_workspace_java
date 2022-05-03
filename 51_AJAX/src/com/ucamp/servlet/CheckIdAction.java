@@ -2,6 +2,7 @@ package com.ucamp.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.gson.JsonObject;
 import com.ucamp.model.UserDAO;
 
 public class CheckIdAction implements Action {
@@ -13,17 +14,25 @@ public class CheckIdAction implements Action {
 		
 		UserDAO dao = new UserDAO();
 		
-		
-		if(dao.checkId(userId) == 0) 
-			request.setAttribute("result", "true"); 
-		else
-			request.setAttribute("result", "false");
-		 
+		JsonObject j=new JsonObject();
+		if(dao.checkId(userId) == 0) {
+//			request.setAttribute("result", "true"); 
+			
+			j.addProperty("idCheck", "true");
+			request.setAttribute("result", j); 
+		}
+		else {
+			j.addProperty("idCheck", "false");
+		    request.setAttribute("result", j);			
+//		    request.setAttribute("result", "false");			
+		}
+
 		/*
 		 * System.out.println(userId); dao.checkId(userId);
 		 */
 		
-		return "result.jsp";
+//		return "result.jsp";
+		return "GsonText.jsp";
 	}
 
 }

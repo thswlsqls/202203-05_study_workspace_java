@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="jquery-3.6.0.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1 align="center">jquery_dom</h1>
+<ul>
+	<li>리스트 없음</li>
+</ul>
+
+<input value="1234">
+
+<script type="text/javascript">
+	var h1Flag = true;
+	$("h1").click(function() {
+		if(h1Flag){
+			$(this).html("<i>새로운 제목</i>");
+			$(this).attr("align", "left");
+			h1Flag=false;
+			//alert($("input").attr("value"));
+			alert($("input").val())
+			$("input").val('')
+		}else{
+			$(this).html("<b>jquery_dom</b>");
+			$(this).attr("align", "center");
+			h1Flag=true;
+		}
+	})
+	
+	var h = $("h1").attr("align");
+	console.log(h);
+	console.log($("h1").text());
+	
+	//$("h1").attr("align", "left");
+	//$("input").attr("type", "password").attr("maxlength", "2");
+	//자바스크립트 객체는 얼핏보면 JSON이랑 비슷 - 차이는 키값에 ""이 없다는 것임. JSON.parse()는 JSON을 자바스크립트 객체로 변환하는 것임
+	/*$("input").attr({type:"password", maxlength:2});*/
+	
+</script>
+</body>
+</html>

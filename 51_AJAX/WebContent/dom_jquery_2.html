@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="jquery-3.6.0.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1 align="center">jquery_dom</h1>
+<button id="addButton">항목 추가</button>
+<button id="removeButton">전체 삭제</button>
+<ul>
+	<li>리스트 없음</li>
+</ul>
+<script type="text/javascript">
+	/*$('#removeButton').click(function(e) {
+		console.log(e);
+		$('ul').html('');
+	})
+	$('#addButton').click(function(e) {
+		console.log(e);
+		$('ul').append('<li>리스트 없음</li>')
+	})*/
+	
+	$('button').click(function(e) {
+		var buttonFlag=$(this).text();
+		switch(buttonFlag){
+		case "전체 삭제":
+			//alert('remove');
+			//$('ul').html('');
+			$('ul').empty();
+			//$('ul').remove();
+			break;
+		case "항목 추가":
+			//alert("add");
+			$('ul').append('<li>New Element</li>');
+			//$('ul').appendTo('<li>New Element</li>')
+		}
+	})
+
+</script>
+</body>
+</html>
