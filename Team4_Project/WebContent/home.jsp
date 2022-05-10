@@ -10,6 +10,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+	<!-- 부트스트랩 아이콘 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+	
     <title>Hello, world!</title>
 	<style type="text/css">
 
@@ -79,7 +82,7 @@
       </div>
       <div class="text writer">
       	작성자<br>
-      	날짜 즐겨찾기 따봉
+      	날짜 <i class="bi bi-star"></i> <i class="bi bi-heart"></i>
       </div>
     </div>
     <div class="carousel-item">

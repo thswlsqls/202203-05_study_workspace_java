@@ -54,7 +54,7 @@
 			      <input type="text" class="form-control userInput" id="nickName" placeholder="-없이 숫자만 입력" name="pw">
 			    </div>
 			    <div class="d-flex form-check mb-3">
-			      <span style="width: 100%; text-align:right; font-size: 2vw;">*이메일, 전화번호 중 하나는 필수적으로 입력</span>
+			      <span style="width: 100%; text-align:right; font-size: 2vw;">‘*’는 필수 입력사항입니다.</span>
 			    </div>
 			  </form>
 			</div>
