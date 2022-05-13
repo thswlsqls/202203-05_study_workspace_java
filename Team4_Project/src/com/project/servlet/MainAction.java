@@ -9,8 +9,9 @@ public class MainAction implements Action {
 
 	@Override
 	public String action(HttpServletRequest request) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		//∏ﬁ¿Œ
+		
+		return "login.jsp";
 	}
 
 }

@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
-	<style type="text/css">
+<title>Hello, world!</title>
+<style type="text/css">
 
     img{
     width: 100vw;
@@ -27,6 +28,7 @@
      color: black;
      font-weight: border;
      background-color: none;
+     
     }
     .contents{
 		top: 50%;
@@ -50,28 +52,35 @@
     .firstKeyword{
    		 top: 30%;
 		left: 50%;
-		transform: translate(-50%,-50% );
+		transform: translate(50%,-50% );
+		margin-top : 50px;
     	width: 20%;
     	height: 10%;
     	border-radius: 50px;
+    	background: linear-gradient(to right, #F9CEEE, #F9F3EE);
     	background-color: #FFD7D7;
     }
     .secondKeyword{
    		width: 50%;
     	height: 25%;
+    	transform: translate(-80%,-50% );
     	border-radius: 150px;
+    	background: linear-gradient(to right, #F8DC7C, #FDFFA9);
     	background-color: #F8DC7C;
     }
     .thirdKeyword{
     	width: 30%;
     	height: 15%;
+    	margin-top:-50px;
     	border-radius: 120px;
+    	background: linear-gradient(to right, #C4DDFF, #7FB5FF);
     	background-color: #82E5FB;
     }
-	</style>
-  </head>
-  <body>
-  	<!-- navbar -->
+  
+</style>
+</head>
+<body>
+  	<!-- navbar 
 <ul class="nav nav-pills nav-justified fixed-top">
   <li class="nav-item">
     <a class="nav-link" aria-current="page" href="#">친구</a>
@@ -85,32 +94,32 @@
   <li class="nav-item">
     <a class="nav-link">트렌트</a>
   </li>
-</ul>
-<div id="carouselExampleControls" class="carousel slide">
-  <div class="carousel-inner">
-    <div class="carousel-item active image col-md-12 " >
+</ul>-->
+<%@include file="howAreYouBtn.jsp" %>
+    
       <img src="img/1.jpg" class="d-block" alt="...">
  		<div class="d-flex flex-column justify-content-center align-items-center">
  			<div class="text title">
  				<h5><b>지금 다른 사람들은</b></h5>
  			</div>
  			 <div class="text title firstKeyword">
-		      	<!-- 2. 사진안에 텍스트 공간, 3.내비게이션바 글자크기 조절? 4. 마이페이지도... 5. 로그인페이지, 6. 회원가입,  -->
+		      	<a href='controller?cmd=trendAction&emotionName=${trendlist[2] }' >${trendlist[2] }</a>
 		      </div>
 		      <div class="text contents secondKeyword">
-		      	<!-- 2. 사진안에 텍스트 공간, 3.내비게이션바 글자크기 조절? 4. 마이페이지도... 5. 로그인페이지, 6. 회원가입,  -->
+		      	<a href='controller?cmd=trendAction&emotionName=${trendlist[0] }' >${trendlist[0] }</a>
 		      </div>
 		      <div class="text writer thirdKeyword">
-		      </div>	
+		        <a href='controller?cmd=trendAction&emotionName=${trendlist[1] }' > ${trendlist[1] }</a>
+		      </div>
  		</div>
-    </div>    
+        
     <!-- <div class="carousel-item">
       <img src="img/2.jpg" class="d-block " alt="...">
     </div>
     
     <div class="carousel-item">
       <img src="img/3.jpg" class="d-block " alt="..." >
-    </div> -->
+    </div> 
     
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -121,7 +130,7 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
-</div>
+</div>-->
 <%@include file="menu.jsp" %>
     <!-- Optional JavaScript; choose one of the two! -->
 

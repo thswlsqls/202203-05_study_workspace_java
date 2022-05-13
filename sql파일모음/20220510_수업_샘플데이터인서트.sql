@@ -12,6 +12,7 @@ select * from app_user;
 insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('test1','테스트1','pen_test1','1234','test1@naver.com','01011112222');
 insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('test2','테스트2','pen_test2','1234','test2@naver.com','01011112222');
 insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('test3','테스트3','pen_test3','1234','test3@naver.com','01011112222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('test4','테스트4','pen_test4','1234','thswlsqls@naver.com','01011112222');
 
 /** 공감 테이블 샘플 데이터 */
 insert into empathy values(empathy_no_seq.nextval,'test1','840',sysdate);
@@ -265,8 +266,6 @@ insert into suggestion values('654', '650', '되짚다');
 insert into suggestion values('655', '650', '초콜릿');
 insert into suggestion values('656', '650', '친구');
 
-
-
 insert into emotion values('710', '지루함', '답답해요');
 insert into suggestion values('711', '710', '명상');
 insert into suggestion values('712', '710', '일거리');
@@ -349,46 +348,108 @@ insert into suggestion values('854', '850', '실패');
 insert into suggestion values('855', '850', '불안감');
 insert into suggestion values('856', '850', '트라우마');
 
-SELECT * FROM board;
-SELECT * FROM suggestion;
 
-select s.suggestion_name, b.contents, a.pen_name, b.write_date
-		from app_user a, board b, suggestion s 
-		where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code
-		and rownum<=10
-		order by b.write_date desc;
 
 /**게시글 테이블 샘플데이터 */
 INSERT INTO 
 board(WRITE_NO, WRITER_ID, SUGGESTION_CODE, CONTENTS, SHARE_STATUS, WRITE_DATE)
-VALUES(WRITE_NO_SEQ.nextval, 'test1', '112', '고기라는 제시어로 작성', '전체', sysdate);
+VALUES(WRITE_NO_SEQ.nextval, 'test2', '112', 'test2가 고기라는 제시어로 작성', '전체', sysdate);
 
 INSERT INTO 
 board(WRITE_NO, WRITER_ID, SUGGESTION_CODE, CONTENTS, SHARE_STATUS, WRITE_DATE)
-VALUES(WRITE_NO_SEQ.nextval, 'test1', '113', '노래라는 제시어로 작성', '전체', sysdate);
+VALUES(WRITE_NO_SEQ.nextval, 'test2', '113', 'test2가 노래라는 제시어로 작성', '전체', sysdate);
 
 INSERT INTO 
 board(WRITE_NO, WRITER_ID, SUGGESTION_CODE, CONTENTS, SHARE_STATUS, WRITE_DATE)
 VALUES(WRITE_NO_SEQ.nextval, 'test1', '114', '축제라는 제시어로 작성', '전체', sysdate);
 
 
+SELECT * FROM board;
+SELECT * FROM reaction;
+
 /** 리액션 테이블 샘플 데이터 */
 insert into reaction values('test1','1',sysdate);
+insert into reaction values('test2','1',sysdate);
+insert into reaction values('test1','6',sysdate);
+insert into reaction values('test1','2',sysdate);
+
+
+/** 팔로우 리스트 테이블 샘플 데이터 */
+insert into 
+follow_list(follow_no, followee_id, follower_id, follow_date) 
+values(FOLLOW_NO_SEQ.nextval, 'test1','test2', sysdate);
+
+insert into 
+follow_list(follow_no, followee_id, follower_id, follow_date) 
+values(FOLLOW_NO_SEQ.nextval, 'test1','test3', sysdate);
+
+insert into 
+follow_list(follow_no, followee_id, follower_id, follow_date) 
+values(FOLLOW_NO_SEQ.nextval, 'test2','test1', sysdate);
+
+insert into 
+follow_list(follow_no, followee_id, follower_id, follow_date) 
+values(FOLLOW_NO_SEQ.nextval, 'test2','test3', sysdate);
+
+insert into 
+follow_list(follow_no, followee_id, follower_id, follow_date) 
+values(FOLLOW_NO_SEQ.nextval, 'test3','test2', sysdate);
+
 
 commit;
 
+SELECT * FROM follow_list;
+
+/** 북마크 테이블 샘플 데이터 */
+INSERT INTO 
+bookmark(user_id, write_no, bookmark_date)
+VALUES('test1', '6', sysdate);
+
+INSERT INTO 
+bookmark(user_id, write_no, bookmark_date)
+VALUES('test1', '1', sysdate);
+
+INSERT INTO 
+bookmark(user_id, write_no, bookmark_date)
+VALUES('test2', '1', sysdate);
+
+/** 공감 테이블 샘플 데이터 */
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test1', '110', sysdate);
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test2', '110', sysdate);
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test3', '110', sysdate);
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test1', '120', sysdate);
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test2', '120', sysdate);
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test1', '130', sysdate);
+
+insert into empathy values(?,?,sysdate);
+
+commit;
+
+SELECT * FROM emotion;
+SELECT * FROM follow_list;
+SELECT * FROM reaction;
+SELECT * FROM bookmark;
+SELECT * FROM board;
+SELECT * FROM suggestion;
+SELECT * FROM empathy;
+SELECT * FROM app_user;
 
 
+SELECT * FROM board;
 
-
-
-
-
-
-
-
-
-
+SELECT count(*) FROM reaction WHERE write_no = '1';
 
 
 

@@ -17,7 +17,6 @@ public class CheckIdAction implements Action {
 		JsonObject j=new JsonObject();
 		if(dao.checkId(userId) == 0) {
 //			request.setAttribute("result", "true"); 
-			
 			j.addProperty("idCheck", "true");
 			request.setAttribute("result", j); 
 		}

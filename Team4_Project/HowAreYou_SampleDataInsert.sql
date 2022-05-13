@@ -358,7 +358,7 @@ select s.suggestion_name, b.contents, a.pen_name, b.write_date
 		and rownum<=10
 		order by b.write_date desc;
 
-/**게시글 테이블 샘플데이터 */
+/**보드 테이블 샘플데이터 */
 INSERT INTO 
 board(WRITE_NO, WRITER_ID, SUGGESTION_CODE, CONTENTS, SHARE_STATUS, WRITE_DATE)
 VALUES(WRITE_NO_SEQ.nextval, 'test1', '112', '고기라는 제시어로 작성', '전체', sysdate);
@@ -374,6 +374,80 @@ VALUES(WRITE_NO_SEQ.nextval, 'test1', '114', '축제라는 제시어로 작성', '전체', s
 
 /** 리액션 테이블 샘플 데이터 */
 insert into reaction values('test1','1',sysdate);
+insert into reaction values('test2','1',sysdate);
+insert into reaction values('test1','6',sysdate);
+insert into reaction values('test1','2',sysdate);
+
+
+/** 팔로우 리스트 테이블 샘플 데이터 */
+insert into 
+follow_list(follow_no, followee_id, follower_id, follow_date) 
+values(FOLLOW_NO_SEQ.nextval, 'test1','test2', sysdate);
+
+insert into 
+follow_list(follow_no, followee_id, follower_id, follow_date) 
+values(FOLLOW_NO_SEQ.nextval, 'test1','test3', sysdate);
+
+insert into 
+follow_list(follow_no, followee_id, follower_id, follow_date) 
+values(FOLLOW_NO_SEQ.nextval, 'test2','test1', sysdate);
+
+
+/** 북마크 테이블 샘플 데이터 */
+INSERT INTO 
+bookmark(user_id, write_no, bookmark_date)
+VALUES('test1', '6', sysdate);
+
+INSERT INTO 
+bookmark(user_id, write_no, bookmark_date)
+VALUES('test1', '1', sysdate);
+
+INSERT INTO 
+bookmark(user_id, write_no, bookmark_date)
+VALUES('test2', '1', sysdate);
+
+
+/** 공감 테이블 샘플 데이터 */
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test1', '110', sysdate);
+
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test2', '110', sysdate);
+
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test3', '110', sysdate);
+
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test1', '120', sysdate);
+
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test2', '120', sysdate);
+
+INSERT INTO 
+empathy(empathy_no, user_id, emotion_code, empathy_date)
+VALUES(EMPATHY_NO_SEQ.nextval, 'test1', '130', sysdate);
+
+
+/**회원 샘플데이터*/
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('bmh2787','김용헌','펜으로말한다','1234','bmh2988@gmail.com','01066262988');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('lovedive','장원영','슬픈그림자','1234','shadow@naver.com','01022112222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('easyhoon','이지훈','잼잼','1234','jam@naver.com','01014112222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('tomboy','송우기','우기우기','1234','woogi@naver.com','01011212222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('buzz','민경훈','그대기억이','1234','buzz@naver.com','01011142222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('bts_love','박사랑','슈가남편','1234','sugar@naver.com','01042112222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('faker','김상혁','짧은호흡','1234','faker@naver.com','01014612222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('wannabe','김진호','소모는남자','1234','abc1@naver.com','01011712222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('changi','김찬기','외강내유','1234','kcg@naver.com','01011182222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('inhyeok','박인혁','C못해요','1234','pih@naver.com','01049112222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('hyeonhee','장현희','집사3년차','1234','jhh@naver.com','01011912222');
+insert into app_user(user_id, name, pen_name, user_pw, email, tel) values('eunbin','손은빈','수다쟁이','1234','seb@naver.com','01088112222');
+
+
 
 commit;
 

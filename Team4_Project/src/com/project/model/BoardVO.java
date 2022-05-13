@@ -6,22 +6,17 @@ import java.sql.Date;
 
 public class BoardVO {
 
-	public BoardVO(String suggestionName
-			, String contents
-			, String penName
-			, Date writeDate
-			, String emotionCode){
-		this(null, null, penName, contents, writeDate, emotionCode, suggestionName, null);
-	}
-	
-	public BoardVO(String writeNo
+	public BoardVO(
+			String writeNo
 			, String writerId
 			, String penName
 			, String contents
 			, Date writeDate
 			, String emotionCode
 			, String suggestionName
-			, String shareStatus) {
+			, String shareStatus
+			, String emotionName
+			, String suggestionCode) {
 		super();
 		setWriteNo(writeNo);
 		setWriterId(writerId);
@@ -31,14 +26,58 @@ public class BoardVO {
 		setEmotionCode(emotionCode);
 		setSuggestionName(suggestionName);
 		setShareStatus(shareStatus);
+		setEmotionName(emotionName);
+		setSuggestionCode(suggestionCode);
 	}
 	
-	/**게시글 조회
-	 * select s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code
+	/**게시글 조회 -> 글번호 필요함
+	 * select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code
 		from app_user a, board b, suggestion s, emotion e
 		where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code
 		and e.emotion_code = ? ;
 	 *  */
+	 /**
+	  *  친구글 목록 조회 -> 글번호 필요함
+		SELECT s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code
+		FROM app_user a, board b, suggestion s, emotion e, follow_list fl
+		WHERE b.writer_id = a.user_id 
+		AND b.suggestion_code = s.suggestion_code 
+		AND a.user_id = fl.followee_id
+		AND e.emotion_code = s.emotion_code
+		AND fl.follower_id = ?
+		ORDER BY write_date DESC;
+	  * */
+	/**
+	 * 즐겨찾기 글 상세조회
+	 * select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code
+		from board b, app_user a, bookmark bm , suggestion s, emotion e
+		WHERE a.user_id = b.writer_id
+		and b.write_no = bm.write_no
+		and b.suggestion_code = s.suggestion_code
+		and s.emotion_code = e.emotion_code 
+		and bm.user_id = 'test1'
+		AND bm.write_no = '1';
+	 * */
+	/**
+	 * --28. 트렌드별 글 조회
+		select b.write_no, s.SUGGESTION_NAME, b.contents, a.pen_name, b.write_date, , e.emotion_code 
+		from board b, suggestion s, emotion e, app_user a
+		where a.user_id = b.writer_id
+		and s.suggestion_code = b.suggestion_code
+		and e.emotion_code = s.emotion_code
+		and e.emotion_name = '즐거워요';
+	 * */
+
+	public BoardVO(String writeNo
+			, String suggestionName
+			, String contents
+			, String penName
+			, Date writeDate
+			, String emotionCode
+			, String emotionName){
+		this(writeNo, null, penName, contents, writeDate, emotionCode, suggestionName, null, emotionName, null);
+	}
+	
 //	public BoardVO(String suggestionName
 //			, String contents
 //			, String penName
@@ -51,17 +90,19 @@ public class BoardVO {
 //		setEmotionCode(emotionCode);
 //	}
 	
-	/**새로운 게시물 목록 조회 
-	 * select s.suggestion_name, b.contents, a.pen_name, b.write_date
+	/**새로운 게시물 목록 조회 -> 글번호 필요함
+	 * select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date
 		from app_user a, board b, suggestion s 
 		where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code
 		and rownum<=10
 		order by b.write_date desc;
 	 * */
-	public BoardVO(String suggestionName
+	public BoardVO(String writeNo
+			, String suggestionName
 			, String contents
 			, String penName
 			, Date writeDate) {
+		setWriteNo(writeNo);
 		setSuggestionName(suggestionName);
 		setContents(contents);
 		setPenName(penName);
@@ -82,7 +123,26 @@ public class BoardVO {
 	    ORDER BY b.write_date desc, rCnt, bmCnt desc;
 	 * 
 	 * */
-
+	
+	public BoardVO(
+			int rCnt
+			, String writeNo
+			, String contents
+			, Date writeDate
+			, String shareStatus
+			, String writerId
+			, String suggestionCode
+			, String penName
+			) {
+		setrCnt(rCnt);
+		setWriteNo(writeNo);
+		setContents(contents);
+		setWriteDate(writeDate);
+		setShareStatus(shareStatus);
+		setWriterId(writerId);
+		setSuggestionCode(suggestionCode);
+		setPenName(penName);
+	}
 	public BoardVO(
 			int rCnt
 			, int bmCnt
@@ -102,27 +162,50 @@ public class BoardVO {
 		setWriterId(writerId);
 		setSuggestionCode(suggestionCode);
 	}
+	/**
+	    * 검색(제시어, 필명)
+		*  select b.write_date, a.pen_name, s.suggestion_name from app_user a, board b, suggestion s where s.suggestion_name = ?;
+	    * */
+	/**
+	 * --16. 즐겨찾기 글 목록 조회
+		select bo.write_no, bm.bookmark_date, s.suggestion_name, a.pen_name
+		from bookmark bm, board bo, suggestion s, app_user a
+		where bm.write_no = bo.write_no 
+		and bo.suggestion_code = s.suggestion_code
+		and a.user_id = bo.writer_id
+		and bm.USER_ID = 'test2';
+	 * 
+	 * */
 	
 	public BoardVO(
-			int rCnt
-			, String writeNo
-			, String contents
+			String writeNo
 			, Date writeDate
-			, String shareStatus
-			, String writerId
-			, String suggestionCode
+			, String penName
+			, String suggestionName
 			) {
-		setrCnt(rCnt);
 		setWriteNo(writeNo);
-		setContents(contents);
 		setWriteDate(writeDate);
-		setShareStatus(shareStatus);
-		setWriterId(writerId);
-		setSuggestionCode(suggestionCode);
+		setPenName(penName);
+		setSuggestionName(suggestionName);
 	}
-
 	
 	
+	/***/
+//       public BoardVO(String suggestionName
+//	         , String contents
+//	         , String penName
+//	         , Date writeDate
+//	         , String emotionCode){
+//	      this(null, null, penName, contents, writeDate, emotionCode, suggestionName,null);
+//	   }
+	
+//	   public BoardVO(String suggestionName
+//		         , String contents
+//		         , String penName
+//		         , Date writeDate
+//		         , String emotionCode){
+//		      this(null, null, penName, contents, writeDate, emotionCode, suggestionName, null);
+//		   }
 	
 	private String suggestionName;
 
@@ -130,6 +213,7 @@ public class BoardVO {
 	private String penName;
 	private Date writeDate;
 	private String emotionCode;
+	private String emotionName;
 	
 	private String writeNo;
 	private String shareStatus;
@@ -194,6 +278,14 @@ public class BoardVO {
 
 	public void setEmotionCode(String emotionCode) {
 		this.emotionCode = emotionCode;
+	}
+	
+	public String getEmotionName() {
+		return emotionName;
+	}
+
+	public void setEmotionName(String emotionName) {
+		this.emotionName = emotionName;
 	}
 
 	public String getWriteNo() {

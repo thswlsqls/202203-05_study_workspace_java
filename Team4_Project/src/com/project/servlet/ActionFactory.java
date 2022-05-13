@@ -23,18 +23,48 @@ public class ActionFactory {
 		case "addUserAction":
 			a=new AddUserAction();
 			break;
+	   case "bookmarkListAction":
+             a=new BookmarkListAction();
+             break;
+	   case "boardDetailUI":
+           a=new BoardDetailUIAction();
+           break;
+	   case "boardThemeListUI":
+           a=new BoardThemeListUIAction();
+           break;
+	   case "checkBookmarkAction":
+		   a=new CheckBookmarkAction();
+		   break;
 		case "checkEmotionUI":
 			a=new CheckEmotionUIAction();
 			break;
 		case "checkEmotionAction":
 			a=new CheckEmotionAction();
 			break;
+		case "checkGoodAction":
+			a=new CheckGoodAction();
+			break;
 		case "checkSuggestionAction":
 			a=new CheckSuggestionAction();
 			break;
+      case "checkIdAction":
+             a=new CheckIdAction();
+             break;
+      case "checkPenNameAction":
+             a=new CheckPenNameAction();
+             break;
+      case "countGoodAction":
+          a=new CountGoodAction();
+          break;
 		case "myPageUI":
 			a=new MyPageUIAction();
 			break;
+      case "myPageAction":
+             a=new MyPageAction();
+             break;
+      case "mypageWriteAction":
+             a=new MypageWriteAction();
+             break;
 		case "homeUI":
 			a=new HomeUIAction();
 			break;
@@ -62,6 +92,12 @@ public class ActionFactory {
 		case "searchAction":
 			a=new SearchAction();
 			break;
+        case "sendPwMailAction":
+            a=new SendPwMailAction();
+            break;
+		case "sortedfriendListUI":
+			a=new sortedfriendListUIAction();
+			break;
 		case "bookmarkAction":
 			a=new BookmarkAction();
 			break;
@@ -77,12 +113,18 @@ public class ActionFactory {
 		case "friendListUI":
 			a=new FriendListUIAction();
 			break;
+		case "friendWriteListUI":
+			a=new FriendWriteListUIAction();
+			break;
 		case "goodDeleteAction":
 			a=new GoodDeleteAction();
 			break;
 		case "goodAddAction":
 			a=new GoodAddAction();
 			break;
+        case "getEmotionsAction":
+            a=new GetEmotionsAction();
+            break;
 		case "findUserUI":
 			a=new FindUserUIAction();
 			break;
@@ -92,6 +134,9 @@ public class ActionFactory {
 		case "findPw":
 			a=new FindPwAction();
 			break;
+		case "insertEmpathy":
+	         a=new InsertEmpathyAction();
+	         break;
 		case "trendUI":
 			a=new TrendUIAction();
 			break;
@@ -107,9 +152,17 @@ public class ActionFactory {
 		case "refreshSuggestionAction":
 			a=new RefreshSuggestionAction();
 			break;
+		 case "refreshEmotionAction":
+	         a=new RefreshEmotionAction();
+	         break;
 		case "newListUI":
 			a=new NewListUIAction();
-			break;
+			break;    
+		case "bookmarkListUI2":
+	         a=new BookmarkListUI2Action();
+	        break;  
+
+
 		default :
 			a=new MainAction();  //없거나 모르는 cmd값인 경우			
 		}	

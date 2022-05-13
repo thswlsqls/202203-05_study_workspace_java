@@ -10,45 +10,64 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script>
+	
+</script>
 	<div class="d-flex flex-column justify-content-center align-items-center viewContainer">
 		<div class="d-flex flex-column justify-content-center align-items-center">
 			<div class="d-flex flex-column justify-content-center align-items-center">
 				<h1><b>아이디 찾기</b></h1>
 			</div>
+			
 			<div class="p-2 container mt-3 submitFormContainer">
-			  <form action="/action_page.php" class="submitForm">
+			
+			  <form action="controller?cmd=findId" class="submitForm" method="post">
 			    <div class="d-flex mb-3 mt-3">
-			      <label for="id">이름</label>
-			      <input type="text" class="form-control userInput" id="id" placeholder="Enter name" name="id">
+			      <label class="searchLabel">이름</label>
+			      <input type="text" class="form-control userInput" id="name" 
+			      placeholder="Enter Your Name" name="name">
 			    </div>
 			    <div class="d-flex mb-3">
-			      <label class="searchLabel" for="pwd">이메일 또는  전화번호</label>
-			      <input type="password" class="form-control userInput" id="pw" placeholder="Enter password" name="pw">
+			      <label class="searchLabel">이메일</label>
+			      <input type="text" class="form-control userInput" id="email" 
+			      placeholder="Enter Your Password" name="email">
 			    </div>
-			    <button type="submit" class="btn btn-primary w-100 submitBtn">아이디 찾기</button>
+			    <button type="submit" class="btn btn-primary w-100 submitBtn" >
+			    	아이디 찾기
+			    </button>
 			  </form>
+			<!-- onclick="location.href='controller?cmd=findId'" -->
 			</div>
 			<div class="d-flex justify-content-around w-100" >
 				<span class="descSpan">* 아이디가 이메일로 전송 됩니다.</span>
 			</div>
+			
+			
 			<hr />
+			
+			
 			<div class="d-flex flex-column justify-content-center align-items-center">
 				<h1><b>비밀번호 찾기</b></h1>
 			</div>
-				<div class="p-2 container mt-3 submitFormContainer">
-			  <form action="/action_page.php" class="submitForm">
-			    <div class="d-flex mb-3 mt-3">
-			      <label for="id">이름</label>
-			      <input type="text" class="form-control userInput" id="id" placeholder="Enter name" name="id">
-			    </div>
-			    <div class="d-flex mb-3">
-			      <label class="searchLabel" for="pwd">이메일 또는 전화번호 </label>
-			      <input type="password" class="form-control userInput" id="pw" placeholder="Enter password" name="pw">
-			    </div>
-			    <div class="d-flex mb-3">
-			      <label class="searchLabel" for="pwd">인증번호 </label>
-			      <input type="password" class="form-control userInput" id="pw" placeholder="Enter number" name="pw">
-			    </div>
+				<div class="p-2 container mt-3 submitFormContainer" >
+			 	<form action="controller?cmd=sendPwMailAction" method="post"class="submitForm">
+				    <div class="d-flex mb-3 mt-3">
+				      <label class="searchLabel">아이디</label>
+				      <input type="text" class="form-control userInput" id="userId" placeholder="Enter Your Id" name="userId">
+				    </div>
+				    <div class="d-flex mb-3">
+				      <label class="searchLabel" for="pwd">이메일</label>
+				      <input type="text" class="form-control userInput" id="email" placeholder="Enter Your Email" name="email">
+				    </div>
+				     <div class="d-flex mb-3">
+				     	<button type="submit"  class="btn btn-primary w-100 submitBtn">인증번호 요청</button><br>
+				     </div>
+			    </form>
+			    <form action="controller?cmd=findPw" class="submitForm" method="post">
+				    <div class="d-flex mb-3">
+				      <label class="searchLabel" for="pwd">인증번호 </label>
+				      <input type="text" class="form-control userInput" id="certNum" placeholder="Enter number" name="certNum">
+				    </div>
 			    <button type="submit" class="btn btn-primary w-100 submitBtn">비밀번호 찾기</button>
 			  </form>
 			</div>

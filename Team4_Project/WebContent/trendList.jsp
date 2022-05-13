@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,60 +48,54 @@
 	left: 50%;
 	transform: translate(-50%,-50% );
     }
+    .boardListContainer{
+    	padding-top: 12vh;
+    
+    }
+    .boardcontainer{
+   		max-height:30vh;
+    }
+    .clickableBackground{
+		width:100%;
+		height:100%;
+		background-color: transparent;
+		background-repeat: no-repeat;
+		border: none;
+	}
+	.themasBtn{
+		width:
+	}
+	.boardBtnInner{
+		width:100%;
+		max-height:20vh;
+	}
 	</style>
   </head>
   <body>
   	<!-- navbar -->
-<ul class="nav nav-pills nav-justified fixed-top">
-  <li class="nav-item">
-    <a class="nav-link" aria-current="page" href="#">친구</a>
-  </li>
-  <li class="nav-item ">
-    <a class="nav-link text-danger" href="#">실시간추천</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">새로운</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link">트렌트</a>
-  </li>
-</ul>
-<div id="carouselExampleControls" class="carousel slide">
-  <div class="carousel-inner">
-    <div class="carousel-item active image col-md-12" >
-      <img src="img/1.jpg" class="d-block" alt="...">
-      <div class="text title">
-      	#감정키워드자리
-      	<!-- 2. 사진안에 텍스트 공간, 3.내비게이션바 글자크기 조절? 4. 마이페이지도... 5. 로그인페이지, 6. 회원가입,  -->
-      </div>
-      <div class="text contents">
-      	제시어<br>
-      	작성글<br>
-      	작성글<br>
-      	
-      	<!-- 2. 사진안에 텍스트 공간, 3.내비게이션바 글자크기 조절? 4. 마이페이지도... 5. 로그인페이지, 6. 회원가입,  -->
-      </div>
-      <div class="text writer">
-      	작성자<br>
-      	날짜 <i class="bi bi-star-fill"></i> <i class="bi bi-heart-fill"></i>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="img/2.jpg" class="d-block " alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="img/3.jpg" class="d-block " alt="..." >
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+<%@include file="howAreYouBtn.jsp" %>
+<div class="boardListContainer d-flex flex-column">
+
+	<c:forEach var="v" items="${list}" varStatus="status">
+		<div class="boardcontainer mt-3 p-2" style="max-height:30vh;">
+	      <button class="clickableBackground" type="button" onclick="location.href='controller?cmd=boardDetailUI&writeNo=${v.writeNo}'" >
+			<div class="card img-fluid boardBtnInner">
+			    <img class="card-img-top" src="img/2.jpg" alt="Card image" style="width:100%">
+			    <div class="card-img-overlay">
+			      <h4 class="card-title">${v.suggestionName}</h4>
+			     <!-- <p class="card-text">${v.contents}</p>  --> 
+			      <br>
+			      <span>작성자  : ${v.penName}</span>
+			      <br>
+			      <span>날짜  : ${v.writeDate}</span>
+			      <br>
+			    </div>
+			  </div>
+		  </button>
+		</div>
+	</c:forEach>
 </div>
+
 <%@include file="menu.jsp" %>
     <!-- Optional JavaScript; choose one of the two! -->
 

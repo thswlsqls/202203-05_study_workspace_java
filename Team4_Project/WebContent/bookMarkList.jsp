@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,15 +10,34 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script type="text/javascript" src="js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
-	window.onload = function() {
-		today = new Date();
-		console.log("today.toISOString() >>>" + today.toISOString());
-		today = today.toISOString().slice(0, 10);
-		console.log("today >>>> " + today);
-		bir = document.getElementById("today");
-		bir.value = today;
-	}
+var changeSelect = function(){
+	 var selectOpt=$("select[name=selectbox] option:selected").val();
+	
+	 $.ajax({
+		url : "controller?cmd=bookmarkListUI2",
+		type : "post",
+	 	data : {selectOpt : selectOpt},
+	 	success : function(resp){
+	 		var jsonResponse = JSON.parse(resp);
+			$("#bookmarkList").empty();
+			$.each(jsonResponse, function(index, value){
+				$("#bookmarkList").append(
+						"<div class='row mypage-text' style='text-align: center;'> "+
+						"<div class='col-4' >"+value.writeDate+"</div>"+
+						"<div class='col-4' >"+value.penName+"</div>"+
+						"<div class='col-4' >"+
+						"<a href='controller?cmd=bookmarkListAction"+"&wn="+value.writeNo+"'>"+
+								value.suggestionName+"</a>"+"</div>"+
+					"</div><br>"
+						);
+			});
+	 	},error:function(){
+			alert("통신실패");
+		}
+	 });
+}
 </script>
 <style type="text/css">
 body{
@@ -88,10 +108,10 @@ body{
 	<div class="row" style="text-align: center;">
 		<div class="col-6" ><strong>나의 즐겨찾기 목록</strong></div>
 		<div class="col-6" >
-			<select>
-				<option selected="selected" value = "date">날짜순</option>
-				<option value = "word">가나다순</option>
-				<option value = "name">필명 순</option>
+			<select id="selectbox" name="selectbox" onchange="changeSelect()">
+				<option selected="selected" value = "date" id="date">날짜순</option>
+				<option value = "word" id="word">제시어순</option>
+				<option value = "name" id="name">필명 순</option>
 			</select>
 		</div>
 	
@@ -99,32 +119,22 @@ body{
 	<div class="container" style="width: 100%"><br>
 	<div class="row" style="text-align: center;">
 		<div class="col-4" >날짜</div>
-		<div class="col-4" >제시어</div>
 		<div class="col-4" >필명</div>
+		<div class="col-4" >제시어</div>
 	</div>
 	</div>
 	
 	<hr color="black" width="100%">
-	<div class="container" style="width: 100%">
-	<div class="row mypage-text" style="text-align: center;">
-		<div class="col-4" >2022.03.25</div>
-		<div class="col-4" >하루</div>
-		<div class="col-4" >기린이키린</div>
-	</div>
-	<br>
-	<div class="row mypage-text" style="text-align: center;">
-		<div class="col-4" >2022.04.25</div>
-		<div class="col-4" >노을</div>
-		<div class="col-4" >jeonhye0</div>
-	</div>
-	<br>
-	<div class="row mypage-text" style="text-align: center;">
-		<div class="col-4" >2022.05.02</div>
-		<div class="col-4" >바람</div>
-		<div class="col-4" >eunbin son</div>
-	</div>
-	<br>
 	
+	<div class="container" style="width: 100%" id="bookmarkList">
+	<c:forEach items="${list}" var = "l">
+		<div class="row mypage-text" style="text-align: center;">
+		<div class="col-4" >${l.getWriteDate()}</div>
+		<div class="col-4" >${l.getPenName()}</div>
+		<div class="col-4" >${l.getSuggestionName()}</div>
+	</div>
+	<br>
+	</c:forEach>
 	</div>
 </div>
 

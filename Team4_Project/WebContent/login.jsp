@@ -18,7 +18,7 @@
 				<h1><b>Log-In</b></h1>
 			</div>
 			<div class="p-2 container mt-3 submitFormContainer">
-			  <form action="/action_page.php" class="submitForm">
+			  <form action="controller?cmd=loginAction" class="submitForm" method="post">	<!-- **** -->
 			    <div class="d-flex mb-3 mt-3">
 			      <label for="id">ID</label>
 			      <input type="text" class="form-control userInput" id="id" placeholder="Enter id" name="id">
@@ -36,8 +36,8 @@
 			  </form>
 			</div>
 			<div class="d-flex justify-content-around w-100" >
-				<button type="button" class="btn linkBtn ">회원가입</button>
-				<button type="button" class="btn linkBtn">ID/PW 찾기</button>
+				<button type="button" class="btn linkBtn" onclick="location.href='controller?cmd=addUserUI'">회원가입</button>
+				<button type="button" class="btn linkBtn" onclick="location.href='controller?cmd=findUserUI'">ID/PW 찾기</button>
 			</div>
 		</div>
 	</div>

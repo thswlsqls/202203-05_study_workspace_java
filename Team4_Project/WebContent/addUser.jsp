@@ -7,24 +7,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="js/jquery-3.6.0.js"></script>
+
+  <script type="text/javascript">
+  var idSpaceCheck = function(data) {
+		var pattern = /\s/gi;
+		data = data.replace(pattern, "");
+		$("#id").val(data);
+		return data;
+	}
+  var pwSpaceCheck = function(data) {
+		var pattern = /\s/gi;
+		data = data.replace(pattern, "");
+		$("#nickName").val(data);
+		return data;
+	}
+  </script>
+  
+ 
 <title>Insert title here</title>
 </head>
 <body>
 	<div class="d-flex flex-column justify-content-center align-items-center viewContainer">
+			  <form action="controller?cmd=addUserAction" class="submitForm" method="post">
 		<div class="d-flex flex-column justify-content-center align-items-center">
 			<div class="d-flex flex-column justify-content-center align-items-center">
 				<h1><b>회원가입</b></h1>
 			</div>
 			<div class="p-2 container mt-3 submitFormContainer">
-			  <form action="/action_page.php" class="submitForm">
 			    <div class="d-flex mb-3 mt-3">
 			      <label for="id">*ID</label>
 			      <input type="text" class="form-control userInput" id="id" placeholder="8~15자 영,숫자 포함" name="id">
-			      <button type="button" class="btn btn-secondary checkDuplBtn">중복확인</button>
+			      
+			      <span id="checkResult1" style="width: 45%"></span>
+
 			    </div>
 			    <div class="d-flex mb-3 mt-3">
-			      <label for="id">*이름</label>
-			      <input type="text" class="form-control userInput" id="id" placeholder="2~10자 특수문자 불가" name="id">
+			      <label for="name">*이름</label>
+			      <input type="text" class="form-control userInput" id="name" placeholder="2~10자 특수문자 불가" name="name">
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwd">*PW </label>
@@ -32,37 +52,128 @@
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwdCheck" class="pwChkLabel">비밀번호확인 </label>
-			      <input type="password" class="form-control userInput" id="pw" placeholder="8~15자 영,숫자 필수 포함" name="pw">
+			      <input type="password" class="form-control userInput" id="pw1" placeholder="8~15자 영,숫자 필수 포함" name="pw1">
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwdCheck" class="pwChkLabel">*필명 </label>
-			      <input type="text" class="form-control userInput" id="nickName" placeholder="2~10자 특수문자 불가" name="pw">
-			      <button type="button" class="btn btn-secondary checkDuplBtn">중복확인</button>
+			      <input type="text" class="form-control userInput" id="nickName" placeholder="2~10자 특수문자 불가" name="nickName">
+			      <span id="checkResult2" style="width: 45%"></span>
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwdCheck" class="pwChkLabel">*이메일 </label>
 			      <input type="text" class="form-control userInput"  placeholder="Enter id" id="emailId" name="emailId">
 			      @
-			      <select class="form-select userInput">
-					<option>naver.com</option>
-					<option>gmail.com</option>
-				    <option>daum.net</option>
+			      <select class="form-select userInput" name="domain">
+					<option value="@naver.com">naver.com</option>
+					<option value="@gmail.com">gmail.com</option>
+				    <option value="@daum.net">daum.net</option>
 				  </select>
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwdCheck" class="pwChkLabel">전화번호 </label>
-			      <input type="text" class="form-control userInput" id="nickName" placeholder="-없이 숫자만 입력" name="pw">
+			      <input type="text" class="form-control userInput" id="tel" placeholder="-없이 숫자만 입력" name="tel">
 			    </div>
 			    <div class="d-flex form-check mb-3">
 			      <span style="width: 100%; text-align:right; font-size: 2vw;">‘*’는 필수 입력사항입니다.</span>
 			    </div>
-			  </form>
 			</div>
-			<div class="p-2" >
-				<button type="button" class="btn btn-secondary submitBtn">가입완료</button>
-			</div>
+			<br>
+			<input type="submit" id="reg_submit" class="btn btn-secondary submitBtn" value="가입완료">
+			
 		</div>
+		</form>
 	</div>
+
+ <script type="text/javascript">
+//아이디 유효성 검사
+	$("#id").blur(function() {
+		var user_id = idSpaceCheck($("#id").val());//공백제거
+		
+		$.ajax({
+			url : "controller?cmd=checkIdAction",
+			type: "post",
+			data : {userId : user_id},
+			success : function(resp) {
+				
+				jsonResponse = JSON.parse(resp);
+				
+				if (jsonResponse == false) {
+					// 중복아이디
+					$("#checkResult1").html("사용불가");
+					$("#checkResult1").css("color", "red");
+					$("#checkResult1").css("font-size", "12pt");
+					$("#checkResult1").css("font-weight", "bold");
+					$("#reg_submit").attr("disabled", true);
+					
+				}else if(jsonResponse==true){
+					if (user_id.length ==0) {
+						$("#checkResult1").html("ID입력");
+						$("#checkResult1").css("color", "red");
+						$("#checkResult1").css("font-size", "12pt");
+						$("#checkResult1").css("font-weight", "bold");
+						$("#reg_submit").attr("disabled", true);
+					}else{
+						$("#checkResult1").html("사용가능");
+						$("#checkResult1").css("color", "green");
+						$("#checkResult1").css("font-size", "12pt");
+						$("#checkResult1").css("font-weight", "bold");
+						$("#reg_submit").attr("disabled", false);
+					}
+				}
+			},
+			error:function(){
+				alert("통신실패");
+			}
+		});
+	});
+
+</script>
+
+<script type="text/javascript">
+//필명 유효성 검사
+	$("#nickName").blur(function() {
+		var nickName = pwSpaceCheck($("#nickName").val());//공백제거
+		
+		$.ajax({
+			url : "controller?cmd=checkPenNameAction",
+			type: "post",
+			data : {penName : nickName},
+			success : function(resp) {
+				
+				jsonResponse = JSON.parse(resp);
+				
+				if (jsonResponse == false) {
+					// 중복아이디
+					$("#checkResult2").html("사용불가");
+					$("#checkResult2").css("color", "red");
+					$("#checkResult2").css("font-size", "12pt");
+					$("#checkResult2").css("font-weight", "bold");
+					$("#reg_submit").attr("disabled", true);
+					
+				}else if(jsonResponse==true){
+					if (nickName.length ==0) {
+						$("#checkResult2").html("필명입력");
+						$("#checkResult2").css("color", "red");
+						$("#checkResult2").css("font-size", "12pt");
+						$("#checkResult2").css("font-weight", "bold");
+						$("#reg_submit").attr("disabled", true);
+					}else{
+						$("#checkResult2").html("사용가능");
+						$("#checkResult2").css("color", "green");
+						$("#checkResult2").css("font-size", "12pt");
+						$("#checkResult2").css("font-weight", "bold");
+						$("#reg_submit").attr("disabled", false);
+					}
+				}
+			},
+			error:function(){
+				alert("통신실패");
+			}
+		});
+	});
+
+</script>
+	
 </body>
 <style type="text/css">
 	label{

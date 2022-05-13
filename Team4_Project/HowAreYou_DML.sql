@@ -177,3 +177,28 @@ and p.emotion_code = e.emotion_code
 and e.emotion_code = s.emotion_code
 order by dbms_random.random)
 where rownum<=2
+
+--31. 좋아요 등록여부 조회
+SELECT user_id FROM reaction WHERE user_id = ? AND write_no = ?;
+
+--32. 친구글 목록 조회
+SELECT s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name
+FROM app_user a, board b, suggestion s, emotion e, follow_list fl
+WHERE b.writer_id = a.user_id 
+AND b.suggestion_code = s.suggestion_code 
+AND a.user_id = fl.follower_id
+AND e.emotion_code = s.emotion_code
+ORDER BY write_date DESC; 
+
+--33. 게시글 상세조회
+select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name
+from app_user a, board b, suggestion s, emotion e
+where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code
+and b.write_no = '1';
+
+--34. 즐겨찾기 여부 조회
+SELECT count(user_id) FROM bookmark WHERE user_id='test1' AND write_no='12';
+
+--35. 좋아요 총 개수 조회
+SELECT count(*) FROM reaction WHERE write_no = '6';
+

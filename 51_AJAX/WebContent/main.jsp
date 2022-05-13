@@ -24,7 +24,6 @@ var updateContentAction = function(writerNumber){
 		}
 		
 	})
-}
 
 var removeWriterAction = function(writerNumber){
 	var password = document.getElementById("password").value;
