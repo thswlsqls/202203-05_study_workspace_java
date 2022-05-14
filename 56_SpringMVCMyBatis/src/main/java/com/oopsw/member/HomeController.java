@@ -40,10 +40,12 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );		
 		return "home";
 	}
+	
 	@RequestMapping(value = "/loginUI", method = RequestMethod.GET)
 	public String loginUI(){
 		return "login";
 	}
+	
 	@RequestMapping(value = "/loginAction", method = RequestMethod.POST)
 	public String loginAction(HttpServletRequest request,Model model){
 		String loginOK = memberService.login(request.getParameter("id"), request.getParameter("pw"));

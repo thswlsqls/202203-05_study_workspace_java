@@ -1,6 +1,7 @@
 package com.project.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -146,8 +147,8 @@ public class WriterDAO {
       return result;
    }     
    
-	/**홈 게시글목록 조회 
-	 * select s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code
+	/**홈 게시글목록 조회  -> 글번호 필요함, 작성자 아이디 필요함
+	 * select b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name
 		from app_user a, board b, suggestion s, emotion e
 		where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code
 		and e.emotion_code = ? ;
@@ -155,10 +156,10 @@ public class WriterDAO {
 	public Collection<BoardVO> getHomeBoardList(String emotionCode) 
 									throws SQLException {
 		Collection<BoardVO> list = new ArrayList<BoardVO>();
-		String sql = "select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name " + 
-				"from app_user a, board b, suggestion s, emotion e " + 
-				"where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code " + 
-				"and e.emotion_code = ?";
+		String sql = "SELECT b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name" + 
+				"  FROM app_user a, board b, suggestion s, emotion e " + 
+				"  WHERE b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code " + 
+				"  AND e.emotion_code = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, emotionCode);
@@ -169,9 +170,10 @@ public class WriterDAO {
 						, rs.getString(2)
 						, rs.getString(3)
 						, rs.getString(4)
-						, rs.getDate(5)
-						, rs.getString(6)
-						, rs.getString(7)));
+						, rs.getString(5)
+						, rs.getDate(6)
+						, rs.getString(7)
+						, rs.getString(8)));
 					
 				}
 			for (BoardVO b : list) {
@@ -203,8 +205,8 @@ public class WriterDAO {
 	      return result;
 	   }
 	   
-	/**새로운 게시물 목록 조회 -> 글번호 필요함
-	 * select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date
+	/**새로운 게시물 목록 조회 -> 글번호 필요함, 작성자아이디 필요함
+	 * select b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date
 		from app_user a, board b, suggestion s 
 		where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code
 		and rownum<=10
@@ -213,7 +215,7 @@ public class WriterDAO {
 	public Collection<BoardVO> getNewBoardList() 
 							throws SQLException {
 		Collection<BoardVO> list = new ArrayList<BoardVO>();
-		String sql = "select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date " + 
+		String sql = "select b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date " + 
 				"from app_user a, board b, suggestion s " + 
 				"where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code " + 
 				"and rownum<=10 " + 
@@ -228,7 +230,8 @@ public class WriterDAO {
 						, rs.getString(2)
 						, rs.getString(3)
 						, rs.getString(4)
-						, rs.getDate(5)));
+						, rs.getString(5)
+						, rs.getDate(6)));
 
 			}
 			for (BoardVO b : list) {
@@ -267,20 +270,21 @@ public class WriterDAO {
 	public Collection<BoardVO> getNowRecommendedBoardList() 
 			throws SQLException {
 		Collection<BoardVO> list = new ArrayList<BoardVO>();
-		String sql = "SELECT (SElECT count(*) " + 
-				"        FROM reaction " + 
-				"        WHERE write_no = b.write_no) AS rCnt ," + 
-				"        b.write_no, b.contents, b.write_date, b.share_status, b.writer_id, b.suggestion_code, a.pen_name" + 
-				"	    FROM board b, reaction r, app_user a" + 
-				"	    WHERE b.write_no = r.write_no AND rownum <= 3"+ 
-				"		AND a.user_id=b.writer_id" + 
-				"	    ORDER BY rCnt DESC, b.write_date DESC";
+		String sql = "SELECT (SElECT count(*)  " + 
+				"FROM reaction  " + 
+				"WHERE write_no = b.write_no) AS rCnt, " + 
+				" b.write_no, b.contents, b.write_date, b.share_status, b.writer_id, b.suggestion_code, a.pen_name, s.suggestion_name " + 
+				" FROM board b, reaction r, app_user a, suggestion s " + 
+				" WHERE b.write_no = r.write_no AND rownum <= 3 " + 
+				" AND a.user_id=b.writer_id  " + 
+				" AND b.suggestion_code = s.suggestion_code " + 
+				" ORDER BY rCnt DESC, b.write_date DESC";
 		try {
 			Statement stmt = conn.createStatement();
 			
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				list.add(new BoardVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getString(6), rs.getString(6), rs.getString(7)));
+				list.add(new BoardVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9)));
 			}
 			for (BoardVO b : list) {
 				b.setContents(b.getContents().replace("\r\n", "<br>"));
@@ -339,8 +343,8 @@ public class WriterDAO {
 	   }
 	   
 	 /**
-	  *  친구글 목록 조회 
-		SELECT b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code
+	  *  친구글 목록 조회  -> 글번호 필요함, 작성자 아이디 필요함
+		SELECT b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name
 		FROM app_user a, board b, suggestion s, emotion e, follow_list fl
 		WHERE b.writer_id = a.user_id 
 		AND b.suggestion_code = s.suggestion_code 
@@ -352,7 +356,7 @@ public class WriterDAO {
 	   public Collection<BoardVO> getFriendWriteList(String followerId) 
 			   throws SQLException {
 			Collection<BoardVO> list = new ArrayList<BoardVO>();
-			String sql = "SELECT b.write_no, s.suggestion_name, b.contents, a.pen_name, to_char(b.write_date, 'yyyy.mm.dd'), e.emotion_code, e.emotion_name" + 
+			String sql = "SELECT b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name" + 
 					"		FROM app_user a, board b, suggestion s, emotion e, follow_list fl" + 
 					"		WHERE b.writer_id = a.user_id " + 
 					"		AND b.suggestion_code = s.suggestion_code " + 
@@ -369,9 +373,10 @@ public class WriterDAO {
 							, rs.getString(2)
 							, rs.getString(3)
 							, rs.getString(4)
-							, rs.getDate(5)
-							, rs.getString(6)
-							, rs.getString(7)));
+							, rs.getString(5)
+							, rs.getDate(6)
+							, rs.getString(7)
+							, rs.getString(8)));
 					}
 				for (BoardVO b : list) {
 					b.setContents(b.getContents().replace("\r\n", "<br>"));
@@ -555,30 +560,31 @@ public class WriterDAO {
 		}
 		
 
-/**랭킹 게시글 클릭
+     /**랭킹 게시글 클릭 -> 게시글 상세보기 메서드로 대체함
 	 * */
-	public Collection<BoardVO> getRankBoard(String writeNo) {
-		Collection<BoardVO> list = new ArrayList<BoardVO>();
-		String sql = "select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name " + 
-				"from app_user a, board b, suggestion s, emotion e " + 
-				"where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code " + 
-				"and b.write_no = ?";
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, writeNo);
-			
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				list.add(new BoardVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5),rs.getString(6),rs.getString(7)));
-			}
-			for (BoardVO b : list) {
-				b.setContents(b.getContents().replace("\r\n", "<br>"));
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
+//	public Collection<BoardVO> getRankBoard(String writeNo) {
+//		Collection<BoardVO> list = new ArrayList<BoardVO>();
+//		String sql = "select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name " + 
+//				"from app_user a, board b, suggestion s, emotion e " + 
+//				"where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code " + 
+//				"and b.write_no = ?";
+//		try {
+//			PreparedStatement pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, writeNo);
+//			
+//			ResultSet rs = pstmt.executeQuery();
+//			while(rs.next()) {
+//				list.add(new BoardVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5),rs.getString(6),rs.getString(7)));
+//			}
+//			for (BoardVO b : list) {
+//				b.setContents(b.getContents().replace("\r\n", "<br>"));
+//			}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		return list;
+//	}
+		
 	  //mypage
 	   public Collection<BoardVO> myWriting(String userId){
 	      Collection<BoardVO> list = new ArrayList<BoardVO>();
@@ -637,7 +643,7 @@ public class WriterDAO {
 //
 //		String sql = "select s.suggestion_name, b.contents, a.pen_name, b.write_date " + 
 //				"from app_user a, board b, suggestion s, emotion e " + 
-//				"where a.user_id = b.writer_id\r\n" + 
+//				"where a.user_id = b.writer_id " + 
 //				"and b.suggestion_code = s.suggestion_code " + 
 //				"and s.emotion_code = e.emotion_code " + 
 //				"and a.user_id = ? " + 
@@ -670,7 +676,7 @@ public class WriterDAO {
 
 		String sql = "select s.suggestion_name, b.contents, a.pen_name, b.write_date " + 
 				"from app_user a, board b, suggestion s, emotion e " + 
-				"where a.user_id = b.writer_id\r\n" + 
+				"where a.user_id = b.writer_id " + 
 				"and b.suggestion_code = s.suggestion_code " + 
 				"and s.emotion_code = e.emotion_code " + 
 				"and a.user_id = ? " + 
@@ -694,18 +700,18 @@ public class WriterDAO {
 		}
 		return result;
 	}
+	
 	   /**
 	    * 게시글 상세조회
-	    * select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name
+	    * select b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name
 			from app_user a, board b, suggestion s, emotion e
 			where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code
 			and b.write_no = '1';
-	    * 
 	    * */
-		public BoardVO getWriteDetail(String writeNo) throws SQLException{
+		public BoardVO getWriteDetail(String writeNo) throws SQLException {
 			BoardVO v = null;
-			
-			String sql = "select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name" + 
+
+			String sql = "select b.write_no, b.writer_id, a.pen_name, b.contents,  b.write_date, e.emotion_code, s.suggestion_name, b.share_status,  e.emotion_name, s.suggestion_code" + 
 					"	from app_user a, board b, suggestion s, emotion e" + 
 					"	where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code" + 
 					"	and b.write_no = ?";
@@ -721,15 +727,17 @@ public class WriterDAO {
 						, rs.getString(4)
 						, rs.getDate(5)
 						, rs.getString(6)
-						, rs.getString(7));
-				v.setContents(v.getContents().replace("\r\n", "<br>"));
+						, rs.getString(7)
+						, rs.getString(8)
+						, rs.getString(9)
+						, rs.getString(10));
+				v.setContents(v.getContents().replace("\r\n ", "<br>"));
 			}
-			
-				
-			
+
 			pstmt.close();
 			rs.close();
 			
 			return v;
 		}
+		
 }

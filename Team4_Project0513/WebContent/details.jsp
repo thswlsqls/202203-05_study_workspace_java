@@ -34,7 +34,7 @@
      background-color: gray;
     }
     .contents{
-	top: 50%;
+	top: 30%;
 	left: 50%;
 	transform: translate(-50%,-50% );
     }
@@ -44,7 +44,17 @@
 	transform: translate(-50%,-50% );
     }
     .writer{
+    top: 70%;
+	left: 50%;
+	transform: translate(-50%,-50% );
+    }
+    .reactions{
     top: 80%;
+	left: 50%;
+	transform: translate(-50%,-50% );
+    }
+    .modifyDeleteBtns{
+    top: 90%;
 	left: 50%;
 	transform: translate(-50%,-50% );
     }
@@ -181,6 +191,7 @@
 <!-- navbar -->
 <%@include file="howAreYouHeader.jsp" %>
 <div >
+
   <div class="d-flex flex-column">
     <div class="" >
       <img src="img/1.jpg" class="d-block" alt="...">
@@ -192,28 +203,39 @@
       </div>
       <div class="text writer">
       	${board.getPenName()}<br>
-      	${board.getWriteDate()} <br>
-      	
-      	<button class="clickableBackground" type="button" onclick="console.log('좋아요클릭')" >
-      		<div class="flexRowBox">
-   		  		<div class="reaction">
-	      			좋아요
-	      		</div>	
-	      		<div class="reactionCnt">
-	      			&nbsp;
-	      		</div>	
-      		</div>
-      	</button>
-      	<button class="clickableBackground" type="button" onclick="console.log('북마크클릭')" >
-      		<div class="flexRowBox">
-		      	<div class="bookmark">
-		      	        즐겨찾기 
-		      	</div>
-		    </div>
-   		</button>
+      	${board.getWriteDate()} <br>	
+      	${board.getWriterId()} <br>	
       </div>
+      <div class="text reactions">
+	      	<button class="clickableBackground" type="button" onclick="console.log('좋아요클릭')" >
+	      		<div class="flexRowBox">
+	   		  		<div class="reaction">
+		      			LIKE
+		      		</div>	
+		      		<div class="reactionCnt">
+		      			&nbsp;
+		      		</div>	
+	      		</div>
+	      	</button>
+	      	<button class="clickableBackground" type="button" onclick="console.log('북마크클릭')" >
+	      		<div class="flexRowBox">
+			      	<div class="bookmark">
+			      	        BOOKMARK 
+			      	</div>
+			    </div>
+	   		</button>
+   		</div>
+   		
+   		<c:if test="${userId eq board.getWriterId()}">
+   			<div class="text modifyDeleteBtns">
+      		<button onclick="location.href='controller?'">수정</button>
+      		<button onclick="location.href='controller?'">삭제</button>
+      		</div>
+   		</c:if>
+
     </div>
   </div>
+  
 </div>
 <%@include file="menu.jsp" %>
     <!-- Optional JavaScript; choose one of the two! -->

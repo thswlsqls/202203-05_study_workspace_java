@@ -35,11 +35,31 @@
 //  		}
 //		
 // 		System.out.println(wDao.getFriendWriteList("test2"));
+// 		try {
+//			System.out.println(wDao.getFriendWriteList("test2"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+// 		try {
+//			System.out.println(wDao.getNowRecommendedBoardList());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 		
+// 		try {
+//			System.out.println(wDao.getHomeBoardList("110"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+ 		
  		try {
-			System.out.println(wDao.getFriendWriteList("test2"));
+			System.out.println(wDao.getWriteDetail("1"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+ 		
  	}
  }

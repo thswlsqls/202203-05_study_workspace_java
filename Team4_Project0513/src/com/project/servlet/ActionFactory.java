@@ -111,9 +111,9 @@ public class ActionFactory {
 		case "rankingUI":
 			a=new RankingUIAction();
 			break;
-		case "rankingAction":
-			a=new RankingAction();
-			break;
+//		case "rankingAction":
+//			a=new RankingAction();
+//			break;
 		case "refreshSuggestionAction":
 			a=new RefreshSuggestionAction();
 			break;

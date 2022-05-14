@@ -14,6 +14,7 @@
 	<insert id="addMember" parameterType="ucamp.dao.MemberVO">
 		insert into member_data(member_id, pw, name) values (#{memberId}, #{pw}, #{name})
 	</insert>
+	
 	<update id="updateMember" parameterType="ucamp.dao.MemberVO">
 		update member_data set pw=#{pw} where member_id=#{memberId}
 	</update>

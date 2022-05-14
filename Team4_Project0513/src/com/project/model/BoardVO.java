@@ -7,6 +7,7 @@ import java.sql.Date;
 public class BoardVO {
 
 
+	/** 게시글 상세조회 */
 	public BoardVO(
 			String writeNo
 			, String writerId
@@ -31,15 +32,15 @@ public class BoardVO {
 		setSuggestionCode(suggestionCode);
 	}
 	
-	/**게시글 조회 -> 글번호 필요함
-	 * select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code
+	/**홈 게시글 조회 -> 글번호 필요함, 작성자 아이디 필요함
+	 * select b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code
 		from app_user a, board b, suggestion s, emotion e
 		where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code
 		and e.emotion_code = ? ;
 	 *  */
 	 /**
-	  *  친구글 목록 조회 -> 글번호 필요함
-		SELECT s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code
+	  *  친구글 목록 조회 -> 글번호 필요함, 작성자아이디 필요함
+		SELECT b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name
 		FROM app_user a, board b, suggestion s, emotion e, follow_list fl
 		WHERE b.writer_id = a.user_id 
 		AND b.suggestion_code = s.suggestion_code 
@@ -79,6 +80,18 @@ public class BoardVO {
 		this(writeNo, null, penName, contents, writeDate, emotionCode, suggestionName, null, emotionName, null);
 	}
 	
+	/**게시글 조회 -> 글번호 필요함, 작성자아이디 필요함*/
+	public BoardVO(String writeNo
+			, String writerId
+			, String suggestionName
+			, String contents
+			, String penName
+			, Date writeDate
+			, String emotionCode
+			, String emotionName){
+		this(writeNo, writerId, penName, contents, writeDate, emotionCode, suggestionName, null, emotionName, null);
+	}
+	
 //	public BoardVO(String suggestionName
 //			, String contents
 //			, String penName
@@ -91,24 +104,27 @@ public class BoardVO {
 //		setEmotionCode(emotionCode);
 //	}
 	
-	/**새로운 게시물 목록 조회 -> 글번호 필요함
-	 * select b.write_no, s.suggestion_name, b.contents, a.pen_name, b.write_date
+	/**새로운 게시물 목록 조회 -> 글번호 필요함, 작성자아이디 필요함
+	 * select b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date
 		from app_user a, board b, suggestion s 
 		where b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code
 		and rownum<=10
 		order by b.write_date desc;
 	 * */
 	public BoardVO(String writeNo
+			, String writerId
 			, String suggestionName
 			, String contents
 			, String penName
 			, Date writeDate) {
 		setWriteNo(writeNo);
+		setWriterId(writerId);
 		setSuggestionName(suggestionName);
 		setContents(contents);
 		setPenName(penName);
 		setWriteDate(writeDate);
 	}
+	
 	public BoardVO(
 			String suggestionName
 			, String contents
@@ -129,7 +145,7 @@ public class BoardVO {
        (SElECT count(*) 
         FROM bookmark 
         WHERE write_no = b.write_no) AS bmCnt ,
-        b.write_no, b.contents, b.write_date, b.share_status, b.writer_id, b.suggestion_code
+        b.write_no, b.contents, b.write_date, b.share_status, b.writer_id, b.suggestion_code, a.pen_name, b.suggestion_name
 	    FROM board b, bookmark bm, reaction r
 	    WHERE b.write_no = bm.write_no AND b.write_no = r.write_no AND rownum <= 10
 	    ORDER BY b.write_date desc, rCnt, bmCnt desc;
@@ -145,6 +161,7 @@ public class BoardVO {
 			, String writerId
 			, String suggestionCode
 			, String penName
+			, String suggestionName
 			) {
 		setrCnt(rCnt);
 		setWriteNo(writeNo);
@@ -154,6 +171,7 @@ public class BoardVO {
 		setWriterId(writerId);
 		setSuggestionCode(suggestionCode);
 		setPenName(penName);
+		setSuggestionName(suggestionName);
 	}
 	public BoardVO(
 			int rCnt
