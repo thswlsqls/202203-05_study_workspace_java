@@ -25,13 +25,19 @@ public class FriendFollowAction implements Action {
 		
 		System.out.println(followeeId+followerId);
 		try {
-			String result = iDao.addFollow(followeeId, followerId);
-				if (result.equals("true")) {
-					url = "addFllowResult.jsp";
-					j.addProperty("isFollowSuccess", result);
-					request.setAttribute("result", j); 
-					System.out.println(j);
-				}
+//			String result = iDao.addFollow(followeeId, followerId);
+//				if (result.equals("true")) {
+//					url = "addFllowResult.jsp";
+//					j.addProperty("isFollowSuccess", result);
+//					request.setAttribute("result", j); 
+//					System.out.println(j);
+//				}
+			if (iDao.addFollow(followeeId, followerId) != null) {
+				url = "addFllowResult.jsp";
+				j.addProperty("isFollowSuccess", "true");
+				request.setAttribute("result", j); 
+				System.out.println(j);
+			}
 				
 			
 		} catch (SQLException e) {

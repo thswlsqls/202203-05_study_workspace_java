@@ -77,12 +77,21 @@ public class DAOJUnitTest {
 //	@Test
 //	public void findIdTest() {
 //		try {
-//			assertNotNull(uDao.findId("테스트5", "rkacskrl@naver.com"));
+//			assertNotNull(uDao.findId("테스트1", "test1@naver.com"));
 //		} catch (SQLException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//	}	
+//	}
+	@Test
+	public void findPwTest() {
+		try {
+			assertNotNull(uDao.findPw("테스트1", "test1@naver.com"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 //	@Test
 //	public void diaryWriteTest() {
 //		try {
@@ -161,24 +170,24 @@ public class DAOJUnitTest {
 //			e.printStackTrace();
 //		}
 //	}
-//	@Test //즐겨찾기 글 추가
-//	public void addBookmarkTest() {
-//		try {
-//			assertTrue(iDao.addBookmark("test1", "4"));
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//	@Test //즐겨찾기 글 삭제
-//	public void deleteBookmarkTest() {
-//		try {
-//			assertTrue(iDao.deleteBookmark("test1", "4"));
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	@Test //즐겨찾기 글 추가
+	public void addBookmarkTest() {
+		try {
+			assertTrue(iDao.addBookmark("test1", "7"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Test //즐겨찾기 글 삭제
+	public void deleteBookmarkTest() {
+		try {
+			assertTrue(iDao.deleteBookmark("test1", "7"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 //	@Test //즐겨찾기 글 상세조회
 //	public void getBookmarkWriteTest() {
 //		try {
@@ -188,42 +197,46 @@ public class DAOJUnitTest {
 //			e.printStackTrace();
 //		}
 //	}
-//	@Test //팔로우(친구추가)
-//	public void addFollowTest() {
-//		try {
-//			assertTrue(iDao.addFollow("test3", "test2"));
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//	@Test //팔로우(목록조회)
-//	public void getFollowListTest() {
-//		try {
-//			assertNotNull(iDao.getFollowList("test1"));
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//	@Test //좋아요 추가
-//	public void addReactionTest() {
-//		try {
-//			assertTrue(iDao.addReaction("test2", "1"));
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//	@Test //좋아요 삭제
-//	public void deleteReactionTest() {
-//		try {
-//			assertTrue(iDao.deleteReaction("test1", "5"));
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	@Test //팔로우(친구추가)
+	public void addFollowTest() {
+		try {
+			assertTrue(iDao.addFollow("test2", "test5").equals("false"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test //팔로우(목록조회)
+	public void getFollowListTest() {
+		try {
+			assertNotNull(iDao.getFollowList("test1"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test //좋아요 추가
+	public void addReactionTest() {
+		try {
+			assertTrue(iDao.addReaction("test2", "7"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test //좋아요 삭제
+	public void deleteReactionTest() {
+		try {
+			assertTrue(iDao.deleteReaction("test1", "7"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 //	
 //	//EmotionDAO
 //	@Test//감정 8개 추출
@@ -244,15 +257,15 @@ public class DAOJUnitTest {
 //			e.printStackTrace();
 //		}
 //	}
-	@Test//감정 트렌드 조회
-	public void getTrendEmotionTest() {
-		try {
-			assertNotNull(eDao.getTrendEmotion());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test//감정 트렌드 조회
+//	public void getTrendEmotionTest() {
+//		try {
+//			assertNotNull(eDao.getTrendEmotion());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 //	@Test//트렌드 글 상세조회
 //	public void getTrendWriteTest() {
 //		try {
@@ -289,55 +302,133 @@ public class DAOJUnitTest {
 			e.printStackTrace();
 		}
 	}
+//	@Test
+//	public void searchByPenNameTest() {
+//		assertNotNull(wDao.searchByPenName("pen_test1", "22/05/10"));
+//	}
+//	@Test
+//	public void searchBySuggestionNameTest() {
+//		assertNotNull(wDao.searchBySuggestionName("고기", "22/05/10"));
+//	}
+//	@Test
+//	public void getHomeBoardListTest() {
+//		
+//	}
+//	@Test
+//	public void getNewBoardListTest() {
+//		try {
+//			assertNotNull(wDao.getNewBoardList());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	@Test
+//	public void getNowRecommendedBoardListTest() {
+//		try {
+//			assertNotNull(wDao.getNowRecommendedBoardList());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	@Test
+//	public void getFriendWriteListTest() {
+//		try {
+//			assertNotNull(wDao.getFriendWriteList("test1"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	@Test
-	public void searchByPenNameTest() {
-		assertNotNull(wDao.searchByPenName("pen_test1", "22/05/10"));
-	}
-	@Test
-	public void searchBySuggestionNameTest() {
-		assertNotNull(wDao.searchBySuggestionName("고기", "22/05/10"));
-	}
-	@Test
-	public void getHomeBoardListTest() {
+	public void getWriteDetailTest() {
+		try {
+			assertNotNull(wDao.getWriteDetail("1"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
-	@Test
-	public void getNewBoardListTest() {
-		try {
-			assertNotNull(wDao.getNewBoardList());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void getNowRecommendedBoardListTest() {
-		try {
-			assertNotNull(wDao.getNowRecommendedBoardList());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void getFriendWriteListTest() {
-		try {
-			assertNotNull(wDao.getFriendWriteList("test1"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void getTrendWriteTest() {
-		try {
-			assertNotNull(wDao.getTrendWrite("110"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void getTrendWriteTest() {
+//		try {
+//			assertNotNull(wDao.getTrendWrite("110"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
+//	@Test
+//	public void getSortedByDateFollowListTest() {
+//		try {
+//			assertNotNull(iDao.getSortedByDateFollowList("test1"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	
+//	@Test
+//	public void getSortedByPenNameFollowListTest() {
+//		try {
+//			assertNotNull(iDao.getSortedByPenNameFollowList("test1"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	
+//	@Test
+//	public void addReactionTest() {
+//		try {
+//			assertTrue(iDao.addReaction("test5", "6"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+
+//	@Test
+//	public void deleteReactionTest() {
+//		try {
+//			assertTrue(iDao.deleteReaction("test5", "6"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	
+	@Test
+	public void isReactedTest() {
+		try {
+			assertTrue(iDao.isReacted("test2", "1"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+//	@Test
+//	public void countReactionsTest() {
+//		try {
+//			assertNotNull(iDao.countReactions("1"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	@Test
+	public void isBookmarkedTest() {
+		try {
+			assertTrue(iDao.isBookmarked("test1", "6"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
 

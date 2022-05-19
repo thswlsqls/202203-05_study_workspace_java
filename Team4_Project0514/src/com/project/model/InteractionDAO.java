@@ -1,5 +1,7 @@
 package com.project.model;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,9 +10,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 public class InteractionDAO {
+	
+	private SqlSessionFactory sqlSessionFactory;
+	
 	private Connection conn;
 	public InteractionDAO() {
+		
+		InputStream inputStream = null;
+
+		try {
+			String resource = "config/mybatis-Config.xml"; //Spring 설정으로 변경 가능
+			inputStream = Resources.getResourceAsStream(resource);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		
 		String driver = "oracle.jdbc.OracleDriver"; 
 		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
 		String user="hr";
@@ -26,6 +48,9 @@ public class InteractionDAO {
 			e.printStackTrace();
 		}
 		System.out.println("driver conn");
+		
+		
+		
 	}
 	
 	//즐겨찾기 글 목록 조회 --> 글번호 추가함
@@ -88,6 +113,8 @@ public class InteractionDAO {
 		pstmt.setString(1, userId);
 		pstmt.setString(2, writeNo);
 		int num = pstmt.executeUpdate();
+		
+		conn.commit();
 		result=(num>=1);
 		return result;
 	}
@@ -175,15 +202,31 @@ public class InteractionDAO {
 			throws SQLException {
 		String result="false";
 		
-		String sql = "insert into follow_list values(FOLLOW_NO_SEQ.NEXTVAL,?,?,sysdate)";
-		
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, followeeId);
-		pstmt.setString(2, followerId);
-		int num = pstmt.executeUpdate();
-		if (num>=1) {
-			result = "true";
+//		String sql = "insert into follow_list values(FOLLOW_NO_SEQ.NEXTVAL,?,?,sysdate)";
+//		
+//		PreparedStatement pstmt = conn.prepareStatement(sql);
+//		pstmt.setString(1, followeeId);
+//		pstmt.setString(2, followerId);
+//		int num = pstmt.executeUpdate();
+//		if (num>=1) {
+//			result = "true";
+//		}
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			int no = session.insert("interactionMapper.addFollow", new FollowListVO(followeeId, followerId, null));
+			if(no==1) {
+				result = "true";
+			}
+			session.commit();
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			session.close();
 		}
+		
+		
+		
+		
 		return result;
 	} 
 	//팔로워 목록 조회
@@ -196,37 +239,57 @@ public class InteractionDAO {
 	    * */
 	   public Collection<FollowListVO> getFollowList(String followerId) 
 	         throws SQLException{
-	      Collection<FollowListVO> result = new ArrayList();
+	      Collection<FollowListVO> list = new ArrayList();
 	      
-	      String sql = "select fl.follow_no, to_char(fl.follow_date, 'yyyy.mm.dd'), fl.followee_id, fl.follower_id, a.pen_name " + 
-	            "      from follow_list fl, app_user a " + 
-	            "      where fl.followee_id = a.user_id " + 
-	            "      AND fl.follower_id = ? ";
-	      
-	      PreparedStatement pstmt = conn.prepareStatement(sql);
-	      pstmt.setString(1, followerId);
-	      ResultSet rs = pstmt.executeQuery();
-	      
-	      while (rs.next()) {
-	         result.add(new FollowListVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+//	      String sql = "select fl.follow_no, to_char(fl.follow_date, 'yyyy.mm.dd'), fl.followee_id, fl.follower_id, a.pen_name " + 
+//	            "      from follow_list fl, app_user a " + 
+//	            "      where fl.followee_id = a.user_id " + 
+//	            "      AND fl.follower_id = ? ";
+//	      
+//	      PreparedStatement pstmt = conn.prepareStatement(sql);
+//	      pstmt.setString(1, followerId);
+//	      ResultSet rs = pstmt.executeQuery();
+//	      
+//	      while (rs.next()) {
+//	         result.add(new FollowListVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+//	      }
+//	      pstmt.close();
+//	      rs.close();
+	      SqlSession session = sqlSessionFactory.openSession();
+	      try {
+	    	  list = session.selectList("interactionMapper.selectFollowList");
+	      }catch(Exception e){
+	    	  e.printStackTrace();
+	      }finally{
+	    	  session.close();
 	      }
-	      pstmt.close();
-	      rs.close();
 	      
-	      return result;
+	      return list;
 	   }
 	//좋아요 추가
 	public boolean addReaction(String userId, String writeNo) 
 			throws SQLException {
 		boolean result=false;
 		
-		String sql = "insert into reaction values(?,?,sysdate)";
+//		String sql = "insert into reaction values(?,?,sysdate)";
+//		
+//		PreparedStatement pstmt = conn.prepareStatement(sql);
+//		pstmt.setString(1, userId);
+//		pstmt.setString(2, writeNo);
+//		int num = pstmt.executeUpdate();
+//		result=(num>=1);
 		
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, userId);
-		pstmt.setString(2, writeNo);
-		int num = pstmt.executeUpdate();
-		result=(num>=1);
+	      SqlSession session = sqlSessionFactory.openSession();
+
+	      try {
+	    	  int n = session.insert("interactionMapper.addReaction", new Reaction(writeNo, userId));
+	    	  result = (n==1);
+	    	  session.commit();
+	      }catch(Exception e){
+	    	  e.printStackTrace();
+	      }finally{
+	    	  session.close();
+	      }
 		return result;
 	} 
 	//좋아요 삭제
@@ -234,13 +297,25 @@ public class InteractionDAO {
 			throws SQLException {
 		boolean result=false;
 		
-		String sql = "delete from reaction where user_id = ? and write_no = ?";
+//		String sql = "delete from reaction where user_id = ? and write_no = ?";
+//		
+//		PreparedStatement pstmt = conn.prepareStatement(sql);
+//		pstmt.setString(1, userId);
+//		pstmt.setString(2, writeNo);
+//		int num = pstmt.executeUpdate();
+//		result=(num>=1);
+	      SqlSession session = sqlSessionFactory.openSession();
+	 		
+	      try {
+	    	  int n = session.delete("interactionMapper.deleteReaction", new Reaction(writeNo, userId));
+	    	  result = (n==1);
+	    	  session.commit();
+	      }catch(Exception e){
+	    	  e.printStackTrace();
+	      }finally{
+	    	  session.close();
+	      }
 		
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, userId);
-		pstmt.setString(2, writeNo);
-		int num = pstmt.executeUpdate();
-		result=(num>=1);
 		return result;
 	} 
 	
@@ -250,18 +325,30 @@ public class InteractionDAO {
 				throws SQLException{
 			boolean result = false;
 			
-			String sql = "SELECT COUNT(user_id) FROM reaction WHERE user_id = ? AND write_no = ?";
+//			String sql = "SELECT COUNT(user_id) FROM reaction WHERE user_id = ? AND write_no = ?";
+//			
+//			PreparedStatement pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, userId);
+//			pstmt.setString(2, writeNo);
+//			ResultSet rs = pstmt.executeQuery();
+//		
+//			while(rs.next()) {
+//				result = (rs.getInt(1)==1);
+//			}
+//			pstmt.close();
+//			rs.close();
 			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, writeNo);
-			ResultSet rs = pstmt.executeQuery();
-		
-			while(rs.next()) {
-				result = (rs.getInt(1)==1);
-			}
-			pstmt.close();
-			rs.close();
+	 	      SqlSession session = sqlSessionFactory.openSession();
+	 	 		
+	 	      try {
+	 	    	  int n = session.selectOne("interactionMapper.isReacted", new Reaction(writeNo, userId));
+	 	    	  result = (n==1);
+	 	      }catch(Exception e){
+	 	    	  e.printStackTrace();
+	 	      }finally{
+	 	    	  session.close();
+	 	      }
+			
 			return result;
 		}
 	
@@ -306,18 +393,31 @@ public class InteractionDAO {
 				throws SQLException {
 			boolean result=false;
 			
-			String sql = "SELECT count(user_id) FROM bookmark WHERE user_id=? AND write_no=?";
+//			String sql = "SELECT count(user_id) FROM bookmark WHERE user_id=? AND write_no=?";
+//			
+//			PreparedStatement pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, userId);
+//			pstmt.setString(2, writeNo);
+//			ResultSet rs = pstmt.executeQuery();
+//			
+//			while(rs.next()) {
+//				result = (rs.getInt(1)==1);
+//			}
+//			pstmt.close();
+//			rs.close();
 			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, writeNo);
-			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				result = (rs.getInt(1)==1);
-			}
-			pstmt.close();
-			rs.close();
+			SqlSession session = sqlSessionFactory.openSession();
+ 	 		
+	 	      try {
+	 	    	  int n = session.selectOne("interactionMapper.selectIsBookmarked"
+	 	    			  , new BookmarkVO(writeNo, userId, null, null, null));
+	 	    	  result = (n==1);
+	 	      }catch(Exception e){
+	 	    	  e.printStackTrace();
+	 	      }finally{
+	 	    	  session.close();
+	 	      }
+
 			return result;
 		}  
 
@@ -329,17 +429,27 @@ public class InteractionDAO {
 				throws SQLException {
 			int cnt=0;
 			
-			String sql = "SELECT count(*) FROM reaction WHERE write_no = ?";
+//			String sql = "SELECT count(*) FROM reaction WHERE write_no = ?";
+//			
+//			PreparedStatement pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, writeNo);
+//			ResultSet rs = pstmt.executeQuery();
+//			
+//			while(rs.next()) {
+//				cnt = rs.getInt(1);
+//			}
+//			pstmt.close();
+//			rs.close();
+	 	      SqlSession session = sqlSessionFactory.openSession();
+	 	 		
+	 	      try {
+	 	    	  cnt = session.selectOne("interactionMapper.selectReactionsCnt", writeNo);
+	 	      }catch(Exception e){
+	 	    	  e.printStackTrace();
+	 	      }finally{
+	 	    	  session.close();
+	 	      }
 			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, writeNo);
-			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				cnt = rs.getInt(1);
-			}
-			pstmt.close();
-			rs.close();
 			return cnt;
 		} 
         /**
@@ -353,30 +463,38 @@ public class InteractionDAO {
        * */
       public Collection<FollowListVO> getSortedByDateFollowList(String followerId) 
             throws SQLException{
-         Collection<FollowListVO> result = new ArrayList();
-         String sql = "SELECT fl.follow_no"
-               + ", to_char(fl.follow_date, 'yyyy.mm.dd')"
-               + ", fl.followee_id"
-               + ", fl.follower_id"
-               + ", a.pen_name " + 
-               "   FROM follow_list fl, app_user a " + 
-               "   WHERE fl.followee_id = a.user_id " + 
-               "   AND fl.follower_id = ?" + 
-               "   ORDER BY fl.follow_date DESC";
-         
-         PreparedStatement pstmt = conn.prepareStatement(sql);
-         pstmt.setString(1, followerId);
-         ResultSet rs = pstmt.executeQuery();
-         while (rs.next()) {
-            result.add(new FollowListVO(rs.getString(1)
-                  , rs.getString(2)
-                  , rs.getString(3)
-                  , rs.getString(4)
-                  , rs.getString(5)));
-         }
-         pstmt.close();
-         rs.close();
-         return result;
+         Collection<FollowListVO> list = new ArrayList();
+//         String sql = "SELECT fl.follow_no"
+//               + ", to_char(fl.follow_date, 'yyyy.mm.dd')"
+//               + ", fl.followee_id"
+//               + ", fl.follower_id"
+//               + ", a.pen_name " + 
+//               "   FROM follow_list fl, app_user a " + 
+//               "   WHERE fl.followee_id = a.user_id " + 
+//               "   AND fl.follower_id = ?" + 
+//               "   ORDER BY fl.follow_date DESC";
+//         
+//         PreparedStatement pstmt = conn.prepareStatement(sql);
+//         pstmt.setString(1, followerId);
+//         ResultSet rs = pstmt.executeQuery();
+//         while (rs.next()) {
+//            result.add(new FollowListVO(rs.getString(1)
+//                  , rs.getString(2)
+//                  , rs.getString(3)
+//                  , rs.getString(4)
+//                  , rs.getString(5)));
+//         }
+//         pstmt.close();
+//         rs.close();
+  	   SqlSession session = sqlSessionFactory.openSession();
+	      try {
+	    	  list = session.selectList("interactionMapper.selectFollowListOrderByDate");
+	      }catch(Exception e){
+	    	  e.printStackTrace();
+	      }finally{
+	    	  session.close();
+	      }
+         return list;
       }
       /**
        * 팔로우(친구) 목록을 필명 가나다순 정렬해 조회
@@ -388,30 +506,39 @@ public class InteractionDAO {
        * */
       public Collection<FollowListVO> getSortedByPenNameFollowList(String followerId) 
             throws SQLException{
-         Collection<FollowListVO> result = new ArrayList();
-         String sql = "SELECT fl.follow_no"
-               + ", to_char(fl.follow_date, 'yyyy.mm.dd')"
-               + ", fl.followee_id"
-               + ", fl.follower_id"
-               + ", a.pen_name " + 
-               "   FROM follow_list fl, app_user a " + 
-               "   WHERE fl.followee_id = a.user_id " + 
-               "   AND fl.follower_id = ?" + 
-               "   ORDER BY a.pen_name";
-         
-         PreparedStatement pstmt = conn.prepareStatement(sql);
-         pstmt.setString(1, followerId);
-         ResultSet rs = pstmt.executeQuery();
-         while (rs.next()) {
-            result.add(new FollowListVO(rs.getString(1)
-                  , rs.getString(2)
-                  , rs.getString(3)
-                  , rs.getString(4)
-                  , rs.getString(5)));
+         Collection<FollowListVO> list = new ArrayList();
+//         String sql = "SELECT fl.follow_no"
+//               + ", to_char(fl.follow_date, 'yyyy.mm.dd')"
+//               + ", fl.followee_id"
+//               + ", fl.follower_id"
+//               + ", a.pen_name " + 
+//               "   FROM follow_list fl, app_user a " + 
+//               "   WHERE fl.followee_id = a.user_id " + 
+//               "   AND fl.follower_id = ?" + 
+//               "   ORDER BY a.pen_name";
+//         
+//         PreparedStatement pstmt = conn.prepareStatement(sql);
+//         pstmt.setString(1, followerId);
+//         ResultSet rs = pstmt.executeQuery();
+//         while (rs.next()) {
+//            result.add(new FollowListVO(rs.getString(1)
+//                  , rs.getString(2)
+//                  , rs.getString(3)
+//                  , rs.getString(4)
+//                  , rs.getString(5)));
+//         }
+//         pstmt.close();
+//         rs.close();
+         SqlSession session = sqlSessionFactory.openSession();
+         try {
+       	  list = session.selectList("interactionMapper.selectFollowListOrderByPenName");
+       	  session.commit();
+         }catch(Exception e){
+       	  e.printStackTrace();
+         }finally{
+       	  session.close();
          }
-         pstmt.close();
-         rs.close();
-         return result;
+         return list;
       }
     //followee필명으로 followee_id 갖고 오기
 	public String getFolloweeId(String followeePenName){

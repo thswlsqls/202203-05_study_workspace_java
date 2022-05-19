@@ -20,7 +20,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   <!-- JDBC를 통해 실행할 sql 도메인별로 모음 -->
   <mappers>
     <mapper resource="config/interactionMapper.xml"/>
-    
+    <mapper resource="config/userMapper.xml"/>
+    <mapper resource="config/writerMapper.xml"/>
+    <mapper resource="config/emotionMapper.xml"/>
   </mappers>
   
 </configuration>

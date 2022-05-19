@@ -14,6 +14,7 @@ public class LogoutAction implements Action {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginOK")!=null)
 			session.invalidate();
+		
 		return "login.jsp";
 	}
 

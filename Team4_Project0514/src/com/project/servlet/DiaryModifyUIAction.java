@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.project.model.EmotionDAO;
 import com.project.model.WriterDAO;
 
 public class DiaryModifyUIAction implements Action {

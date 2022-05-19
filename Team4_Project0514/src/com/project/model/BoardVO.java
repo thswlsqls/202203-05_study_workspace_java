@@ -351,7 +351,8 @@ import java.sql.Date;
 
 public class BoardVO {
 
-
+	public BoardVO(){};
+	
 	/** 게시글 상세조회 */
 	public BoardVO(
 			String writeNo

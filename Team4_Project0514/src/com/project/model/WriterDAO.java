@@ -666,27 +666,7 @@
 //		return result;
 //	}
 //
-//	//글번호로 감정명 가져오기
-//	public String[] getemotionName(String writeNo) throws SQLException {
-//		   String[] result = null;
-//		      String sql = "select e.emotion_name, b.contents from board b, suggestion s, emotion e "
-//		      		+ "where b.suggestion_code = s.suggestion_code "
-//		      		+ "and s.emotion_code = e.emotion_code "
-//		      		+ "and b.write_no = ?";
-//		      
-//		      
-//		      PreparedStatement pstmt = conn.prepareStatement(sql);
-//		      pstmt.setString(1, writeNo);
-//		      ResultSet rs = pstmt.executeQuery();
-//		      
-//		      if(rs.next()) {
-//		    	  result = new String[2];
-//		    	  result[0] = rs.getString(1);
-//		    	  result[1] = rs.getString(2);
-//		      }
-//		      
-//		      return result;
-//	}
+
 //	   /**
 //	    * 게시글 상세조회
 //	    * select b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name
@@ -893,7 +873,10 @@ public class WriterDAO {
 				"  WHERE b.writer_id = a.user_id and b.suggestion_code = s.suggestion_code and e.emotion_code = s.emotion_code " + 
 				"  and b.share_status = '전체' " +
 				"  AND a.user_id != ?" + 
-				"  AND e.emotion_code = ?";
+				"  AND e.emotion_code = ?"+
+				"  AND rownum <= 10"+
+				"  order by 6";
+		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -909,6 +892,7 @@ public class WriterDAO {
 						, rs.getDate(6)
 						, rs.getString(7)
 						, rs.getString(8)));
+					
 				}
 			for (BoardVO b : list) {
 				b.setContents(b.getContents().replace("\r\n", "<br>"));
@@ -917,6 +901,27 @@ public class WriterDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	//글번호로 감정명 가져오기
+	public String[] getemotionName(String writeNo) throws SQLException {
+		   String[] result = null;
+		      String sql = "select e.emotion_name, b.contents from board b, suggestion s, emotion e "
+		      		+ "where b.suggestion_code = s.suggestion_code "
+		      		+ "and s.emotion_code = e.emotion_code "
+		      		+ "and b.write_no = ?";
+		      
+		      
+		      PreparedStatement pstmt = conn.prepareStatement(sql);
+		      pstmt.setString(1, writeNo);
+		      ResultSet rs = pstmt.executeQuery();
+		      
+		      if(rs.next()) {
+		    	  result = new String[2];
+		    	  result[0] = rs.getString(1);
+		    	  result[1] = rs.getString(2);
+		      }
+		      
+		      return result;
 	}
 //	/**홈 게시글목록 조회  -> 글번호 필요함, 작성자 아이디 필요함
 //	 * select b.write_no, b.writer_id, s.suggestion_name, b.contents, a.pen_name, b.write_date, e.emotion_code, e.emotion_name
@@ -1043,16 +1048,17 @@ public class WriterDAO {
 	public Collection<BoardVO> getNowRecommendedBoardList() 
 			throws SQLException {
 		Collection<BoardVO> list = new ArrayList<BoardVO>();
-		String sql = "SELECT (SElECT count(*)  " + 
-				"FROM reaction  " + 
+		String sql = "select * from(SELECT distinct (SElECT count(*) " + 
+				"FROM reaction " + 
 				"WHERE write_no = b.write_no) AS rCnt, " + 
-				" b.write_no, b.contents, b.write_date, b.share_status, b.writer_id, b.suggestion_code, a.pen_name, s.suggestion_name " + 
-				" FROM board b, reaction r, app_user a, suggestion s " + 
-				" WHERE b.write_no = r.write_no AND rownum <= 3 " + 
-				" AND a.user_id=b.writer_id  " + 
-				" AND b.suggestion_code = s.suggestion_code " + 
-				" and b.share_status = '전체' " +
-				" ORDER BY rCnt DESC, b.write_date DESC";
+				"b.write_no, b.contents, b.write_date, b.share_status, b.writer_id, b.suggestion_code, a.pen_name, s.suggestion_name " + 
+				"FROM board b, reaction r, app_user a, suggestion s " + 
+				"WHERE b.write_no = r.write_no  " + 
+				"AND a.user_id=b.writer_id " + 
+				"AND b.suggestion_code = s.suggestion_code " + 
+				"and b.share_status = '전체' " + 
+				"ORDER BY rCnt DESC, b.write_date DESC) " + 
+				"where rownum <= 3";
 		try {
 			Statement stmt = conn.createStatement();
 			
@@ -1508,7 +1514,7 @@ public class WriterDAO {
 						, rs.getString(8)
 						, rs.getString(9)
 						, rs.getString(10));
-				v.setContents(v.getContents().replace("\r\n ", "<br>"));
+				v.setContents(v.getContents().replace("\r\n", "<br>"));
 			}
 
 			pstmt.close();
@@ -1516,10 +1522,10 @@ public class WriterDAO {
 			
 			return v;
 		}
-		//글번호로 감정명 가져오기
-		public String[] getemotionName(String writeNo) throws SQLException {
+		//글번호로 제시어 가져오기
+		public String[] getSuggestionName(String writeNo) throws SQLException {
 			   String[] result = null;
-			      String sql = "select e.emotion_name, b.contents from board b, suggestion s, emotion e "
+			      String sql = "select s.suggestion_name, b.contents from board b, suggestion s, emotion e "
 			      		+ "where b.suggestion_code = s.suggestion_code "
 			      		+ "and s.emotion_code = e.emotion_code "
 			      		+ "and b.write_no = ?";

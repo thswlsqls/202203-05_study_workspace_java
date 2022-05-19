@@ -83,6 +83,10 @@
 	 	SELECT count(*) FROM reaction WHERE write_no = #{writeNo} 
 	 </select>
 	 
+	 <select id="selectIsBookmarked" resultType="int">
+	 	SELECT count(*) FROM bookmark WHERE user_id=#{userId} AND write_no=#{writeNo}
+	 </select>
+	 
 	<!-- 
 	AND fl.follower_id = 'test2'
 	<insert id="addMember" parameterType="ucamp.dao.MemberVO">

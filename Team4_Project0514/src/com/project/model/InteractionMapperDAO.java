@@ -59,9 +59,10 @@ public class InteractionMapperDAO {
     * */
    public Collection<FollowListVO> getFollowList(String followerId) 
          throws SQLException{
-	  SqlSession session = sqlSessionFactory.openSession();
+	  
       Collection<FollowListVO> list = new ArrayList();
       
+      SqlSession session = sqlSessionFactory.openSession();
       try {
     	  list = session.selectList("interactionMapper.selectFollowList");
       }catch(Exception e){
@@ -84,9 +85,10 @@ public class InteractionMapperDAO {
   * */
    public Collection<FollowListVO> getSortedByDateFollowList(String followerId) 
 		   throws SQLException{
-	   SqlSession session = sqlSessionFactory.openSession();
+	   
 	   Collection<FollowListVO> list = new ArrayList();
 	   
+	   SqlSession session = sqlSessionFactory.openSession();
 	      try {
 	    	  list = session.selectList("interactionMapper.selectFollowListOrderByDate");
 	      }catch(Exception e){
@@ -198,6 +200,29 @@ public class InteractionMapperDAO {
 			return cnt;
 		}
 	  	
+	  	/**
+	     * 즐겨찾기 여부 조회
+	     * SELECT * FROM bookmark WHERE user_id='test1' AND write_no='6';
+	     * */
+	  	public int isBookmarked(String userId, String writeNo) 
+				throws SQLException {
+	  		int result= 0;
+			
+			SqlSession session = sqlSessionFactory.openSession();
+ 	 		
+	 	      try {
+	 	    	  result = session.selectOne("interactionMapper.selectIsBookmarked"
+	 	    			  , new BookmarkVO(writeNo, userId, null, null, null));
+	 	      }catch(Exception e){
+	 	    	  e.printStackTrace();
+	 	      }finally{
+	 	    	  session.close();
+	 	      }
+	 	      
+			return result;
+		}
+
+	  	
 }
 
 
@@ -211,6 +236,7 @@ class Reaction{
 		setWriteNo(writeNo);
 		setUserId(userId);
 	}
+	
 	public String getWriteNo() {
 		return writeNo;
 	}
@@ -223,11 +249,42 @@ class Reaction{
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
 	@Override
 	public String toString() {
 		return "Reaction [writeNo=" + writeNo + ", userId=" + userId + "]\n";
 	}
 	
+}
+
+class Bookmark{
+	private String writeNo;
+	private String userId;
+
+	public Bookmark(String writeNo, String userId) {
+		super();
+		setWriteNo(writeNo);
+		setUserId(userId);
+	}
 	
+	public String getWriteNo() {
+		return writeNo;
+	}
+	public void setWriteNo(String writeNo) {
+		this.writeNo = writeNo;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@Override
+	public String toString() {
+		return "Reaction [writeNo=" + writeNo + ", userId=" + userId + "]\n";
+	}
 	
 }
+
+
