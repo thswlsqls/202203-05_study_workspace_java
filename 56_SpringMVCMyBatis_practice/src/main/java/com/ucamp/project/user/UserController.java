@@ -36,8 +36,8 @@ public class UserController {
 	
 	@RequestMapping(value = "/loginAction", method = RequestMethod.POST)
 	public String loginAction(HttpServletRequest request,Model model){
-		//성공checkEmotion.jsp
-		//실패login.jsp
+		//성공 checkEmotion.jsp
+		//실패 login.jsp
 		HttpSession session = request.getSession();
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
@@ -66,7 +66,6 @@ public class UserController {
 					while(num < 8) {
 						String mainEmotion = mainEmotions[num];
 						emotions.add(emotionService.getEmotionName(mainEmotion));
-						
 						num++;
 					}
 				
@@ -77,16 +76,14 @@ public class UserController {
 					e.printStackTrace();
 				}
 				//감정선택 했는지 안했는지 여부
-				if (emotionService.getMyEmotionName(id) == false) {
+				if (emotionService.getMyEmotionName(id) == null) {
 					url = "home";
 				}
-			
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
-
 		return url;
 	}
 	
@@ -120,10 +117,10 @@ public class UserController {
 		
 		emailId = emailId+domain;
 			try {
-				if(userService.addUser(id,name,nickName,pw,emailId, tel))
+//				if(userService.addUser(id,name,nickName,pw,emailId, tel))
+				if(userService.addUser2(id,name,nickName,pw,emailId, tel))
 					url="login";
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		return url;
@@ -149,7 +146,6 @@ public class UserController {
 //		return "mypage";
 //	}
 	
-	
 //	@RequestMapping(value = "/getMembers", method = RequestMethod.GET)
 //	public String getMembers(HttpServletRequest request){
 //		Collection<String> list=memberService.getMembers();
@@ -158,3 +154,4 @@ public class UserController {
 //	}
 	
 }
+

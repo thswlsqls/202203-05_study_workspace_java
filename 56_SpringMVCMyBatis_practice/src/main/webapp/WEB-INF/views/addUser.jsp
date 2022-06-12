@@ -41,38 +41,38 @@
 <body>
 	<div class="d-flex flex-column justify-content-center align-items-center viewContainer">
 	<form action="/project/addUserAction" class="submitForm" method="post">
-		<div class="d-flex flex-column justify-content-center align-items-center">
+				<div class="d-flex flex-column justify-content-center align-items-center">
 			<div class="d-flex flex-column justify-content-center align-items-center">
 				<h1><b class="korFontMain">회원가입</b></h1>
 			</div>
 			<div class="p-2 container mt-3 submitFormContainer">
 			    <div class="d-flex mb-3 mt-3">
 			      <label for="id">*ID</label>
-			      <input type="text" class="form-control userInput" id="id" placeholder="8~15자 영,숫자 포함" name="id">
+			      <input type="text" class="form-control userInput" id="id" placeholder="8~15자 영,숫자 포함" name="id" pattern="[a-zA-Z0-9]{8,15}" autocomplete="off">
 			      
 			      <span id="checkResult1" style="width: 45%"></span>
 
 			    </div>
 			    <div class="d-flex mb-3 mt-3">
 			      <label for="name" class="korFontMain">*이름</label>
-			      <input type="text" class="form-control userInput" id="name" placeholder="2~10자 특수문자 불가" name="name">
+			      <input type="text" class="form-control userInput" id="name" placeholder="2~10자 특수문자 불가" name="name" pattern="[[ㄱ-ㅎ|가-힣|a-z|A-Z|]]" autocomplete="off">
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwd">*PW </label>
-			      <input type="password" class="form-control userInput" id="pw" placeholder="8~15자 영,숫자 필수 포함" name="pw">
+			      <input type="password" class="form-control userInput" id="pw" placeholder="8~15자 영,숫자 필수 포함" name="pw" pattern="[a-zA-Z0-9]{8,15}" autocomplete="off">
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwdCheck" class="pwChkLabel ">PW check </label>
-			      <input type="password" class="form-control userInput" id="pw1" placeholder="8~15자 영,숫자 필수 포함" name="pw1">
+			      <input type="password" class="form-control userInput" id="pw1" placeholder="8~15자 영,숫자 필수 포함" name="pw1" pattern="[a-zA-Z0-9]{8,15}" autocomplete="off">
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwdCheck" class=" korFontMain">*필명 </label>
-			      <input type="text" class="form-control userInput" id="nickName" placeholder="2~10자 특수문자 불가" name="nickName">
+			      <input type="text" class="form-control userInput" id="nickName" placeholder="2~10자 특수문자 불가" name="nickName" pattern="{2,10}" autocomplete="off">
 			      <span id="checkResult2" style="width: 45%"></span>
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwdCheck" class=" korFontMain">*이메일 </label>
-			      <input type="text" class="form-control userInput"  placeholder="Enter id" id="emailId" name="emailId">
+			      <input type="text" class="form-control userInput"  placeholder="" id="emailId" name="emailId" autocomplete="off">
 			      @
 			      <select class="form-select userInput" name="domain">
 					<option value="@naver.com">naver.com</option>
@@ -82,9 +82,9 @@
 			    </div>
 			    <div class="d-flex mb-3">
 			      <label for="pwdCheck" class=" korFontMain">전화번호 </label>
-			      <input type="text" class="form-control userInput" id="tel" placeholder="-없이 숫자만 입력" name="tel">
+			      <input type="text" class="form-control userInput" id="tel" placeholder="-없이 숫자만 입력" name="tel" autocomplete="off">
 			    </div>
-			    <div class="d-flex form-check mb-3">
+			    <div class="d-flex form-check mb-3 desc">
 			      <span class="" style="width: 100%; text-align:right; font-size: 2vw;">‘*’는 필수 입력사항입니다.</span>
 			    </div>
 			</div>

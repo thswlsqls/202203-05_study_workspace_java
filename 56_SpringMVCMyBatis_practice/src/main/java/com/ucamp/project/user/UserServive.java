@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ucamp.project.dto.AppUserDTO;
+
 @Service
 public class UserServive {
 	@Autowired
@@ -23,6 +25,17 @@ public class UserServive {
 			, String tel) throws SQLException {
 		return UserDAO.addUser(userId, name, penName, userPw, email, tel);
 	}
+	
+	public boolean addUser2(String userId
+			, String name
+			, String penName
+			, String userPw
+			, String email
+			, String tel) throws SQLException {
+		return UserDAO.addUser2(new AppUserDTO(userId, name, penName, userPw, email, tel));
+	}
+	
+	
 
 	/** ID찾기
 	 * select user_id from app_user where name = ? and email = ? 
@@ -57,12 +70,12 @@ public class UserServive {
 	
 	//아이디 중복체크 중복시 false 중복X true
 	public boolean checkUserId(String userId) throws SQLException{
-		return UserDAO.checkUserId(userId);
+		return (UserDAO.checkUserId(userId) == 1);
 	};
 	
 	//필명 중복체크
 	public boolean checkPenName(String penName) throws SQLException{
-		return UserDAO.checkPenName(penName);
+		return (UserDAO.checkPenName(penName) == 1);
 	};
 
 	//인증번호 확인용
@@ -78,3 +91,5 @@ public class UserServive {
     };
 	
 }
+
+

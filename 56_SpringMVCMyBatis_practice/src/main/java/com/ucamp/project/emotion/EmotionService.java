@@ -18,7 +18,7 @@ public class EmotionService {
 		return EmotionDAO.getEmotionName(mainEmotion);
 	};
 	
-	public boolean getMyEmotionName(String id) throws SQLException{
+	public String getMyEmotionName(String id) throws SQLException{
 		return EmotionDAO.getMyEmotionName(id);
 	};
 	
